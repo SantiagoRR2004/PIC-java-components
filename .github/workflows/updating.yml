@@ -1,0 +1,48 @@
+name: Update all branches
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs at midnight (12:00 AM) every day
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git User
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+
+      - name: Fetch All Branches
+        run: git fetch --all
+
+      - name: List All Branches
+        id: list_branches
+        run: |
+          git branch -r | grep -v "origin/main" | sed 's/origin\///' > branches.txt
+          echo "BRANCHES=$(cat branches.txt | tr '\n' ' ')" >> $GITHUB_ENV
+
+      - name: Update Test Branch
+        run: |
+          for branch in $BRANCHES; do
+            echo "Processing branch: $branch"
+            git checkout $branch
+            git pull origin $branch
+            git merge origin/main || {
+              echo "Merge conflict in $branch, skipping.";
+              git merge --abort;
+              continue;
+            }
+            git push origin $branch
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
