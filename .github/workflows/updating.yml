@@ -2,8 +2,9 @@ name: Update all branches
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *" # Runs at midnight (12:00 AM) every day
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -19,8 +20,8 @@ jobs:
 
       - name: Setup Git User
         run: |
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
+          git config user.name "SantiagoRR2004"
+          git config user.email "114857078+SantiagoRR2004@users.noreply.github.com"
 
       - name: Fetch All Branches
         run: git fetch --all
