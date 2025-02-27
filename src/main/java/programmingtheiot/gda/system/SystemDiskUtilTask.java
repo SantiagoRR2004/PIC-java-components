@@ -32,7 +32,7 @@ public class SystemDiskUtilTask extends BaseSystemUtilTask
 	 */
 	public SystemDiskUtilTask()
 	{
-		super(ConfigConst.NOT_SET, ConfigConst.DEFAULT_TYPE_ID);
+		super(ConfigConst.DISK_UTIL_NAME, ConfigConst.DISK_UTIL_TYPE);
 	}
 	
 	

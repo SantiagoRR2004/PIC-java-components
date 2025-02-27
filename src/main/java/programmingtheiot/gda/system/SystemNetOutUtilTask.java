@@ -36,7 +36,7 @@ public class SystemNetOutUtilTask extends BaseSystemUtilTask
 	 */
 	public SystemNetOutUtilTask()
 	{
-		super(ConfigConst.NOT_SET, ConfigConst.DEFAULT_TYPE_ID);
+		super(ConfigConst.NET_OUT_UTIL_NAME, ConfigConst.NET_OUT_UTIL_TYPE);
 		this.systemInfo = new SystemInfo();
 		this.previousBytesSent = getTotalBytesSent();
 	}
