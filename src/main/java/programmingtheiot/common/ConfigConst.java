@@ -144,6 +144,8 @@ public class ConfigConst
 	public static final int    CPU_UTIL_TYPE             = 9001;
 	public static final int    DISK_UTIL_TYPE            = 9002;
 	public static final int    MEM_UTIL_TYPE             = 9003;
+	public static final int    NET_IN_UTIL_TYPE          = 9004;
+	public static final int    NET_OUT_UTIL_TYPE         = 9005;
 	
 	public static final String LED_ACTUATOR_NAME        = "LedActuator";
 	public static final String HUMIDIFIER_ACTUATOR_NAME = "HumidifierActuator";
@@ -155,6 +157,8 @@ public class ConfigConst
 	public static final String CPU_UTIL_NAME  = "CpuUtil";
 	public static final String DISK_UTIL_NAME = "DiskUtil";
 	public static final String MEM_UTIL_NAME  = "MemUtil";
+	public static final String NET_IN_UTIL_NAME = "NetInUtil";
+	public static final String NET_OUT_UTIL_NAME = "NetOutUtil";
 
 	public static final String MEDIA_MSG       = "MediaMsg";
 	public static final String SENSOR_MSG      = "SensorMsg";

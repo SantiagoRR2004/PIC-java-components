@@ -36,7 +36,7 @@ public class SystemNetInUtilTask extends BaseSystemUtilTask
 	 */
 	public SystemNetInUtilTask()
 	{
-		super(ConfigConst.NOT_SET, ConfigConst.DEFAULT_TYPE_ID);
+		super(ConfigConst.NET_IN_UTIL_NAME, ConfigConst.NET_IN_UTIL_TYPE);
 		this.systemInfo = new SystemInfo();
 		this.previousBytesReceived = getTotalBytesReceived();
 	}
