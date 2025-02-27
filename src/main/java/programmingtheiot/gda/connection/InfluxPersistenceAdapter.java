@@ -4,7 +4,7 @@
  * It is provided as a simple shell to guide the student and assist with
  * implementation for the Programming the Internet of Things exercises,
  * and designed to be modified by the student as needed.
- */ 
+ */
 
 package programmingtheiot.gda.connection;
 
@@ -34,38 +34,32 @@ import com.influxdb.client.domain.WritePrecision;
  * Shell representation of class for student implementation.
  * 
  */
-public class InfluxPersistenceAdapter implements IPersistenceClient
-{
+public class InfluxPersistenceAdapter implements IPersistenceClient {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(InfluxPersistenceAdapter.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(InfluxPersistenceAdapter.class.getName());
+
 	// private var's
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default.
 	 * 
 	 */
-	public InfluxPersistenceAdapter()
-	{
+	public InfluxPersistenceAdapter() {
 		super();
-		
+
 		this.initConfig();
 	}
-	
-	
+
 	// public methods
-	
+
 	/**
 	 *
 	 */
 	@Override
-	public boolean connectClient()
-	{
+	public boolean connectClient() {
 		return false;
 	}
 
@@ -73,8 +67,7 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public boolean disconnectClient()
-	{
+	public boolean disconnectClient() {
 		return false;
 	}
 
@@ -82,8 +75,7 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public ActuatorData[] getActuatorData(String topic, Date startDate, Date endDate)
-	{
+	public ActuatorData[] getActuatorData(String topic, Date startDate, Date endDate) {
 		return null;
 	}
 
@@ -91,8 +83,7 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public SensorData[] getSensorData(String topic, Date startDate, Date endDate)
-	{
+	public SensorData[] getSensorData(String topic, Date startDate, Date endDate) {
 		return null;
 	}
 
@@ -100,16 +91,14 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public void registerDataStorageListener(Class cType, IPersistenceListener listener, String... topics)
-	{
+	public void registerDataStorageListener(Class cType, IPersistenceListener listener, String... topics) {
 	}
 
 	/**
 	 *
 	 */
 	@Override
-	public boolean storeData(String topic, int qos, ActuatorData... data)
-	{
+	public boolean storeData(String topic, int qos, ActuatorData... data) {
 		return false;
 	}
 
@@ -117,8 +106,7 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public boolean storeData(String topic, int qos, SensorData... data)
-	{
+	public boolean storeData(String topic, int qos, SensorData... data) {
 		return false;
 	}
 
@@ -126,19 +114,16 @@ public class InfluxPersistenceAdapter implements IPersistenceClient
 	 *
 	 */
 	@Override
-	public boolean storeData(String topic, int qos, SystemPerformanceData... data)
-	{
+	public boolean storeData(String topic, int qos, SystemPerformanceData... data) {
 		return false;
 	}
-	
-	
+
 	// private methods
-	
+
 	/**
 	 * 
 	 */
-	private void initConfig()
-	{
+	private void initConfig() {
 	}
 
 }

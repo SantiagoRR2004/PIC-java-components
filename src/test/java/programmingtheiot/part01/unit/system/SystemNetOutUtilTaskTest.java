@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part01.unit.system;
 
@@ -28,65 +28,59 @@ import programmingtheiot.gda.system.SystemNetOutUtilTask;
  * environment.
  *
  */
-public class SystemNetOutUtilTaskTest
-{
+public class SystemNetOutUtilTaskTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(SystemNetOutUtilTaskTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(SystemNetOutUtilTaskTest.class.getName());
+
 	// member var's
-	
+
 	private SystemNetOutUtilTask netOutUtilTask = null;
-	
+
 	// test setup methods
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
+	public static void setUpBeforeClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
+	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		this.netOutUtilTask = new SystemNetOutUtilTask();
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
+
 	// test methods
-	
+
 	/**
-	 * Test method for {@link programmingtheiot.gda.system.SystemNetOutUtilTask#getTelemetryValue()}.
+	 * Test method for
+	 * {@link programmingtheiot.gda.system.SystemNetOutUtilTask#getTelemetryValue()}.
 	 */
 	@Test
-	public void testGetTelemetryValue()
-	{
-		float netOutUtil  = 0.0f;
-		int   totTests = 5;
-		
+	public void testGetTelemetryValue() {
+		float netOutUtil = 0.0f;
+		int totTests = 5;
+
 		netOutUtil = this.netOutUtilTask.getTelemetryValue();
-		
+
 		for (int i = 1; i <= totTests; i++) {
 			if (netOutUtil >= 0.0f) {
 				_Logger.info("Test " + i + ": NetOut Util: " + netOutUtil);
@@ -98,5 +92,5 @@ public class SystemNetOutUtilTaskTest
 			}
 		}
 	}
-	
+
 }

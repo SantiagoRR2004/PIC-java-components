@@ -4,7 +4,7 @@
  * It is provided as a simple shell to guide the student and assist with
  * implementation for the Programming the Internet of Things exercises,
  * and designed to be modified by the student as needed.
- */ 
+ */
 
 package programmingtheiot.gda.connection;
 
@@ -22,75 +22,61 @@ import programmingtheiot.data.SystemPerformanceData;
  * Shell representation of class for student implementation.
  *
  */
-public class CloudClientConnector implements ICloudClient
-{
+public class CloudClientConnector implements ICloudClient {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(CloudClientConnector.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(CloudClientConnector.class.getName());
+
 	// private var's
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default.
 	 * 
 	 */
-	public CloudClientConnector()
-	{
+	public CloudClientConnector() {
 		super();
-		
+
 	}
-	
-	
+
 	// public methods
-	
+
 	@Override
-	public boolean connectClient()
-	{
+	public boolean connectClient() {
 		return false;
 	}
 
 	@Override
-	public boolean disconnectClient()
-	{
+	public boolean disconnectClient() {
 		return false;
 	}
 
 	@Override
-	public boolean setDataMessageListener(IDataMessageListener listener)
-	{
+	public boolean setDataMessageListener(IDataMessageListener listener) {
 		return false;
 	}
 
 	@Override
-	public boolean sendEdgeDataToCloud(ResourceNameEnum resource, SensorData data)
-	{
+	public boolean sendEdgeDataToCloud(ResourceNameEnum resource, SensorData data) {
 		return false;
 	}
 
 	@Override
-	public boolean sendEdgeDataToCloud(ResourceNameEnum resource, SystemPerformanceData data)
-	{
+	public boolean sendEdgeDataToCloud(ResourceNameEnum resource, SystemPerformanceData data) {
 		return false;
 	}
 
 	@Override
-	public boolean subscribeToCloudEvents(ResourceNameEnum resource)
-	{
+	public boolean subscribeToCloudEvents(ResourceNameEnum resource) {
 		return false;
 	}
 
 	@Override
-	public boolean unsubscribeFromCloudEvents(ResourceNameEnum resource)
-	{
+	public boolean unsubscribeFromCloudEvents(ResourceNameEnum resource) {
 		return false;
 	}
-	
-	
+
 	// private methods
-	
-	
+
 }

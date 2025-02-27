@@ -4,7 +4,7 @@
  * It is provided as a simple shell to guide the student and assist with
  * implementation for the Programming the Internet of Things exercises,
  * and designed to be modified by the student as needed.
- */ 
+ */
 
 package programmingtheiot.data;
 
@@ -19,10 +19,9 @@ import com.google.gson.Gson;
  * Shell representation of class for student implementation.
  *
  */
-public class DataUtil
-{
+public class DataUtil {
 	// static
-	
+
 	private static final DataUtil _Instance = new DataUtil();
 
 	/**
@@ -30,67 +29,54 @@ public class DataUtil
 	 * 
 	 * @return ConfigUtil
 	 */
-	public static final DataUtil getInstance()
-	{
+	public static final DataUtil getInstance() {
 		return _Instance;
 	}
-	
-	
+
 	// private var's
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default (private).
 	 * 
 	 */
-	private DataUtil()
-	{
+	private DataUtil() {
 		super();
 	}
-	
-	
+
 	// public methods
-	
-	public String actuatorDataToJson(ActuatorData actuatorData)
-	{
+
+	public String actuatorDataToJson(ActuatorData actuatorData) {
 		return null;
 	}
-	
-	public String sensorDataToJson(SensorData sensorData)
-	{
+
+	public String sensorDataToJson(SensorData sensorData) {
 		return null;
 	}
-	
-	public String systemPerformanceDataToJson(SystemPerformanceData sysPerfData)
-	{
+
+	public String systemPerformanceDataToJson(SystemPerformanceData sysPerfData) {
 		return null;
 	}
-	
-	public String systemStateDataToJson(SystemStateData sysStateData)
-	{
+
+	public String systemStateDataToJson(SystemStateData sysStateData) {
 		return null;
 	}
-	
-	public ActuatorData jsonToActuatorData(String jsonData)
-	{
+
+	public ActuatorData jsonToActuatorData(String jsonData) {
 		return null;
 	}
-	
-	public SensorData jsonToSensorData(String jsonData)
-	{
+
+	public SensorData jsonToSensorData(String jsonData) {
 		return null;
 	}
-	
-	public SystemPerformanceData jsonToSystemPerformanceData(String jsonData)
-	{
+
+	public SystemPerformanceData jsonToSystemPerformanceData(String jsonData) {
 		return null;
 	}
-	
-	public SystemStateData jsonToSystemStateData(String jsonData)
-	{
+
+	public SystemStateData jsonToSystemStateData(String jsonData) {
 		return null;
 	}
-	
+
 }

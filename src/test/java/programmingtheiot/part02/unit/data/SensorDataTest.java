@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part02.unit.data;
 
@@ -28,96 +28,83 @@ import programmingtheiot.data.SystemPerformanceData;
  * environment.
  *
  */
-public class SensorDataTest
-{
+public class SensorDataTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(SensorDataTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(SensorDataTest.class.getName());
+
 	public static final String DEFAULT_NAME = "SensorDataFooBar";
-	
-	
+
 	// member var's
-	
-	
+
 	// test setup methods
-	
+
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 	}
-	
+
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
-	
+
 	// test methods
-	
+
 	@Test
-	public void testDefaultValues()
-	{
+	public void testDefaultValues() {
 		SensorData ssd = new SensorData();
-		
+
 		assertEquals(ssd.getName(), ConfigConst.NOT_SET);
 		assertEquals(ssd.getStatusCode(), SensorData.DEFAULT_STATUS);
 		assertTrue(ssd.getValue() == ConfigConst.DEFAULT_VAL);
 	}
-	
+
 	@Test
-	public void testParameterUpdates()
-	{
+	public void testParameterUpdates() {
 		SensorData ssd = createTestData();
-		
+
 		assertEquals(ssd.getName(), DEFAULT_NAME);
 		assertEquals(ssd.getStatusCode(), SensorData.DEFAULT_STATUS);
 		assertTrue(ssd.getValue() == ConfigConst.DEFAULT_VAL);
 	}
-	
+
 	@Test
-	public void testFullUpdate()
-	{
+	public void testFullUpdate() {
 		SensorData ssd = new SensorData();
 		SensorData ssd2 = createTestData();
 
 		assertEquals(ssd.getName(), ConfigConst.NOT_SET);
 		assertEquals(ssd.getStatusCode(), SensorData.DEFAULT_STATUS);
 		assertTrue(ssd.getValue() == ConfigConst.DEFAULT_VAL);
-		
+
 		ssd.updateData(ssd2);
-		
+
 		assertEquals(ssd.getName(), DEFAULT_NAME);
 		assertEquals(ssd.getStatusCode(), SensorData.DEFAULT_STATUS);
 		assertTrue(ssd.getValue() == ConfigConst.DEFAULT_VAL);
 	}
-	
+
 	@Test
-	public void testDifferentDataInstanceUpdate()
-	{
+	public void testDifferentDataInstanceUpdate() {
 		SystemPerformanceData spd = new SystemPerformanceData();
 		spd.setName("Foobar");
 		spd.setCpuUtilization((float) 52.5);
 		spd.setMemoryUtilization((float) 21.4);
-		
+
 		SensorData ssd = new SensorData();
 		ssd.updateData(spd);
-		
+
 		_Logger.info(ssd.toString());
 		_Logger.info(spd.toString());
 	}
-	
-	
+
 	// private
-	
-	private SensorData createTestData()
-	{
+
+	private SensorData createTestData() {
 		SensorData ssd = new SensorData();
 		ssd.setName(DEFAULT_NAME);
 		ssd.setValue(ConfigConst.DEFAULT_VAL);
-		
+
 		return ssd;
 	}
-	
+
 }

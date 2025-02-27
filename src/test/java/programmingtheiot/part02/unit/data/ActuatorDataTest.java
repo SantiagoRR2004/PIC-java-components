@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part02.unit.data;
 
@@ -27,61 +27,51 @@ import programmingtheiot.data.ActuatorData;
  * environment.
  *
  */
-public class ActuatorDataTest
-{
+public class ActuatorDataTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(ActuatorDataTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(ActuatorDataTest.class.getName());
+
 	public static final String DEFAULT_NAME = "ActuatorDataFooBar";
 	public static final int DEFAULT_CMD = 1;
 	public static final float DEFAULT_VAL = 10.0f;
-	
-	
+
 	// member var's
-	
-	
+
 	// test setup methods
-	
+
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 	}
-	
+
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
-	
+
 	// test methods
-	
+
 	@Test
-	public void testDefaultValues()
-	{
+	public void testDefaultValues() {
 		ActuatorData ad = new ActuatorData();
-		
+
 		assertEquals(ad.getName(), ConfigConst.NOT_SET);
 		assertEquals(ad.getStatusCode(), ConfigConst.DEFAULT_STATUS);
 		assertTrue(ad.getCommand() == ConfigConst.DEFAULT_COMMAND);
 		assertTrue(ad.getValue() == ConfigConst.DEFAULT_VAL);
 	}
-	
+
 	@Test
-	public void testParameterUpdates()
-	{
+	public void testParameterUpdates() {
 		ActuatorData ad = createTestData();
-		
+
 		assertEquals(ad.getName(), DEFAULT_NAME);
 		assertEquals(ad.getStatusCode(), ActuatorData.DEFAULT_STATUS);
 		assertTrue(ad.getCommand() == DEFAULT_CMD);
 		assertTrue(ad.getValue() == DEFAULT_VAL);
 	}
-	
+
 	@Test
-	public void testFullUpdate()
-	{
+	public void testFullUpdate() {
 		ActuatorData ad = new ActuatorData();
 		ActuatorData ad2 = createTestData();
 
@@ -89,26 +79,24 @@ public class ActuatorDataTest
 		assertEquals(ad.getStatusCode(), ConfigConst.DEFAULT_STATUS);
 		assertTrue(ad.getCommand() == ConfigConst.DEFAULT_COMMAND);
 		assertTrue(ad.getValue() == ConfigConst.DEFAULT_VAL);
-		
+
 		ad.updateData(ad2);
-		
+
 		assertEquals(ad.getName(), DEFAULT_NAME);
 		assertEquals(ad.getStatusCode(), ConfigConst.DEFAULT_STATUS);
 		assertTrue(ad.getCommand() == DEFAULT_CMD);
 		assertTrue(ad.getValue() == DEFAULT_VAL);
 	}
-	
-	
+
 	// private
-	
-	private ActuatorData createTestData()
-	{
+
+	private ActuatorData createTestData() {
 		ActuatorData ad = new ActuatorData();
 		ad.setName(DEFAULT_NAME);
 		ad.setCommand(DEFAULT_CMD);
 		ad.setValue(DEFAULT_VAL);
-		
+
 		return ad;
 	}
-	
+
 }

@@ -4,7 +4,7 @@
  * It is provided as a simple shell to guide the student and assist with
  * implementation for the Programming the Internet of Things exercises,
  * and designed to be modified by the student as needed.
- */ 
+ */
 
 package programmingtheiot.gda.connection;
 
@@ -34,148 +34,126 @@ import programmingtheiot.common.ResourceNameEnum;
  * Shell representation of class for student implementation.
  * 
  */
-public class Mqttv5ClientConnector implements IPubSubClient, MqttCallback
-{
+public class Mqttv5ClientConnector implements IPubSubClient, MqttCallback {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(Mqttv5ClientConnector.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(Mqttv5ClientConnector.class.getName());
+
 	// params
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default.
 	 * 
 	 */
-	public Mqttv5ClientConnector()
-	{
+	public Mqttv5ClientConnector() {
 		super();
 	}
-	
-	
+
 	// public methods
-	
+
 	@Override
-	public boolean connectClient()
-	{
+	public boolean connectClient() {
 		return false;
 	}
 
 	@Override
-	public boolean disconnectClient()
-	{
+	public boolean disconnectClient() {
 		return false;
 	}
 
-	public boolean isConnected()
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean publishMessage(ResourceNameEnum topicName, String msg, int qos)
-	{
+	public boolean isConnected() {
 		return false;
 	}
 
 	@Override
-	public boolean subscribeToTopic(ResourceNameEnum topicName, int qos)
-	{
+	public boolean publishMessage(ResourceNameEnum topicName, String msg, int qos) {
 		return false;
 	}
 
 	@Override
-	public boolean unsubscribeFromTopic(ResourceNameEnum topicName)
-	{
+	public boolean subscribeToTopic(ResourceNameEnum topicName, int qos) {
 		return false;
 	}
 
 	@Override
-	public boolean setConnectionListener(IConnectionListener listener)
-	{
+	public boolean unsubscribeFromTopic(ResourceNameEnum topicName) {
 		return false;
 	}
-	
+
 	@Override
-	public boolean setDataMessageListener(IDataMessageListener listener)
-	{
+	public boolean setConnectionListener(IConnectionListener listener) {
 		return false;
 	}
-	
+
+	@Override
+	public boolean setDataMessageListener(IDataMessageListener listener) {
+		return false;
+	}
+
 	// callbacks
-	
+
 	@Override
-	public void authPacketArrived(int reasonCode, MqttProperties properties)
-	{
+	public void authPacketArrived(int reasonCode, MqttProperties properties) {
 		// TODO: implement this callback
 	}
 
 	@Override
-	public void connectComplete(boolean reconnect, String serverURI)
-	{
+	public void connectComplete(boolean reconnect, String serverURI) {
 		// TODO: implement this callback
 	}
 
 	@Override
-	public void deliveryComplete(IMqttToken token)
-	{
+	public void deliveryComplete(IMqttToken token) {
 		// TODO: implement this callback
 	}
 
 	@Override
-	public void disconnected(MqttDisconnectResponse disconnectResponse)
-	{
+	public void disconnected(MqttDisconnectResponse disconnectResponse) {
 		// TODO: implement this callback
 	}
 
 	@Override
-	public void mqttErrorOccurred(MqttException exception)
-	{
+	public void mqttErrorOccurred(MqttException exception) {
 		// TODO: implement this callback
 	}
 
 	@Override
-	public void messageArrived(String topic, MqttMessage msg) throws Exception
-	{
+	public void messageArrived(String topic, MqttMessage msg) throws Exception {
 		// TODO: implement this callback
 	}
 
-	
 	// private methods
-	
+
 	/**
-	 * Called by the constructor to set the MQTT client parameters to be used for the connection.
+	 * Called by the constructor to set the MQTT client parameters to be used for
+	 * the connection.
 	 * 
 	 * @param configSectionName The name of the configuration section to use for
-	 * the MQTT client configuration parameters.
+	 *                          the MQTT client configuration parameters.
 	 */
-	private void initClientParameters(String configSectionName)
-	{
+	private void initClientParameters(String configSectionName) {
 		// TODO: implement this
 	}
-	
+
 	/**
 	 * Called by {@link #initClientParameters(String)} to load credentials.
 	 * 
 	 * @param configSectionName The name of the configuration section to use for
-	 * the MQTT client configuration parameters.
+	 *                          the MQTT client configuration parameters.
 	 */
-	private void initCredentialConnectionParameters(String configSectionName)
-	{
+	private void initCredentialConnectionParameters(String configSectionName) {
 		// TODO: implement this
 	}
-	
+
 	/**
 	 * Called by {@link #initClientParameters(String)} to enable encryption.
 	 * 
 	 * @param configSectionName The name of the configuration section to use for
-	 * the MQTT client configuration parameters.
+	 *                          the MQTT client configuration parameters.
 	 */
-	private void initSecureConnectionParameters(String configSectionName)
-	{
+	private void initSecureConnectionParameters(String configSectionName) {
 		// TODO: implement this
 	}
 

@@ -33,43 +33,31 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
 
-
-public class SmtpClientConnector
-{
+public class SmtpClientConnector {
 	// static
-	
-	
-	
+
 	// private var's
-	
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default.
 	 * 
 	 */
-	public SmtpClientConnector()
-	{
+	public SmtpClientConnector() {
 		super();
 	}
-	
-	
+
 	// public methods
-	
-	public boolean sendMessage(ResourceNameEnum resource, String payload, int timeout)
-	{
+
+	public boolean sendMessage(ResourceNameEnum resource, String payload, int timeout) {
 		return false;
 	}
 
-	public boolean setDataMessageListener(IDataMessageListener listener)
-	{
+	public boolean setDataMessageListener(IDataMessageListener listener) {
 		return false;
 	}
 
-	
 	// private methods
-	
-	
+
 }

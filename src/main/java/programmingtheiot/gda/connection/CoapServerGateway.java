@@ -4,7 +4,7 @@
  * It is provided as a simple shell to guide the student and assist with
  * implementation for the Programming the Internet of Things exercises,
  * and designed to be modified by the student as needed.
- */ 
+ */
 
 package programmingtheiot.gda.connection;
 
@@ -23,75 +23,62 @@ import programmingtheiot.gda.connection.handlers.GenericCoapResourceHandler;
  * Shell representation of class for student implementation.
  * 
  */
-public class CoapServerGateway
-{
+public class CoapServerGateway {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(CoapServerGateway.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(CoapServerGateway.class.getName());
+
 	// params
-	
+
 	private CoapServer coapServer = null;
-	
+
 	private IDataMessageListener dataMsgListener = null;
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Constructor.
 	 * 
 	 * @param dataMsgListener
 	 */
-	public CoapServerGateway(IDataMessageListener dataMsgListener)
-	{
+	public CoapServerGateway(IDataMessageListener dataMsgListener) {
 		super();
-		
+
 		/*
 		 * Basic constructor implementation provided. Change as needed.
 		 */
-		
+
 		this.dataMsgListener = dataMsgListener;
-		
+
 		initServer();
 	}
 
-		
 	// public methods
-	
-	public void addResource(ResourceNameEnum resource)
-	{
+
+	public void addResource(ResourceNameEnum resource) {
 	}
-	
-	public boolean hasResource(String name)
-	{
+
+	public boolean hasResource(String name) {
 		return false;
 	}
-	
-	public void setDataMessageListener(IDataMessageListener listener)
-	{
+
+	public void setDataMessageListener(IDataMessageListener listener) {
 	}
-	
-	public boolean startServer()
-	{
+
+	public boolean startServer() {
 		return false;
 	}
-	
-	public boolean stopServer()
-	{
+
+	public boolean stopServer() {
 		return false;
 	}
-	
-	
+
 	// private methods
-	
-	private Resource createResourceChain(ResourceNameEnum resource)
-	{
+
+	private Resource createResourceChain(ResourceNameEnum resource) {
 		return null;
 	}
-	
-	private void initServer(ResourceNameEnum ...resources)
-	{
+
+	private void initServer(ResourceNameEnum... resources) {
 	}
 }

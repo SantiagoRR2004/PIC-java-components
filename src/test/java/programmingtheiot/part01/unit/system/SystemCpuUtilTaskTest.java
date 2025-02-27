@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part01.unit.system;
 
@@ -28,65 +28,59 @@ import programmingtheiot.gda.system.SystemCpuUtilTask;
  * environment.
  *
  */
-public class SystemCpuUtilTaskTest
-{
+public class SystemCpuUtilTaskTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(SystemCpuUtilTaskTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(SystemCpuUtilTaskTest.class.getName());
+
 	// member var's
-	
+
 	private SystemCpuUtilTask cpuUtilTask = null;
-	
+
 	// test setup methods
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
+	public static void setUpBeforeClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
+	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		this.cpuUtilTask = new SystemCpuUtilTask();
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
+
 	// test methods
-	
+
 	/**
-	 * Test method for {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
+	 * Test method for
+	 * {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
 	 */
 	@Test
-	public void testGetTelemetryValue()
-	{
-		float cpuUtil  = 0.0f;
-		int   totTests = 5;
-		
+	public void testGetTelemetryValue() {
+		float cpuUtil = 0.0f;
+		int totTests = 5;
+
 		cpuUtil = this.cpuUtilTask.getTelemetryValue();
-		
+
 		for (int i = 1; i <= totTests; i++) {
 			if (cpuUtil >= 0.0f) {
 				_Logger.info("Test " + i + ": CPU Util: " + cpuUtil);
@@ -98,5 +92,5 @@ public class SystemCpuUtilTaskTest
 			}
 		}
 	}
-	
+
 }

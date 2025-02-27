@@ -25,13 +25,11 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
  * configuration infrastructure.
  * 
  */
-public class ConfigUtil
-{
+public class ConfigUtil {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(ConfigUtil.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(ConfigUtil.class.getName());
+
 	private static final ConfigUtil _Instance = new ConfigUtil();
 
 	/**
@@ -39,48 +37,43 @@ public class ConfigUtil
 	 * 
 	 * @return ConfigUtil
 	 */
-	public static final ConfigUtil getInstance()
-	{
+	public static final ConfigUtil getInstance() {
 		return _Instance;
 	}
-	
-	
+
 	// private var's
-	
+
 	private INIConfiguration sectionProperties = null;
-	
+
 	private boolean isLoaded = false;
-	private String  configFileName = ConfigConst.DEFAULT_CONFIG_FILE_NAME;
-	
-	
+	private String configFileName = ConfigConst.DEFAULT_CONFIG_FILE_NAME;
+
 	// constructors
-	
+
 	/**
 	 * Default (private).
 	 * 
 	 * Creates a new instance of {@link HierarchichalINIConfiguration}.
 	 */
-	private ConfigUtil()
-	{
+	private ConfigUtil() {
 		super();
-		
+
 		try {
 			String cfgFileName = System.getProperty(ConfigConst.CONFIG_FILE_KEY);
-			
+
 			if (cfgFileName != null) {
 				this.configFileName = cfgFileName;
 			}
 		} catch (SecurityException e) {
 			_Logger.warning("Security exception reading system property to retrieve config file name. Using default.");
 		}
-		
+
 		initBackingProperties();
 		loadConfig();
 	}
-	
-	
+
 	// public methods
-	
+
 	/**
 	 * Creates the cloud service configuration section name from
 	 * the given parameters.
@@ -91,153 +84,146 @@ public class ConfigUtil
 	 * @param cloudSvcName The name to append to the section name.
 	 * @return String the cloud service configuration section name.
 	 */
-	public String getCloudSectionName(String cloudSvcName)
-	{
+	public String getCloudSectionName(String cloudSvcName) {
 		if (cloudSvcName != null && cloudSvcName.trim().length() > 0) {
 			return ConfigConst.CLOUD_GATEWAY_SERVICE + "." + cloudSvcName;
 		} else {
 			return ConfigConst.CLOUD_GATEWAY_SERVICE;
 		}
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
+	 * @param section  The section from which to retrieve 'propName'. If it
+	 *                 doesn't exist, it will be created.
 	 * @param propName The name of the property to retrieve.
 	 * @return String The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
-	public synchronized String getProperty(String section, String propName)
-	{
+	public synchronized String getProperty(String section, String propName) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getString(propName);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
+	 * @param section    The section from which to retrieve 'propName'. If it
+	 *                   doesn't exist, it will be created.
+	 * @param propName   The name of the property to retrieve.
 	 * @param defaultVal The default value if the property doesn't exist.
 	 * @return String The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
-	public synchronized String getProperty(String section, String propName, String defaultVal)
-	{
+	public synchronized String getProperty(String section, String propName, String defaultVal) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getString(propName, defaultVal);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve the value for 'propName'. If it
-	 * doesn't exist, it will be created.
+	 * @param section  The section from which to retrieve the value for 'propName'.
+	 *                 If it
+	 *                 doesn't exist, it will be created.
 	 * @param propName The name of the property to retrieve.
 	 * @return boolean The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
-	 * @Exception ConversionException Thrown if 'propName' does not map to a boolean.
+	 *         a {@link ConversionException will be thrown}.
+	 * @Exception ConversionException Thrown if 'propName' does not map to a
+	 *            boolean.
 	 */
-	public synchronized boolean getBoolean(String section, String propName)
-	{
+	public synchronized boolean getBoolean(String section, String propName) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getBoolean(propName, false);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
+	 * @param section  The section from which to retrieve 'propName'. If it
+	 *                 doesn't exist, it will be created.
 	 * @param propName The name of the property to retrieve.
 	 * @return int The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a int.
 	 */
-	public synchronized int getInteger(String section, String propName)
-	{
+	public synchronized int getInteger(String section, String propName) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getInt(propName);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
+	 * @param section    The section from which to retrieve 'propName'. If it
+	 *                   doesn't exist, it will be created.
+	 * @param propName   The name of the property to retrieve.
 	 * @param defaultVal The default value if the property doesn't exist.
 	 * @return int The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a int.
 	 */
-	public synchronized int getInteger(String section, String propName, int defaultVal)
-	{
+	public synchronized int getInteger(String section, String propName, int defaultVal) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getInt(propName, defaultVal);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
+	 * @param section  The section from which to retrieve 'propName'. If it
+	 *                 doesn't exist, it will be created.
 	 * @param propName The name of the property to retrieve.
 	 * @return float The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a float.
 	 */
-	public synchronized float getFloat(String section, String propName)
-	{
+	public synchronized float getFloat(String section, String propName) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getFloat(propName);
 	}
-	
+
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
+	 * @param section    The section from which to retrieve 'propName'. If it
+	 *                   doesn't exist, it will be created.
+	 * @param propName   The name of the property to retrieve.
 	 * @param defaultVal The default value if the property doesn't exist.
 	 * @return float The value for 'propName'. If no mapping exists,
-	 * a {@link ConversionException will be thrown}.
+	 *         a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a float.
 	 */
-	public synchronized float getFloat(String section, String propName, float defaultVal)
-	{
+	public synchronized float getFloat(String section, String propName, float defaultVal) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return subNodeConfig.getFloat(propName, defaultVal);
 	}
-	
+
 	/**
 	 * Returns true if the requested property exists in the given section.
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created.
+	 * @param section  The section from which to retrieve 'propName'. If it
+	 *                 doesn't exist, it will be created.
 	 * @param propName The name of the property to retrieve.
 	 * @return boolean True if the property exists; false otherwise.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
-	public synchronized boolean hasProperty(String section, String propName)
-	{
+	public synchronized boolean hasProperty(String section, String propName) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return (subNodeConfig.getProperty(propName) != null);
 	}
-	
+
 	/**
 	 * Returns true if the requested section exists and / or contains
 	 * any properties within the loaded configuration.
@@ -248,30 +234,28 @@ public class ConfigUtil
 	 * often, even if they remain empty (which is the default case).
 	 * 
 	 * @param section The section from which to retrieve 'propName'. If it
-	 * doesn't exist, it will be created as an empty section.
+	 *                doesn't exist, it will be created as an empty section.
 	 * @return boolean True on success; false otherwise.
 	 * @Exception ConversionException Thrown if 'section' does not map to a String.
 	 */
-	public synchronized boolean hasSection(String section)
-	{
+	public synchronized boolean hasSection(String section) {
 		SubnodeConfiguration subNodeConfig = sectionProperties.getSection(section);
-		
+
 		return (subNodeConfig != null);// && subNodeConfig.isEmpty());
 	}
-	
+
 	/**
 	 * Returns the flag indicating if either of the most recently called
 	 * {@link #loadConfig()} or {@link #loadConfig(String)} methods was
 	 * successful or failed.
 	 * 
 	 * @return true True if the most recent load invocation was successful;
-	 * false otherwise.
+	 *         false otherwise.
 	 */
-	public boolean isConfigDataLoaded()
-	{
+	public boolean isConfigDataLoaded() {
 		return isLoaded;
 	}
-	
+
 	/**
 	 * Attempts to load a separate configuration 'credential' file comprised
 	 * of simple key = value pairs. The assumption with this call is that
@@ -292,28 +276,28 @@ public class ConfigUtil
 	 * @param section
 	 * @return Properties The map of properties, or null if non-existent.
 	 */
-	public Properties getCredentials(String section)
-	{
+	public Properties getCredentials(String section) {
 		Properties props = null;
-		
+
 		if (hasSection(section)) {
 			String credFileName = getProperty(section, ConfigConst.CRED_FILE_KEY);
-			File   credFile     = new File(credFileName);
-			
+			File credFile = new File(credFileName);
+
 			if (credFile.exists()) {
 				FileInputStream fis = null;
-				
+
 				try {
 					props = new Properties();
 					fis = new FileInputStream(credFileName);
 					props.load(fis);
-					
+
 					_Logger.info("Successfully loaded credentials from file: " + credFileName);
 				} catch (Exception e) {
 					_Logger.log(Level.WARNING, "Failed to load credentials from file: " + credFileName, e);
 				} finally {
 					try {
-						if (fis != null) fis.close();
+						if (fis != null)
+							fis.close();
 					} catch (Exception e) {
 						_Logger.warning("Failed to close FileInputStream. Resource may remain open.");
 					} finally {
@@ -324,35 +308,32 @@ public class ConfigUtil
 				_Logger.warning("Credential file non-existent: " + credFileName + ". Ignoring.");
 			}
 		}
-		
+
 		return props;
 	}
-	
-	
+
 	// private methods
-	
+
 	/**
 	 * Initializes the backing properties store - this will either create a new
 	 * instance (if the current ref is null) or clear the contents from the
 	 * existing instance.
 	 * 
 	 */
-	private void initBackingProperties()
-	{
+	private void initBackingProperties() {
 		sectionProperties = new INIConfiguration();
 	}
-	
+
 	/**
 	 * Attempts to load the configuration file set by the constructor
 	 * (likely set a lookup to the system properties).
 	 * 
 	 * @return boolean True on success; false otherwise.
 	 */
-	private synchronized boolean loadConfig()
-	{
+	private synchronized boolean loadConfig() {
 		return loadConfig(this.configFileName);
 	}
-	
+
 	/**
 	 * Attempts to load the given configuration file. If the load
 	 * fails, the default configuration file as specified
@@ -361,69 +342,68 @@ public class ConfigUtil
 	 * @param configFileName The configuration file name.
 	 * @return boolean True on success; false otherwise.
 	 */
-	private synchronized boolean loadConfig(String configFileName)
-	{
+	private synchronized boolean loadConfig(String configFileName) {
 		File cfgFile = new File(configFileName);
-		
+
 		// ensure config file exists
-		
-		if (! cfgFile.exists()) {
+
+		if (!cfgFile.exists()) {
 			_Logger.log(
-				Level.WARNING,
-				"System properties config file '" + cfgFile.getAbsolutePath() + "' doesn't exist. Using default.",
-				new Exception());
-			
+					Level.WARNING,
+					"System properties config file '" + cfgFile.getAbsolutePath() + "' doesn't exist. Using default.",
+					new Exception());
+
 			cfgFile = new File(ConfigConst.DEFAULT_CONFIG_FILE_NAME);
 		}
-		
+
 		if (cfgFile.exists()) {
 			try {
 				// init the backing properties, or clear out the existing one
 				initBackingProperties();
-				
+
 				FileReader fReader = new FileReader(new File(cfgFile.getAbsoluteFile().toString()));
-				
+
 				sectionProperties.read(fReader);
 				// sectionProperties.setFileName(cfgFile.getAbsoluteFile().toString());
 				// sectionProperties.load();
 				isLoaded = true;
 			} catch (ConfigurationException e) {
 				_Logger.log(
-					Level.SEVERE,
-					"Failed to parse existing config file: {0}. Config not set.",
-					cfgFile.getAbsolutePath());
-				
+						Level.SEVERE,
+						"Failed to parse existing config file: {0}. Config not set.",
+						cfgFile.getAbsolutePath());
+
 				_Logger.log(Level.SEVERE, "Configuration exception thrown loading config file.", e);
 			} catch (FileNotFoundException e) {
 				_Logger.log(
-					Level.SEVERE,
-					"Failed to load config file: {0} doesn't exist. Config not set.",
-					cfgFile.getAbsolutePath());
-				
+						Level.SEVERE,
+						"Failed to load config file: {0} doesn't exist. Config not set.",
+						cfgFile.getAbsolutePath());
+
 				_Logger.log(Level.SEVERE, "File exception thrown loading config file.", e);
 			} catch (IOException e) {
 				_Logger.log(
-					Level.SEVERE,
-					"Failed to read config file: {0}. Config not set.",
-					cfgFile.getAbsolutePath());
-				
+						Level.SEVERE,
+						"Failed to read config file: {0}. Config not set.",
+						cfgFile.getAbsolutePath());
+
 				_Logger.log(Level.SEVERE, "IO exception thrown loading config file.", e);
 			}
 		} else {
 			_Logger.log(
-				Level.WARNING,
-				"Default config file {0} doesn't exist. Config not set.",
-				cfgFile.getAbsolutePath());
+					Level.WARNING,
+					"Default config file {0} doesn't exist. Config not set.",
+					cfgFile.getAbsolutePath());
 		}
-		
-		if (! isLoaded) {
+
+		if (!isLoaded) {
 			_Logger.log(
-				Level.WARNING,
-				"System properties config file {0} doesn't exist. Using default.",
-				cfgFile.getAbsolutePath());
+					Level.WARNING,
+					"System properties config file {0} doesn't exist. Using default.",
+					cfgFile.getAbsolutePath());
 		}
-		
+
 		return isLoaded;
 	}
-	
+
 }

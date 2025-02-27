@@ -5,7 +5,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part04.integration.connection;
 
@@ -34,78 +34,71 @@ import programmingtheiot.gda.connection.*;
  * environment.
  *
  */
-public class SmtpClientConnectorTest
-{
+public class SmtpClientConnectorTest {
 	// static
-	
+
 	public static final int DEFAULT_TIMEOUT = 5;
 	public static final boolean USE_DEFAULT_RESOURCES = true;
-	
-	private static final Logger _Logger =
-		Logger.getLogger(SmtpClientConnectorTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(SmtpClientConnectorTest.class.getName());
+
 	// member var's
-	
+
 	private SmtpClientConnector smtpClient = null;
 	private IDataMessageListener dml = null;
-	
-	
+
 	// test setup methods
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
+	public static void setUpBeforeClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
+	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		this.smtpClient = new SmtpClientConnector();
 		this.dml = new DefaultDataMessageListener();
-		
+
 		this.smtpClient.setDataMessageListener(this.dml);
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
+
 	// test methods
-	
+
 	/**
 	 * 
 	 */
 	@Test
-	public void testSendMessage()
-	{
+	public void testSendMessage() {
 		// TODO: issue request and validate response
-		
+
 		int actionCmd = 1;
-		
+
 		SystemStateData ssd = new SystemStateData();
 		ssd.setCommand(actionCmd);
-		
+
 		String ssdJson = DataUtil.getInstance().systemStateDataToJson(ssd);
-		
-		assertTrue(this.smtpClient.sendMessage(ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE, ssdJson, DEFAULT_TIMEOUT));
+
+		assertTrue(
+				this.smtpClient.sendMessage(ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE, ssdJson, DEFAULT_TIMEOUT));
 	}
-	
+
 }

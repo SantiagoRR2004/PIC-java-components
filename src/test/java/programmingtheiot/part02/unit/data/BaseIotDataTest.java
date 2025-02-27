@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part02.unit.data;
 
@@ -28,110 +28,95 @@ import programmingtheiot.data.BaseIotData;
  * environment.
  *
  */
-public class BaseIotDataTest
-{
+public class BaseIotDataTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(BaseIotDataTest.class.getName());
-	
-	public static final String DEFAULT_NAME        = "TestIotDataSample";
+
+	private static final Logger _Logger = Logger.getLogger(BaseIotDataTest.class.getName());
+
+	public static final String DEFAULT_NAME = "TestIotDataSample";
 	public static final String DEFAULT_LOCATION_ID = "MyLocation";
-	public static final int    DEFAULT_STATUS_CODE = 1;
-	
-	
+	public static final int DEFAULT_STATUS_CODE = 1;
+
 	// member var's
-	
+
 	private String locationID = ConfigConst.NOT_SET;
-	
-	
+
 	// test setup methods
-	
+
 	@Before
-	public void setUp() throws Exception
-	{
-		String locID =
-			ConfigUtil.getInstance().getProperty(
+	public void setUp() throws Exception {
+		String locID = ConfigUtil.getInstance().getProperty(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.DEVICE_LOCATION_ID_KEY, ConfigConst.NOT_SET);
-		
+
 		this.locationID = locID;
 	}
-	
+
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
-	
+
 	// test methods
-	
+
 	@Test
-	public void testDefaultValues()
-	{
+	public void testDefaultValues() {
 		TestIotData td = new TestIotData();
-		
+
 		assertEquals(td.getName(), ConfigConst.NOT_SET);
 		assertEquals(td.getTypeID(), ConfigConst.DEFAULT_TYPE_ID);
 		assertEquals(td.getLocationID(), this.locationID);
 		assertEquals(td.getStatusCode(), ConfigConst.DEFAULT_STATUS);
 	}
-	
+
 	@Test
-	public void testParameterUpdates()
-	{
+	public void testParameterUpdates() {
 		TestIotData td = createTestData();
-		
+
 		assertEquals(td.getName(), DEFAULT_NAME);
 		assertEquals(td.getLocationID(), this.locationID);
 		assertEquals(td.getStatusCode(), DEFAULT_STATUS_CODE);
-		
+
 		td.setStatusCode(-1);
-		
+
 		assertTrue(td.hasError());
 	}
-	
+
 	@Test
-	public void testFullUpdate()
-	{
+	public void testFullUpdate() {
 		TestIotData td = new TestIotData();
 		TestIotData td2 = createTestData();
 
 		assertEquals(td.getName(), ConfigConst.NOT_SET);
 		assertEquals(td.getLocationID(), this.locationID);
 		assertEquals(td.getStatusCode(), ConfigConst.DEFAULT_STATUS);
-		
+
 		td.updateData(td2);
-		
+
 		assertEquals(td.getName(), DEFAULT_NAME);
 		assertEquals(td.getLocationID(), this.locationID);
 		assertEquals(td.getStatusCode(), DEFAULT_STATUS_CODE);
 	}
-	
-	
+
 	// private
-	
-	private class TestIotData extends BaseIotData
-	{
+
+	private class TestIotData extends BaseIotData {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = -5589706082614880746L;
 
 		@Override
-		protected void handleUpdateData(BaseIotData data)
-		{
+		protected void handleUpdateData(BaseIotData data) {
 			// nothing to do
 		}
-		
+
 	}
-	
-	private TestIotData createTestData()
-	{
+
+	private TestIotData createTestData() {
 		TestIotData td = new TestIotData();
 		td.setName(DEFAULT_NAME);
 		td.setStatusCode(DEFAULT_STATUS_CODE);
-		
+
 		return td;
 	}
-	
+
 }

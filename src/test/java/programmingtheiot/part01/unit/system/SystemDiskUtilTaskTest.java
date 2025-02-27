@@ -4,7 +4,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part01.unit.system;
 
@@ -28,65 +28,59 @@ import programmingtheiot.gda.system.SystemDiskUtilTask;
  * environment.
  *
  */
-public class SystemDiskUtilTaskTest
-{
+public class SystemDiskUtilTaskTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(SystemDiskUtilTaskTest.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(SystemDiskUtilTaskTest.class.getName());
+
 	// member var's
-	
+
 	private SystemDiskUtilTask diskUtilTask = null;
-	
+
 	// test setup methods
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
+	public static void setUpBeforeClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
+	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		this.diskUtilTask = new SystemDiskUtilTask();
 	}
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
+
 	// test methods
-	
+
 	/**
-	 * Test method for {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
+	 * Test method for
+	 * {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
 	 */
 	@Test
-	public void testGetTelemetryValue()
-	{
-		float diskUtil  = 0.0f;
-		int   totTests = 5;
-		
+	public void testGetTelemetryValue() {
+		float diskUtil = 0.0f;
+		int totTests = 5;
+
 		diskUtil = this.diskUtilTask.getTelemetryValue();
-		
+
 		for (int i = 1; i <= totTests; i++) {
 			if (diskUtil >= 0.0f) {
 				_Logger.info("Test " + i + ": Disk Util: " + diskUtil);
@@ -98,5 +92,5 @@ public class SystemDiskUtilTaskTest
 			}
 		}
 	}
-	
+
 }
