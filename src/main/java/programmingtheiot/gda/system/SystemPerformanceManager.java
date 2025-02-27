@@ -36,6 +36,9 @@ public class SystemPerformanceManager {
 	private ScheduledExecutorService schedExecSvc = null;
 	private SystemCpuUtilTask sysCpuUtilTask = null;
 	private SystemMemUtilTask sysMemUtilTask = null;
+	private SystemDiskUtilTask sysDiskUtilTask = null;
+	private SystemNetInUtilTask sysNetInUtilTask = null;
+	private SystemNetOutUtilTask sysNetOutUtilTask = null;
 
 	private Runnable taskRunner = null;
 	private boolean isStarted = false;
@@ -57,6 +60,9 @@ public class SystemPerformanceManager {
 		this.schedExecSvc   = Executors.newScheduledThreadPool(1);
 		this.sysCpuUtilTask = new SystemCpuUtilTask();
 		this.sysMemUtilTask = new SystemMemUtilTask();
+		this.sysDiskUtilTask = new SystemDiskUtilTask();
+		this.sysNetInUtilTask = new SystemNetInUtilTask();
+		this.sysNetOutUtilTask = new SystemNetOutUtilTask();
 	
 		this.taskRunner = () -> {
 			this.handleTelemetry();
@@ -68,9 +74,14 @@ public class SystemPerformanceManager {
 	public void handleTelemetry() {
 		float cpuUtil = this.sysCpuUtilTask.getTelemetryValue();
 		float memUtil = this.sysMemUtilTask.getTelemetryValue();
+		float diskUtil = this.sysDiskUtilTask.getTelemetryValue();
+		float netInUtil = this.sysNetInUtilTask.getTelemetryValue();
+		float netOutUtil = this.sysNetOutUtilTask.getTelemetryValue();
 
 		// NOTE: you may need to change the logging level to 'info' to see the message
-		_Logger.fine("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil);
+		_Logger.fine("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
+				", Bytes received: " + netInUtil +
+				", Bytes sent: " + netOutUtil);
 	}
 
 	public void setDataMessageListener(IDataMessageListener listener) {
