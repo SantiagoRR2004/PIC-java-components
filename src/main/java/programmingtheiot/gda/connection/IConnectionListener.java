@@ -8,23 +8,21 @@
 
 package programmingtheiot.gda.connection;
 
-
 /**
  * Interface contract for handling generic connection state updates.
  * 
  */
-public interface IConnectionListener
-{
+public interface IConnectionListener {
 	/**
 	 * Callback to be invoked after successful connection.
 	 * 
 	 */
 	public void onConnect();
-	
+
 	/**
 	 * Callback to be invoked after successful disconnect.0
 	 * 
 	 */
 	public void onDisconnect();
-	
+
 }

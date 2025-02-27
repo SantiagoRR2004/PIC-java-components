@@ -20,42 +20,37 @@ import programmingtheiot.data.SystemPerformanceData;
  * callback methods that log messages.
  * 
  */
-public class DefaultDataMessageListener implements IDataMessageListener
-{
+public class DefaultDataMessageListener implements IDataMessageListener {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(DefaultDataMessageListener.class.getName());
-	
+
+	private static final Logger _Logger = Logger.getLogger(DefaultDataMessageListener.class.getName());
+
 	// private var's
-	
-	
+
 	// constructors
-	
+
 	/**
 	 * Default constructor.
 	 * 
 	 */
-	public DefaultDataMessageListener()
-	{
+	public DefaultDataMessageListener() {
 		super();
 	}
-	
-	
+
 	// public methods
-	
+
 	/**
 	 * Logs an INFO message when invoked with the given parameters.
 	 * 
 	 * @param resourceName The enum representing the String resource name.
-	 * @param data The ActuatorData data - this will usually be the decoded payload
-	 * from a connection using either MQTT or CoAP.
+	 * @param data         The ActuatorData data - this will usually be the decoded
+	 *                     payload
+	 *                     from a connection using either MQTT or CoAP.
 	 */
 	@Override
-	public boolean handleActuatorCommandResponse(ResourceNameEnum resourceName, ActuatorData data)
-	{
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] {resourceName.getResourceName(), data});
-		
+	public boolean handleActuatorCommandResponse(ResourceNameEnum resourceName, ActuatorData data) {
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
+
 		return true;
 	}
 
@@ -63,14 +58,14 @@ public class DefaultDataMessageListener implements IDataMessageListener
 	 * Logs an INFO message when invoked with the given parameters.
 	 * 
 	 * @param resourceName The enum representing the String resource name.
-	 * @param data The ActuatorData data - this will usually be the decoded payload
-	 * from a connection using either MQTT or CoAP.
+	 * @param data         The ActuatorData data - this will usually be the decoded
+	 *                     payload
+	 *                     from a connection using either MQTT or CoAP.
 	 */
 	@Override
-	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data)
-	{
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] {resourceName.getResourceName(), data});
-		
+	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data) {
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
+
 		return true;
 	}
 
@@ -78,14 +73,14 @@ public class DefaultDataMessageListener implements IDataMessageListener
 	 * Logs an INFO message when invoked with the given parameters.
 	 * 
 	 * @param resourceName The enum representing the String resource name.
-	 * @param msg The String message - this will usually be the decoded payload
-	 * from a connection using either MQTT or CoAP.
+	 * @param msg          The String message - this will usually be the decoded
+	 *                     payload
+	 *                     from a connection using either MQTT or CoAP.
 	 */
 	@Override
-	public boolean handleIncomingMessage(ResourceNameEnum resourceName, String msg)
-	{
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] {resourceName.getResourceName(), msg});
-		
+	public boolean handleIncomingMessage(ResourceNameEnum resourceName, String msg) {
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), msg });
+
 		return true;
 	}
 
@@ -93,14 +88,14 @@ public class DefaultDataMessageListener implements IDataMessageListener
 	 * Logs an INFO message when invoked with the given parameters.
 	 * 
 	 * @param resourceName The enum representing the String resource name.
-	 * @param data The SensorData data - this will usually be the decoded payload
-	 * from a connection using either MQTT or CoAP.
+	 * @param data         The SensorData data - this will usually be the decoded
+	 *                     payload
+	 *                     from a connection using either MQTT or CoAP.
 	 */
 	@Override
-	public boolean handleSensorMessage(ResourceNameEnum resourceName, SensorData data)
-	{
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] {resourceName.getResourceName(), data});
-		
+	public boolean handleSensorMessage(ResourceNameEnum resourceName, SensorData data) {
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
+
 		return true;
 	}
 
@@ -108,26 +103,25 @@ public class DefaultDataMessageListener implements IDataMessageListener
 	 * Logs an INFO message when invoked with the given parameters.
 	 * 
 	 * @param resourceName The enum representing the String resource name.
-	 * @param data The SystemPerformanceData data - this will usually be the decoded payload
-	 * from a connection using either MQTT or CoAP.
+	 * @param data         The SystemPerformanceData data - this will usually be the
+	 *                     decoded payload
+	 *                     from a connection using either MQTT or CoAP.
 	 */
 	@Override
-	public boolean handleSystemPerformanceMessage(ResourceNameEnum resourceName, SystemPerformanceData data)
-	{
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] {resourceName.getResourceName(), data});
-		
+	public boolean handleSystemPerformanceMessage(ResourceNameEnum resourceName, SystemPerformanceData data) {
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
+
 		return true;
 	}
-	
+
 	/**
 	 * Sets the actuator data listener.
 	 * 
 	 * @param name
 	 * @param listener
 	 */
-	public void setActuatorDataListener(String name, IActuatorDataListener listener)
-	{
+	public void setActuatorDataListener(String name, IActuatorDataListener listener) {
 		// ignore
 	}
-	
+
 }

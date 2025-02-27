@@ -7,7 +7,7 @@
  * functionality, constants and interfaces (if there are any)
  * provided within in order to meet the needs of your specific
  * Programming the Internet of Things project.
- */ 
+ */
 
 package programmingtheiot.gda.connection;
 
@@ -23,36 +23,31 @@ import programmingtheiot.common.ConfigUtil;
  * Simple implementation of the Java mail Authenticator.
  *
  */
-public class SmtpAuthenticator extends Authenticator
-{
+public class SmtpAuthenticator extends Authenticator {
 	// constructors
-	
+
 	/**
 	 * Default.
 	 * 
 	 */
-	public SmtpAuthenticator()
-	{
+	public SmtpAuthenticator() {
 		super();
 	}
-	
-	
+
 	// protected methods
-	
+
 	/**
 	 * Returns a new instance of {@link PasswordAuthentication},
 	 * created from reading the config data managed by {@link ConfigUtil}.
 	 * 
 	 * @return PasswordAuthentication
 	 */
-	protected PasswordAuthentication getPasswordAuthentication()
-	{
-		Properties credProps =
-			ConfigUtil.getInstance().getCredentials(ConfigConst.SMTP_GATEWAY_SERVICE);
-		
+	protected PasswordAuthentication getPasswordAuthentication() {
+		Properties credProps = ConfigUtil.getInstance().getCredentials(ConfigConst.SMTP_GATEWAY_SERVICE);
+
 		return new PasswordAuthentication(
-			credProps.getProperty(ConfigConst.USER_NAME_TOKEN_KEY),
-			credProps.getProperty(ConfigConst.USER_AUTH_TOKEN_KEY));
+				credProps.getProperty(ConfigConst.USER_NAME_TOKEN_KEY),
+				credProps.getProperty(ConfigConst.USER_AUTH_TOKEN_KEY));
 	}
-	
+
 }

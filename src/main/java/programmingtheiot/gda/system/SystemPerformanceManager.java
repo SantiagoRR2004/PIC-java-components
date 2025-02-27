@@ -28,10 +28,9 @@ import java.util.logging.Level;
  */
 public class SystemPerformanceManager {
 
-	private static final Logger _Logger =Logger.getLogger(SystemPerformanceManager.class.getName());
-	
-	
-	private int pollRate =ConfigConst.DEFAULT_POLL_CYCLES;
+	private static final Logger _Logger = Logger.getLogger(SystemPerformanceManager.class.getName());
+
+	private int pollRate = ConfigConst.DEFAULT_POLL_CYCLES;
 
 	private ScheduledExecutorService schedExecSvc = null;
 	private SystemCpuUtilTask sysCpuUtilTask = null;
@@ -57,16 +56,16 @@ public class SystemPerformanceManager {
 			this.pollRate = ConfigConst.DEFAULT_POLL_CYCLES;
 		}
 
-		this.schedExecSvc   = Executors.newScheduledThreadPool(1);
+		this.schedExecSvc = Executors.newScheduledThreadPool(1);
 		this.sysCpuUtilTask = new SystemCpuUtilTask();
 		this.sysMemUtilTask = new SystemMemUtilTask();
 		this.sysDiskUtilTask = new SystemDiskUtilTask();
 		this.sysNetInUtilTask = new SystemNetInUtilTask();
 		this.sysNetOutUtilTask = new SystemNetOutUtilTask();
-	
+
 		this.taskRunner = () -> {
 			this.handleTelemetry();
-		};	
+		};
 	}
 
 	// public methods
@@ -79,36 +78,36 @@ public class SystemPerformanceManager {
 		float netOutUtil = this.sysNetOutUtilTask.getTelemetryValue();
 
 		// NOTE: you may need to change the logging level to 'info' to see the message
-		_Logger.fine("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
-				", Bytes received: " + netInUtil +
-				", Bytes sent: " + netOutUtil);
+		_Logger.fine(
+				"CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
+						", Bytes received: " + netInUtil +
+						", Bytes sent: " + netOutUtil);
 	}
 
 	public void setDataMessageListener(IDataMessageListener listener) {
 	}
 
 	public boolean startManager() {
-		if (! this.isStarted) {
+		if (!this.isStarted) {
 			_Logger.info("SystemPerformanceManager is starting...");
-	
-			ScheduledFuture<?> futureTask =
-				this.schedExecSvc.scheduleAtFixedRate(this.taskRunner, 1L, this.pollRate, TimeUnit.SECONDS);
-	
+
+			ScheduledFuture<?> futureTask = this.schedExecSvc.scheduleAtFixedRate(this.taskRunner, 1L, this.pollRate,
+					TimeUnit.SECONDS);
+
 			this.isStarted = true;
-		} 
-		else {
+		} else {
 			_Logger.info("SystemPerformanceManager is already started.");
 		}
-	
+
 		return this.isStarted;
 	}
-		
+
 	public boolean stopManager() {
 		this.schedExecSvc.shutdown();
 		this.isStarted = false;
-	
+
 		_Logger.info("SystemPerformanceManager is stopped.");
-	
+
 		return true;
 	}
 }

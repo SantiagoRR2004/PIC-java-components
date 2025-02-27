@@ -15,8 +15,7 @@ import programmingtheiot.data.ActuatorData;
  * from a connection.
  *
  */
-public interface IActuatorDataListener
-{
+public interface IActuatorDataListener {
 	/**
 	 * Callback signature for data message passing using the given parameters.
 	 * 

@@ -5,7 +5,7 @@
  * found in the LICENSE file at the top level of this repository.
  * 
  * Copyright (c) 2020 by Andrew D. King
- */ 
+ */
 
 package programmingtheiot.part03.integration.connection;
 
@@ -32,52 +32,43 @@ import programmingtheiot.gda.connection.*;
  * environment.
  *
  */
-public class MqttClientControlPacketTest
-{
+public class MqttClientControlPacketTest {
 	// static
-	
-	private static final Logger _Logger =
-		Logger.getLogger(MqttClientControlPacketTest.class.getName());
-	
-	
+
+	private static final Logger _Logger = Logger.getLogger(MqttClientControlPacketTest.class.getName());
+
 	// member var's
-	
+
 	private MqttClientConnector mqttClient = null;
-	
-	
+
 	// test setup methods
-	
+
 	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		this.mqttClient = new MqttClientConnector();
 	}
-	
+
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 	}
-	
+
 	// test methods
-	
+
 	@Test
-	public void testConnectAndDisconnect()
-	{
+	public void testConnectAndDisconnect() {
 		// TODO: implement this test
 	}
-	
+
 	@Test
-	public void testServerPing()
-	{
+	public void testServerPing() {
 		// TODO: implement this test
 	}
-	
+
 	@Test
-	public void testPubSub()
-	{
+	public void testPubSub() {
 		// TODO: implement this test
-		// 
+		//
 		// IMPORTANT: be sure to use QoS 1 and 2 to see ALL control packets
 	}
-	
+
 }

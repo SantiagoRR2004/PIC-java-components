@@ -17,50 +17,52 @@ import java.util.List;
  * topics and resource names.
  * 
  */
-public enum ResourceNameEnum
-{
+public enum ResourceNameEnum {
 	// static
-	
+
 	CDA_UPDATE_NOTIFICATIONS_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.UPDATE_NOTIFICATIONS_MSG, false, true),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.UPDATE_NOTIFICATIONS_MSG, false,
+			true),
 	CDA_MEDIA_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MEDIA_MSG, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MEDIA_MSG, false, false),
 	CDA_SENSOR_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.SENSOR_MSG, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.SENSOR_MSG, false, false),
 	CDA_ACTUATOR_CMD_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.ACTUATOR_CMD, false, true),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.ACTUATOR_CMD, false, true),
 	CDA_ACTUATOR_RESPONSE_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.ACTUATOR_RESPONSE, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.ACTUATOR_RESPONSE, false, false),
 	CDA_MGMT_STATUS_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MGMT_STATUS_MSG, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MGMT_STATUS_MSG, false, false),
 	CDA_MGMT_STATUS_CMD_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MGMT_STATUS_CMD, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.MGMT_STATUS_CMD, false, false),
 	CDA_REGISTRATION_REQUEST_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.RESOURCE_REGISTRATION_REQUEST, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.RESOURCE_REGISTRATION_REQUEST, false,
+			false),
 	CDA_SYSTEM_PERF_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.SYSTEM_PERF_MSG, false, false),
-	
+			ConfigConst.PRODUCT_NAME, ConfigConst.CONSTRAINED_DEVICE, ConfigConst.SYSTEM_PERF_MSG, false, false),
+
 	GDA_UPDATE_NOTIFICATIONS_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.UPDATE_NOTIFICATIONS_MSG, false, true),
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.UPDATE_NOTIFICATIONS_MSG, false, true),
 	GDA_MEDIA_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MEDIA_MSG, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MEDIA_MSG, false, false),
 	GDA_MGMT_STATUS_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MGMT_STATUS_MSG, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MGMT_STATUS_MSG, false, false),
 	GDA_MGMT_STATUS_CMD_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MGMT_STATUS_CMD, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.MGMT_STATUS_CMD, false, false),
 	GDA_REGISTRATION_REQUEST_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.RESOURCE_REGISTRATION_REQUEST, false, false),
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.RESOURCE_REGISTRATION_REQUEST, false,
+			false),
 	GDA_SYSTEM_PERF_MSG_RESOURCE(
-		ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.SYSTEM_PERF_MSG, false, false);
-	
+			ConfigConst.PRODUCT_NAME, ConfigConst.GATEWAY_DEVICE, ConfigConst.SYSTEM_PERF_MSG, false, false);
+
 	private static final HashMap<String, ResourceNameEnum> _ResourceNameLookupMap = new HashMap<>();
-	
+
 	static {
 		for (ResourceNameEnum rn : ResourceNameEnum.values()) {
 			_ResourceNameLookupMap.put(rn.getResourceName(), rn);
 		}
 	}
-	
+
 	/**
 	 * Convenience method for looking up an enum type based on
 	 * the value String. If the lookup fails, null will be returned.
@@ -73,30 +75,27 @@ public enum ResourceNameEnum
 	 * @param valStr The value of the enum to lookup.
 	 * @return ResourceNameEnum The enum instance, or null if not found.
 	 */
-	public static ResourceNameEnum getEnumFromValue(String valStr)
-	{
+	public static ResourceNameEnum getEnumFromValue(String valStr) {
 		if (valStr != null && valStr.length() > 0) {
 			if (_ResourceNameLookupMap.containsKey(valStr)) {
 				return _ResourceNameLookupMap.get(valStr);
 			}
 		}
-		
+
 		return null;
 	}
-	
-	
+
 	// private var's
-	
+
 	private String deviceName = "";
 	private String productName = "";
 	private String resourceName = "";
 	private String resourceType = "";
 	private boolean isLocalToGDA = false;
 	private boolean isObservable = false;
-	
-	
+
 	// constructor
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -106,8 +105,8 @@ public enum ResourceNameEnum
 	 * @param isLocalToGda
 	 * @param isObservable
 	 */
-	private ResourceNameEnum(String productName, String deviceName, String resourceType, boolean isLocalToGda, boolean isObservable)
-	{
+	private ResourceNameEnum(String productName, String deviceName, String resourceType, boolean isLocalToGda,
+			boolean isObservable) {
 		this.resourceName = productName + "/" + deviceName + "/" + resourceType;
 		this.productName = productName;
 		this.deviceName = deviceName;
@@ -115,83 +114,76 @@ public enum ResourceNameEnum
 		this.isLocalToGDA = isLocalToGda;
 		this.isObservable = isObservable;
 	}
-	
-	
+
 	// public methods
-	
+
 	/**
 	 * 
 	 * @return String
 	 */
-	public String getDeviceName()
-	{
+	public String getDeviceName() {
 		return this.deviceName;
 	}
-	
+
 	/**
 	 * 
 	 * @return String
 	 */
-	public String getProductName()
-	{
+	public String getProductName() {
 		return this.productName;
 	}
-	
+
 	/**
 	 * 
 	 * @return String
 	 */
-	public String getResourceName()
-	{
+	public String getResourceName() {
 		return this.resourceName;
 	}
-	
+
 	/**
 	 * 
 	 * @return String
 	 */
-	public String getResourceType()
-	{
+	public String getResourceType() {
 		return this.resourceType;
 	}
-	
+
 	/**
 	 * 
 	 * @return List<String> The ordered list of Strings representing this
-	 * resource name split by '/'.
+	 *         resource name split by '/'.
 	 */
-	public List<String> getResourceNameChain()
-	{
+	public List<String> getResourceNameChain() {
 		String[] names = this.resourceName.split("/");
-		
+
 		List<String> nameList = new ArrayList<>(names.length);
-		
+
 		for (String name : names) {
 			nameList.add(name);
 		}
-		
+
 		return nameList;
 	}
-	
+
 	/**
 	 * 
 	 * @return boolean True if this resource is local to the GDA (meaning any
-	 * use of the resource is internal to the GDA); false if it's not (meaning
-	 * it's a resource used by the CDA).
+	 *         use of the resource is internal to the GDA); false if it's not
+	 *         (meaning
+	 *         it's a resource used by the CDA).
 	 */
-	public boolean isLocalToGda()
-	{
+	public boolean isLocalToGda() {
 		return this.isLocalToGDA;
 	}
-	
+
 	/**
 	 * 
 	 * @return boolean True if this resource should be treated as observable;
-	 * false otherwise.
+	 *         false otherwise.
 	 */
-	public boolean isObservable()
-	{
+	public boolean isObservable() {
 		return this.isObservable;
 	}
-	
+
 }
