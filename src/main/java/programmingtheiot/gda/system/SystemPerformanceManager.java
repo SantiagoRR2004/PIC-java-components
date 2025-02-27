@@ -38,6 +38,7 @@ public class SystemPerformanceManager {
 	private SystemMemUtilTask sysMemUtilTask = null;
 	private SystemDiskUtilTask sysDiskUtilTask = null;
 	private SystemNetInUtilTask sysNetInUtilTask = null;
+	private SystemNetOutUtilTask sysNetOutUtilTask = null;
 
 	private Runnable taskRunner = null;
 	private boolean isStarted = false;
@@ -61,6 +62,7 @@ public class SystemPerformanceManager {
 		this.sysMemUtilTask = new SystemMemUtilTask();
 		this.sysDiskUtilTask = new SystemDiskUtilTask();
 		this.sysNetInUtilTask = new SystemNetInUtilTask();
+		this.sysNetOutUtilTask = new SystemNetOutUtilTask();
 	
 		this.taskRunner = () -> {
 			this.handleTelemetry();
@@ -74,10 +76,12 @@ public class SystemPerformanceManager {
 		float memUtil = this.sysMemUtilTask.getTelemetryValue();
 		float diskUtil = this.sysDiskUtilTask.getTelemetryValue();
 		float netInUtil = this.sysNetInUtilTask.getTelemetryValue();
+		float netOutUtil = this.sysNetOutUtilTask.getTelemetryValue();
 
 		// NOTE: you may need to change the logging level to 'info' to see the message
 		_Logger.fine("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
-				", Bytes received: " + netInUtil);
+				", Bytes received: " + netInUtil +
+				", Bytes sent: " + netOutUtil);
 	}
 
 	public void setDataMessageListener(IDataMessageListener listener) {
