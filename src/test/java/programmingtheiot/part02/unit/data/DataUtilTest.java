@@ -93,6 +93,8 @@ public class DataUtilTest {
 		data.setCpuUtilization(DEFAULT_VAL);
 		data.setDiskUtilization(DEFAULT_VAL);
 		data.setMemoryUtilization(DEFAULT_VAL);
+		data.setNetInUtilization(DEFAULT_VAL);
+		data.setNetOutUtilization(DEFAULT_VAL);
 
 		String jsonData = dataUtil.systemPerformanceDataToJson(data);
 
@@ -105,6 +107,8 @@ public class DataUtilTest {
 		assertTrue(data.getCpuUtilization() == data2.getCpuUtilization());
 		assertTrue(data.getDiskUtilization() == data2.getDiskUtilization());
 		assertTrue(data.getMemoryUtilization() == data2.getMemoryUtilization());
+		assertTrue(data.getNetInUtilization() == data2.getNetInUtilization());
+		assertTrue(data.getNetOutUtilization() == data2.getNetOutUtilization());
 	}
 
 	/**
