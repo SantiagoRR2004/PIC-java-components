@@ -72,7 +72,7 @@ public class SystemMemUtilTaskTest {
 
 	/**
 	 * Test method for
-	 * {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
+	 * {@link programmingtheiot.gda.system.SystemMemUtilTask#getTelemetryValue()}.
 	 */
 	@Test
 	public void testGetTelemetryValue() {

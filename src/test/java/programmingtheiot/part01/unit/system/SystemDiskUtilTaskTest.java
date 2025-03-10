@@ -72,7 +72,7 @@ public class SystemDiskUtilTaskTest {
 
 	/**
 	 * Test method for
-	 * {@link programmingtheiot.gda.system.SystemCpuUtilTask#getTelemetryValue()}.
+	 * {@link programmingtheiot.gda.system.SystemDiskUtilTask#getTelemetryValue()}.
 	 */
 	@Test
 	public void testGetTelemetryValue() {
