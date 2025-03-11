@@ -80,6 +80,8 @@ public class ConfigConst {
 	public static final String CPU_UTIL_PROP = "cpuUtil";
 	public static final String DISK_UTIL_PROP = "diskUtil";
 	public static final String MEM_UTIL_PROP = "memUtil";
+	public static final String NET_IN_UTIL_PROP = "netIn";
+	public static final String NET_OUT_UTIL_PROP = "netOut";
 
 	public static final String SENSOR_DATA_LIST_PROP = "sensorDataList";
 	public static final String SYSTEM_PERF_DATA_LIST_PROP = "systemPerfDataList";

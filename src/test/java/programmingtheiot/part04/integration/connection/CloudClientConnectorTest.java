@@ -137,6 +137,9 @@ public class CloudClientConnectorTest {
 		SystemPerformanceData sysPerfData = new SystemPerformanceData();
 		sysPerfData.setCpuUtilization(34.7f);
 		sysPerfData.setMemoryUtilization(39.8f);
+		sysPerfData.setDiskUtilization(45.6f);
+		sysPerfData.setNetInUtilization(50.5f);
+		sysPerfData.setNetOutUtilization(55.5f);
 
 		assertTrue(this.cloudClient.subscribeToCloudEvents(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE));
 

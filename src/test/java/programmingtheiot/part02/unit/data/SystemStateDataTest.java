@@ -94,6 +94,8 @@ public class SystemStateDataTest {
 			assertTrue(spd.getCpuUtilization() == DEFAULT_VAL);
 			assertTrue(spd.getDiskUtilization() == DEFAULT_VAL);
 			assertTrue(spd.getMemoryUtilization() == DEFAULT_VAL);
+			assertTrue(spd.getNetInUtilization() == DEFAULT_VAL);
+			assertTrue(spd.getNetOutUtilization() == DEFAULT_VAL);
 		}
 	}
 
@@ -124,6 +126,8 @@ public class SystemStateDataTest {
 			assertTrue(spd.getCpuUtilization() == DEFAULT_VAL);
 			assertTrue(spd.getDiskUtilization() == DEFAULT_VAL);
 			assertTrue(spd.getMemoryUtilization() == DEFAULT_VAL);
+			assertTrue(spd.getNetInUtilization() == DEFAULT_VAL);
+			assertTrue(spd.getNetOutUtilization() == DEFAULT_VAL);
 		}
 	}
 
@@ -144,6 +148,8 @@ public class SystemStateDataTest {
 		spd.setCpuUtilization(DEFAULT_VAL);
 		spd.setDiskUtilization(DEFAULT_VAL);
 		spd.setMemoryUtilization(DEFAULT_VAL);
+		spd.setNetInUtilization(DEFAULT_VAL);
+		spd.setNetOutUtilization(DEFAULT_VAL);
 		ssd.addSystemPerformanceData(spd);
 
 		return ssd;
