@@ -41,6 +41,14 @@ public class SystemPerformanceData extends BaseIotData implements Serializable {
 		return 0.0f;
 	}
 
+	public float getNetInUtilization() {
+		return 0.0f;
+	}
+
+	public float getNetOutUtilization() {
+		return 0.0f;
+	}
+
 	public void setCpuUtilization(float val) {
 	}
 
@@ -48,6 +56,12 @@ public class SystemPerformanceData extends BaseIotData implements Serializable {
 	}
 
 	public void setMemoryUtilization(float val) {
+	}
+
+	public void setNetInUtilization(float val) {
+	}
+
+	public void setNetOutUtilization(float val) {
 	}
 
 	/**
@@ -64,7 +78,9 @@ public class SystemPerformanceData extends BaseIotData implements Serializable {
 		sb.append(',');
 		sb.append(ConfigConst.CPU_UTIL_PROP).append('=').append(this.getCpuUtilization()).append(',');
 		sb.append(ConfigConst.DISK_UTIL_PROP).append('=').append(this.getDiskUtilization()).append(',');
-		sb.append(ConfigConst.MEM_UTIL_PROP).append('=').append(this.getMemoryUtilization());
+		sb.append(ConfigConst.MEM_UTIL_PROP).append('=').append(this.getMemoryUtilization()).append(',');
+		sb.append(ConfigConst.NET_IN_UTIL_PROP).append('=').append(this.getNetInUtilization()).append(',');
+		sb.append(ConfigConst.NET_OUT_UTIL_PROP).append('=').append(this.getNetOutUtilization());
 
 		return sb.toString();
 	}
