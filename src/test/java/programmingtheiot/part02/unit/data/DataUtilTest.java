@@ -120,7 +120,7 @@ public class DataUtilTest {
 	 * 
 	 */
 
-	// @Test
+	@Test
 	public void testSystemStateDatatoJsonAndBack() {
 		DataUtil dataUtil = DataUtil.getInstance();
 
