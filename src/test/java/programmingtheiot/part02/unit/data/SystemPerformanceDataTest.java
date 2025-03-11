@@ -36,6 +36,8 @@ public class SystemPerformanceDataTest {
 	public static final float DEFAULT_CPU_UTIL_DATA = 10.0f;
 	public static final float DEFAULT_DISK_UTIL_DATA = 10.0f;
 	public static final float DEFAULT_MEM_UTIL_DATA = 10.0f;
+	public static final float DEFAULT_NET_IN_UTIL_DATA = 10.0f;
+	public static final float DEFAULT_NET_OUT_UTIL_DATA = 10.0f;
 
 	// member var's
 
@@ -63,6 +65,8 @@ public class SystemPerformanceDataTest {
 		assertTrue(spd.getCpuUtilization() == ConfigConst.DEFAULT_VAL);
 		assertTrue(spd.getDiskUtilization() == ConfigConst.DEFAULT_VAL);
 		assertTrue(spd.getMemoryUtilization() == ConfigConst.DEFAULT_VAL);
+		assertTrue(spd.getNetInUtilization() == ConfigConst.DEFAULT_VAL);
+		assertTrue(spd.getNetOutUtilization() == ConfigConst.DEFAULT_VAL);
 	}
 
 	@Test
@@ -77,6 +81,8 @@ public class SystemPerformanceDataTest {
 		assertTrue(spd.getCpuUtilization() == DEFAULT_CPU_UTIL_DATA);
 		assertTrue(spd.getDiskUtilization() == DEFAULT_DISK_UTIL_DATA);
 		assertTrue(spd.getMemoryUtilization() == DEFAULT_MEM_UTIL_DATA);
+		assertTrue(spd.getNetInUtilization() == DEFAULT_NET_IN_UTIL_DATA);
+		assertTrue(spd.getNetOutUtilization() == DEFAULT_NET_OUT_UTIL_DATA);
 	}
 
 	@Test
@@ -93,6 +99,8 @@ public class SystemPerformanceDataTest {
 		assertTrue(spd.getCpuUtilization() == ConfigConst.DEFAULT_VAL);
 		assertTrue(spd.getDiskUtilization() == ConfigConst.DEFAULT_VAL);
 		assertTrue(spd.getMemoryUtilization() == ConfigConst.DEFAULT_VAL);
+		assertTrue(spd.getNetInUtilization() == ConfigConst.DEFAULT_VAL);
+		assertTrue(spd.getNetOutUtilization() == ConfigConst.DEFAULT_VAL);
 
 		spd.updateData(spd2);
 		_Logger.info("Updated second data obj: " + spd2.toString());
@@ -103,6 +111,8 @@ public class SystemPerformanceDataTest {
 		assertTrue(spd.getCpuUtilization() == DEFAULT_CPU_UTIL_DATA);
 		assertTrue(spd.getDiskUtilization() == DEFAULT_DISK_UTIL_DATA);
 		assertTrue(spd.getMemoryUtilization() == DEFAULT_MEM_UTIL_DATA);
+		assertTrue(spd.getNetInUtilization() == DEFAULT_NET_IN_UTIL_DATA);
+		assertTrue(spd.getNetOutUtilization() == DEFAULT_NET_OUT_UTIL_DATA);
 	}
 
 	// private
@@ -114,6 +124,8 @@ public class SystemPerformanceDataTest {
 		spd.setCpuUtilization(DEFAULT_CPU_UTIL_DATA);
 		spd.setDiskUtilization(DEFAULT_DISK_UTIL_DATA);
 		spd.setMemoryUtilization(DEFAULT_MEM_UTIL_DATA);
+		spd.setNetInUtilization(DEFAULT_NET_IN_UTIL_DATA);
+		spd.setNetOutUtilization(DEFAULT_NET_OUT_UTIL_DATA);
 
 		return spd;
 	}
