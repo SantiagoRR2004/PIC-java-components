@@ -48,7 +48,7 @@ public class DeviceDataManager implements IDataMessageListener {
 	private boolean enableCoapServer = false;
 	private boolean enableCloudClient = false;
 	private boolean enableSmtpClient = false;
-	private boolean enablePersistenceClient = false;
+	private boolean enablePersistenceClient = true;
 	private boolean enableSystemPerf = false;
 
 	private IPubSubClient mqttClient = null;
@@ -80,7 +80,9 @@ public class DeviceDataManager implements IDataMessageListener {
 		this.enablePersistenceClient =
 			configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
-	
+
+		this.enablePersistenceClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
+
 		initManager();
 
 		initConnections();
@@ -110,7 +112,12 @@ public class DeviceDataManager implements IDataMessageListener {
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
 			}
-	
+
+			if (this.enablePersistenceClient) {
+				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
+			}
+		
+		
 			return true;
 		} else {
 			return false;
@@ -143,6 +150,10 @@ public class DeviceDataManager implements IDataMessageListener {
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for SensorData instance.");
 			}
+
+			if (this.enablePersistenceClient) {
+				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
+			}
 	
 			return true;
 		} else {
@@ -157,6 +168,10 @@ public class DeviceDataManager implements IDataMessageListener {
 	
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for SystemPerformanceData instance.");
+			}
+
+			if (this.enablePersistenceClient) {
+				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
 			}
 	
 			return true;
@@ -194,7 +209,8 @@ public class DeviceDataManager implements IDataMessageListener {
 		}
 	
 		if (this.enablePersistenceClient) {
-			// TODO: implement this as an optional exercise in Lab Module 5
+			this.persistenceClient = new RedisPersistenceAdapter();
+			_Logger.log(Level.INFO, "Redis persistence enabled");
 		}
 	}
 
@@ -204,12 +220,18 @@ public class DeviceDataManager implements IDataMessageListener {
 		if (this.sysPerfMgr != null) {
 			this.sysPerfMgr.startManager();
 		}
+		if (this.persistenceClient != null) {
+			this.persistenceClient.connectClient();
+		}
 	}
 
 	public void stopManager() {
 		_Logger.info("DeviceDataManager has been stopped...");
 		if (this.sysPerfMgr != null) {
 			this.sysPerfMgr.stopManager();
+		}
+		if (this.persistenceClient != null) {
+			this.persistenceClient.disconnectClient();
 		}
 	}
 
