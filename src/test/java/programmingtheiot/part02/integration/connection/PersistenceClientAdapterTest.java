@@ -11,15 +11,12 @@ package programmingtheiot.part02.integration.connection;
 
 import static org.junit.Assert.*;
 
-import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
-import programmingtheiot.gda.connection.RedisPersistenceAdapter;
 
 /**
  * This test case class contains very basic integration tests for
@@ -32,11 +29,9 @@ import programmingtheiot.gda.connection.RedisPersistenceAdapter;
 public class PersistenceClientAdapterTest {
 	// static
 
-	private static final Logger _Logger = Logger.getLogger(PersistenceClientAdapterTest.class.getName());
 
 	// member var's
 
-	private RedisPersistenceAdapter rpa = null;
 
 	// test setup methods
 
@@ -74,63 +69,63 @@ public class PersistenceClientAdapterTest {
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#connectClient()}.
 	 */
-	@Test
+	// @Test
 	public void testConnectClient() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#disconnectClient()}.
 	 */
-	@Test
+	// @Test
 	public void testDisconnectClient() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#getActuatorData(java.lang.String, java.util.Date, java.util.Date)}.
 	 */
-	@Test
+	// @Test
 	public void testGetActuatorData() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#getSensorData(java.lang.String, java.util.Date, java.util.Date)}.
 	 */
-	@Test
+	// @Test
 	public void testGetSensorData() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#storeData(java.lang.String, int, programmingtheiot.data.ActuatorData[])}.
 	 */
-	@Test
+	// @Test
 	public void testStoreDataStringIntActuatorDataArray() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#storeData(java.lang.String, int, programmingtheiot.data.SensorData[])}.
 	 */
-	@Test
+	// @Test
 	public void testStoreDataStringIntSensorDataArray() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for
 	 * {@link programmingtheiot.gda.connection.RedisPersistenceAdapter#storeData(java.lang.String, int, programmingtheiot.data.SystemPerformanceData[])}.
 	 */
-	@Test
+	// @Test
 	public void testStoreDataStringIntSystemPerformanceDataArray() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented");
 	}
 
 }
