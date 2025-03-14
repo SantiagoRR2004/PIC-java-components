@@ -32,12 +32,13 @@ import programmingtheiot.gda.connection.MqttClientConnector;
 import programmingtheiot.gda.connection.RedisPersistenceAdapter;
 import programmingtheiot.gda.connection.SmtpClientConnector;
 import programmingtheiot.gda.system.SystemPerformanceManager;
+import redis.clients.jedis.JedisPubSub;
 
 /**
  * Shell representation of class for student implementation.
  *
  */
-public class DeviceDataManager implements IDataMessageListener {
+public class DeviceDataManager extends JedisPubSub implements IDataMessageListener {
 	// static
 
 	private static final Logger _Logger = Logger.getLogger(DeviceDataManager.class.getName());
@@ -222,6 +223,11 @@ public class DeviceDataManager implements IDataMessageListener {
 		}
 		if (this.persistenceClient != null) {
 			this.persistenceClient.connectClient();
+
+			// Check if persistenceClient is an instance of RedisPersistenceAdapter
+			if (this.persistenceClient instanceof RedisPersistenceAdapter) {
+				((RedisPersistenceAdapter) this.persistenceClient).subscribeToChannel(this, ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE);
+			}
 		}
 	}
 

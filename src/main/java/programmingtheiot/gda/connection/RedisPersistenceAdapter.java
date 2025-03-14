@@ -18,12 +18,14 @@ import java.util.logging.Logger;
 
 import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigUtil;
+import programmingtheiot.common.ResourceNameEnum;
 import programmingtheiot.data.ActuatorData;
 import programmingtheiot.data.DataUtil;
 import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
@@ -213,6 +215,16 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 			_Logger.log(Level.SEVERE, "Error storing system performance data in Redis:", e);
 			return false;
 		}
+	}
+
+
+	public void subscribeToChannel(JedisPubSub subscriber, ResourceNameEnum resource) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.subscribe(subscriber, resource.getResourceName());
+            }
+        }).start();
 	}
 
 	// private methods
