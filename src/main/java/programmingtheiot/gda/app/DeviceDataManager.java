@@ -263,7 +263,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	}
 	
 	private boolean handleUpstreamTransmission(ResourceNameEnum resourceName, String jsonData, int qos) {
-		_Logger.fine("Persistence Client is active");
+		_Logger.info("Persistence Client is active");
 		return true;
 	}
 

@@ -40,7 +40,7 @@ public class SystemMemUtilTask extends BaseSystemUtilTask {
 		double memUsed = (double) memUsage.getUsed();
 		double memMax = (double) memUsage.getMax();
 
-		_Logger.fine("Mem used: " + memUsed + "; Mem Max: " + memMax);
+		_Logger.info("Mem used: " + memUsed + "; Mem Max: " + memMax);
 
 		double memUtil = (memUsed / memMax) * 100.0d;
 

@@ -87,7 +87,7 @@ public class SystemPerformanceManager {
 		float netOutUtil = this.sysNetOutUtilTask.getTelemetryValue();
 
 		// NOTE: you may need to change the logging level to 'info' to see the message
-		_Logger.fine(
+		_Logger.info(
 				"CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
 						", Bytes received: " + netInUtil +
 						", Bytes sent: " + netOutUtil);
