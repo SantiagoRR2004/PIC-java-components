@@ -58,7 +58,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private CoapServerGateway coapServer = null;
 	private SystemPerformanceManager sysPerfMgr = null;
 
-
 	// constructors
 
 	public DeviceDataManager() {
@@ -66,23 +65,20 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 
-		this.enableMqttClient =
-			configUtil.getBoolean(
+		this.enableMqttClient = configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
-	
-		this.enableCoapServer =
-			configUtil.getBoolean(
+
+		this.enableCoapServer = configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_COAP_SERVER_KEY);
-	
-		this.enableCloudClient =
-			configUtil.getBoolean(
+
+		this.enableCloudClient = configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_CLOUD_CLIENT_KEY);
-	
-		this.enablePersistenceClient =
-			configUtil.getBoolean(
+
+		this.enablePersistenceClient = configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
 
-		this.enablePersistenceClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
+		this.enablePersistenceClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE,
+				ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
 
 		initManager();
 
@@ -106,10 +102,10 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	public boolean handleActuatorCommandResponse(ResourceNameEnum resourceName, ActuatorData data) {
 		if (data != null) {
 			_Logger.info("Handling actuator response: " + data.getName());
-	
+
 			// this next call is optional for now
-			//this.handleIncomingDataAnalysis(resourceName, data);
-	
+			// this.handleIncomingDataAnalysis(resourceName, data);
+
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
 			}
@@ -117,8 +113,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			if (this.enablePersistenceClient) {
 				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
 			}
-		
-		
+
 			return true;
 		} else {
 			return false;
@@ -135,7 +130,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		{
 			if (msg != null) {
 				_Logger.info("Handling incoming generic message: " + msg);
-		
+
 				return true;
 			} else {
 				return false;
@@ -147,7 +142,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	public boolean handleSensorMessage(ResourceNameEnum resourceName, SensorData data) {
 		if (data != null) {
 			_Logger.info("Handling sensor message: " + data.getName());
-	
+
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for SensorData instance.");
 			}
@@ -155,7 +150,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			if (this.enablePersistenceClient) {
 				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
 			}
-	
+
 			return true;
 		} else {
 			return false;
@@ -166,7 +161,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	public boolean handleSystemPerformanceMessage(ResourceNameEnum resourceName, SystemPerformanceData data) {
 		if (data != null) {
 			_Logger.info("Handling system performance message: " + data.getName());
-	
+
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for SystemPerformanceData instance.");
 			}
@@ -174,7 +169,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			if (this.enablePersistenceClient) {
 				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
 			}
-	
+
 			return true;
 		} else {
 			return false;
@@ -184,39 +179,36 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	public void setActuatorDataListener(String name, IActuatorDataListener listener) {
 	}
 
-	private void initManager()
-	{
+	private void initManager() {
 		_Logger.info("DeviceDataManager has been initialized...");
 		ConfigUtil configUtil = ConfigUtil.getInstance();
-	
-		this.enableSystemPerf =
-			configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE,  ConfigConst.ENABLE_SYSTEM_PERF_KEY);
-	
+
+		this.enableSystemPerf = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_SYSTEM_PERF_KEY);
+
 		if (this.enableSystemPerf) {
 			this.sysPerfMgr = new SystemPerformanceManager();
 			this.sysPerfMgr.setDataMessageListener(this);
 		}
-	
+
 		if (this.enableMqttClient) {
 			// TODO: implement this in Lab Module 7
 		}
-	
+
 		if (this.enableCoapServer) {
 			// TODO: implement this in Lab Module 8
 		}
-	
+
 		if (this.enableCloudClient) {
 			// TODO: implement this in Lab Module 10
 		}
-	
+
 		if (this.enablePersistenceClient) {
 			this.persistenceClient = new RedisPersistenceAdapter();
 			_Logger.log(Level.INFO, "Redis persistence enabled");
 		}
 	}
 
-	public void startManager()
-	{
+	public void startManager() {
 		_Logger.info("DeviceDataManager has been started...");
 		if (this.sysPerfMgr != null) {
 			this.sysPerfMgr.startManager();
@@ -226,7 +218,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 			// Check if persistenceClient is an instance of RedisPersistenceAdapter
 			if (this.persistenceClient instanceof RedisPersistenceAdapter) {
-				((RedisPersistenceAdapter) this.persistenceClient).subscribeToChannel(this, ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE);
+				((RedisPersistenceAdapter) this.persistenceClient).subscribeToChannel(this,
+						ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE);
 			}
 		}
 	}
@@ -253,7 +246,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private void initConnections() {
 	}
 
-
 	private void handleIncomingDataAnalysis(ResourceNameEnum resourceName, SystemStateData message) {
 		_Logger.info("handleIncomingDataAnalysis has been initiated..");
 	}
@@ -261,12 +253,10 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private void handleIncomingDataAnalysis(ResourceNameEnum resourceName, ActuatorData message) {
 		_Logger.info("handleIncomingDataAnalysis has been initiated..");
 	}
-	
+
 	private boolean handleUpstreamTransmission(ResourceNameEnum resourceName, String jsonData, int qos) {
 		_Logger.info("Persistence Client is active");
 		return true;
 	}
-
-
 
 }

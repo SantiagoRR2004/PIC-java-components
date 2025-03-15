@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 public class DataUtil {
 	// static
 
-	private static final Logger _Logger   =Logger.getLogger(DataUtil.class.getName());
+	private static final Logger _Logger = Logger.getLogger(DataUtil.class.getName());
 
 	private static final DataUtil _Instance = new DataUtil();
 
@@ -53,90 +53,90 @@ public class DataUtil {
 	// public methods
 
 	public String actuatorDataToJson(ActuatorData actuatorData) {
-		String jsonData =null;
+		String jsonData = null;
 
-		if (actuatorData !=null) {
-		Gson gson = new Gson();
-		jsonData =gson.toJson(actuatorData);
-				}
-		
+		if (actuatorData != null) {
+			Gson gson = new Gson();
+			jsonData = gson.toJson(actuatorData);
+		}
+
 		return jsonData;
 	}
 
 	public String sensorDataToJson(SensorData sensorData) {
-		String jsonData =null;
+		String jsonData = null;
 
-		if (sensorData !=null) {
-		Gson gson = new Gson();
-		jsonData =gson.toJson(sensorData);
-				}
+		if (sensorData != null) {
+			Gson gson = new Gson();
+			jsonData = gson.toJson(sensorData);
+		}
 
 		return jsonData;
 	}
 
 	public String systemPerformanceDataToJson(SystemPerformanceData sysPerfData) {
-		String jsonData =null;
+		String jsonData = null;
 
-		if (sysPerfData !=null) {
-		Gson gson = new Gson();
-		jsonData =gson.toJson(sysPerfData);
-				}
+		if (sysPerfData != null) {
+			Gson gson = new Gson();
+			jsonData = gson.toJson(sysPerfData);
+		}
 
 		return jsonData;
 	}
 
 	public String systemStateDataToJson(SystemStateData sysStateData) {
-		String jsonData =null;
+		String jsonData = null;
 
-		if (sysStateData !=null) {
-		Gson gson = new Gson();
-		jsonData =gson.toJson(sysStateData);
-				}
+		if (sysStateData != null) {
+			Gson gson = new Gson();
+			jsonData = gson.toJson(sysStateData);
+		}
 
 		return jsonData;
 	}
 
 	public ActuatorData jsonToActuatorData(String jsonData) {
-		ActuatorData data =null;
+		ActuatorData data = null;
 
-		if (jsonData !=null &&jsonData.trim().length() >0) {
-		Gson gson =new Gson();
-		data =gson.fromJson(jsonData,ActuatorData.class);
-				}
-		
-		return data;	
+		if (jsonData != null && jsonData.trim().length() > 0) {
+			Gson gson = new Gson();
+			data = gson.fromJson(jsonData, ActuatorData.class);
+		}
+
+		return data;
 	}
 
 	public SensorData jsonToSensorData(String jsonData) {
-		SensorData data =null;
+		SensorData data = null;
 
-		if (jsonData !=null &&jsonData.trim().length() >0) {
-		Gson gson =new Gson();
-		data =gson.fromJson(jsonData,SensorData.class);
-				}
-		
+		if (jsonData != null && jsonData.trim().length() > 0) {
+			Gson gson = new Gson();
+			data = gson.fromJson(jsonData, SensorData.class);
+		}
+
 		return data;
 	}
 
 	public SystemPerformanceData jsonToSystemPerformanceData(String jsonData) {
-		SystemPerformanceData data =null;
+		SystemPerformanceData data = null;
 
-		if (jsonData !=null &&jsonData.trim().length() >0) {
-		Gson gson =new Gson();
-		data =gson.fromJson(jsonData,SystemPerformanceData.class);
-				}
-		
+		if (jsonData != null && jsonData.trim().length() > 0) {
+			Gson gson = new Gson();
+			data = gson.fromJson(jsonData, SystemPerformanceData.class);
+		}
+
 		return data;
 	}
 
 	public SystemStateData jsonToSystemStateData(String jsonData) {
-		SystemStateData data =null;
+		SystemStateData data = null;
 
-		if (jsonData !=null &&jsonData.trim().length() >0) {
-		Gson gson =new Gson();
-		data =gson.fromJson(jsonData,SystemStateData.class);
-				}
-		
+		if (jsonData != null && jsonData.trim().length() > 0) {
+			Gson gson = new Gson();
+			data = gson.fromJson(jsonData, SystemStateData.class);
+		}
+
 		return data;
 	}
 

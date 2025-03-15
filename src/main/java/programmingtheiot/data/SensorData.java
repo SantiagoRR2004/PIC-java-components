@@ -20,7 +20,7 @@ public class SensorData extends BaseIotData implements Serializable {
 	// static
 
 	// private var's
-	private float value =ConfigConst.DEFAULT_VAL;
+	private float value = ConfigConst.DEFAULT_VAL;
 
 	// constructors
 

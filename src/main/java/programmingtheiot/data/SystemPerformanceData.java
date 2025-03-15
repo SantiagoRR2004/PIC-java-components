@@ -20,11 +20,11 @@ public class SystemPerformanceData extends BaseIotData implements Serializable {
 	// static
 
 	// private var's
-	private float cpuUtil  =ConfigConst.DEFAULT_VAL;
-	private float diskUtil =ConfigConst.DEFAULT_VAL;
-	private float memUtil  =ConfigConst.DEFAULT_VAL;
-	private float netInUtil =ConfigConst.DEFAULT_VAL;
-	private float netOutUtil =ConfigConst.DEFAULT_VAL;
+	private float cpuUtil = ConfigConst.DEFAULT_VAL;
+	private float diskUtil = ConfigConst.DEFAULT_VAL;
+	private float memUtil = ConfigConst.DEFAULT_VAL;
+	private float netInUtil = ConfigConst.DEFAULT_VAL;
+	private float netOutUtil = ConfigConst.DEFAULT_VAL;
 
 	// constructors
 

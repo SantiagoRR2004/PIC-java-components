@@ -70,11 +70,8 @@ public class SystemPerformanceManager {
 			this.handleTelemetry();
 		};
 
-
-		this.locationID =
-			ConfigUtil.getInstance().getProperty(
-				ConfigConst.GATEWAY_DEVICE, ConfigConst.LOCATION_ID_PROP, ConfigConst.NOT_SET
-			);
+		this.locationID = ConfigUtil.getInstance().getProperty(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.LOCATION_ID_PROP, ConfigConst.NOT_SET);
 	}
 
 	// public methods
@@ -99,10 +96,10 @@ public class SystemPerformanceManager {
 		spd.setDiskUtilization(diskUtil);
 		spd.setNetInUtilization(netInUtil);
 		spd.setNetOutUtilization(netOutUtil);
-	
+
 		if (this.dataMsgListener != null) {
 			this.dataMsgListener.handleSystemPerformanceMessage(
-				ResourceNameEnum.GDA_SYSTEM_PERF_MSG_RESOURCE, spd);
+					ResourceNameEnum.GDA_SYSTEM_PERF_MSG_RESOURCE, spd);
 		}
 	}
 

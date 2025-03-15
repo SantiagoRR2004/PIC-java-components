@@ -11,12 +11,10 @@ package programmingtheiot.part02.integration.connection;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-
 
 /**
  * This test case class contains very basic integration tests for
@@ -29,9 +27,7 @@ import org.junit.BeforeClass;
 public class PersistenceClientAdapterTest {
 	// static
 
-
 	// member var's
-
 
 	// test setup methods
 

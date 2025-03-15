@@ -28,9 +28,9 @@ public class SystemStateData extends BaseIotData implements Serializable {
 	// static
 
 	// private var's
-	private int command =ConfigConst.DEFAULT_COMMAND;
-	private List<SystemPerformanceData> sysPerfDataList =null;
-	private List<SensorData> sensorDataList =null;
+	private int command = ConfigConst.DEFAULT_COMMAND;
+	private List<SystemPerformanceData> sysPerfDataList = null;
+	private List<SensorData> sensorDataList = null;
 
 	// constructors
 
@@ -39,7 +39,7 @@ public class SystemStateData extends BaseIotData implements Serializable {
 		super.setName(ConfigConst.SYS_STATE_DATA);
 
 		this.sysPerfDataList = new ArrayList<>();
-		this.sensorDataList  = new ArrayList<>();
+		this.sensorDataList = new ArrayList<>();
 	}
 
 	// public methods

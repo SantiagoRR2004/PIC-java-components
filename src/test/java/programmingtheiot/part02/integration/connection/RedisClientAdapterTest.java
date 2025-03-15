@@ -19,7 +19,6 @@ import programmingtheiot.data.SensorData;
 
 import programmingtheiot.common.ConfigConst;
 
-
 /**
  * This test case class contains very basic integration tests for
  * RedisPersistenceAdapter. It should not be considered complete,
