@@ -44,7 +44,7 @@ public class SystemDiskUtilTask extends BaseSystemUtilTask {
 			long usableSpace = fileStore.getUsableSpace();
 			long usedSpace = totalSpace - usableSpace;
 
-			_Logger.fine("Disk used: " + usedSpace + "; Disk Total: " + totalSpace);
+			_Logger.info("Disk used: " + usedSpace + "; Disk Total: " + totalSpace);
 
 			double diskUtil = ((double) usedSpace / totalSpace) * 100.0d;
 

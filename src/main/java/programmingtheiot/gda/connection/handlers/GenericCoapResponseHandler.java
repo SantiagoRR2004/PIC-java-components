@@ -47,7 +47,7 @@ public class GenericCoapResponseHandler implements CoapHandler {
 
 		dataMsgListener = listener;
 
-		_Logger.fine("Response handler created. IDataMessageListener is " + (listener != null ? "set" : "not set"));
+		_Logger.info("Response handler created. IDataMessageListener is " + (listener != null ? "set" : "not set"));
 	}
 
 	// public methods
