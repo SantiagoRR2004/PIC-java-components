@@ -36,7 +36,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	// static
 
 	private static final Logger _Logger = Logger.getLogger(RedisPersistenceAdapter.class.getName());
-	
+
 	// private var's
 
 	// Redis client instance
@@ -113,13 +113,14 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 		_Logger.log(Level.INFO, "Getting actuator data from Redis under topic: {0}", topic);
 		List<ActuatorData> actuatorDataList = new ArrayList<>();
 		Map<String, String> actuatorDataMap = this.client.hgetAll(topic);
-		
+
 		for (Map.Entry<String, String> entry : actuatorDataMap.entrySet()) {
 			ActuatorData actuatorData = DataUtil.getInstance().jsonToActuatorData(entry.getValue());
-			if (actuatorData.getTimeStampMillis() >= startDate.getTime() && actuatorData.getTimeStampMillis() <= endDate.getTime())
+			if (actuatorData.getTimeStampMillis() >= startDate.getTime()
+					&& actuatorData.getTimeStampMillis() <= endDate.getTime())
 				actuatorDataList.add(actuatorData);
 		}
-		
+
 		return actuatorDataList.toArray(new ActuatorData[0]);
 	}
 
@@ -131,13 +132,14 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 		_Logger.log(Level.INFO, "Getting sensor data from Redis under topic: {0}", topic);
 		List<SensorData> sensorDataList = new ArrayList<>();
 		Map<String, String> sensorDataMap = this.client.hgetAll(topic);
-		
+
 		for (Map.Entry<String, String> entry : sensorDataMap.entrySet()) {
 			SensorData sensorData = DataUtil.getInstance().jsonToSensorData(entry.getValue());
-			if (sensorData.getTimeStampMillis() >= startDate.getTime() && sensorData.getTimeStampMillis() <= endDate.getTime())
+			if (sensorData.getTimeStampMillis() >= startDate.getTime()
+					&& sensorData.getTimeStampMillis() <= endDate.getTime())
 				sensorDataList.add(sensorData);
 		}
-		
+
 		return sensorDataList.toArray(new SensorData[0]);
 	}
 
@@ -206,7 +208,8 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 		try {
 			for (SystemPerformanceData systemPerformanceData : data) {
-				String systemPerformanceDataJson = DataUtil.getInstance().systemPerformanceDataToJson(systemPerformanceData);
+				String systemPerformanceDataJson = DataUtil.getInstance()
+						.systemPerformanceDataToJson(systemPerformanceData);
 				this.client.hset(topic, systemPerformanceData.getTimeStamp(), systemPerformanceDataJson);
 			}
 			_Logger.log(Level.INFO, "Stored system performance data in Redis under topic: {0}", topic);
@@ -217,14 +220,13 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 		}
 	}
 
-
 	public void subscribeToChannel(JedisPubSub subscriber, ResourceNameEnum resource) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                client.subscribe(subscriber, resource.getResourceName());
-            }
-        }).start();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				client.subscribe(subscriber, resource.getResourceName());
+			}
+		}).start();
 	}
 
 	// private methods
