@@ -1,47 +1,58 @@
 /**
  * This class is part of the Programming the Internet of Things project.
- *
- * <p>It is provided as a simple shell to guide the student and assist with implementation for the
- * Programming the Internet of Things exercises, and designed to be modified by the student as
- * needed.
+ * 
+ * It is provided as a simple shell to guide the student and assist with
+ * implementation for the Programming the Internet of Things exercises,
+ * and designed to be modified by the student as needed.
  */
+
 package programmingtheiot.gda.system;
 
 import static programmingtheiot.gda.system.BaseSystemUtilTask._Logger;
 
-import java.io.IOException;
 import java.nio.file.*;
+import java.io.IOException;
+
+import java.util.logging.Logger;
+
 import programmingtheiot.common.ConfigConst;
 
-/** Shell representation of class for student implementation. */
+/**
+ * Shell representation of class for student implementation.
+ * 
+ */
 public class SystemDiskUtilTask extends BaseSystemUtilTask {
-  // constructors
+	// constructors
 
-  /** Default. */
-  public SystemDiskUtilTask() {
-    super(ConfigConst.DISK_UTIL_NAME, ConfigConst.DISK_UTIL_TYPE);
-  }
+	/**
+	 * Default.
+	 * 
+	 */
+	public SystemDiskUtilTask() {
+		super(ConfigConst.DISK_UTIL_NAME, ConfigConst.DISK_UTIL_TYPE);
+	}
 
-  // public methods
+	// public methods
 
-  @Override
-  public float getTelemetryValue() {
-    Path path = Paths.get("/").toAbsolutePath();
-    try {
-      FileStore fileStore = Files.getFileStore(path);
+	@Override
+	public float getTelemetryValue() {
+		Path path = Paths.get("/").toAbsolutePath();
+		try {
+			FileStore fileStore = Files.getFileStore(path);
 
-      long totalSpace = fileStore.getTotalSpace();
-      long usableSpace = fileStore.getUsableSpace();
-      long usedSpace = totalSpace - usableSpace;
+			long totalSpace = fileStore.getTotalSpace();
+			long usableSpace = fileStore.getUsableSpace();
+			long usedSpace = totalSpace - usableSpace;
 
-      _Logger.info("Disk used: " + usedSpace + "; Disk Total: " + totalSpace);
+			_Logger.info("Disk used: " + usedSpace + "; Disk Total: " + totalSpace);
 
-      double diskUtil = ((double) usedSpace / totalSpace) * 100.0d;
+			double diskUtil = ((double) usedSpace / totalSpace) * 100.0d;
 
-      return (float) diskUtil;
-    } catch (IOException e) {
-      _Logger.severe("Error retrieving disk usage: " + e.getMessage());
-      return -1; // Return -1 to indicate an error
-    }
-  }
+			return (float) diskUtil;
+		} catch (IOException e) {
+			_Logger.severe("Error retrieving disk usage: " + e.getMessage());
+			return -1; // Return -1 to indicate an error
+		}
+	}
+
 }
