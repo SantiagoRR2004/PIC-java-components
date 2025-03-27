@@ -1,4 +1,4 @@
-name: Formatting Java Code with Google Java Format
+name: Formatting Java Code with Eclipse JDT
 
 on:
   push:
@@ -15,22 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Set up Java
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 17
-
-      # Install Google Java Format
-      - name: Install Google Java Format
+      # Install Eclipse JDT Formatter
+      - name: Download Eclipse JDT Formatter
         run: |
-          curl -Lo google-java-format.jar https://github.com/google/google-java-format/releases/download/v1.25.2/google-java-format-1.25.2-all-deps.jar
+          curl -Lo eclipse-formatter.jar https://repo1.maven.org/maven2/com/github/google/styleguide/2023.1.0/eclipse-java-google-style.xml
 
       # Format Java files
-      - name: Format Java files with Google Java Format
+      - name: Format Java files
         run: |
-          find . -name "*.java" -print0 | xargs -0 -n1 java -jar google-java-format.jar --replace
+          find . -name "*.java" -print0 | xargs -0 -n1 java -jar eclipse-formatter.jar -config eclipse-java-google-style.xml -replace
 
       # Commit and push changes if any formatting was applied
       - name: Commit and push changes
