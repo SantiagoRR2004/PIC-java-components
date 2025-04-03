@@ -8,6 +8,9 @@
 
 package programmingtheiot.gda.app;
 
+import java.io.ObjectInputFilter.Config;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +46,14 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	private static final Logger _Logger = Logger.getLogger(DeviceDataManager.class.getName());
 
+	private static final List<ResourceNameEnum> topics = Arrays.asList(
+    ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE,
+    ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE,
+    ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE,
+    ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE
+	);
+
+
 	// private var's
 
 	private boolean enableMqttClient = true;
@@ -52,7 +63,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private boolean enablePersistenceClient = true;
 	private boolean enableSystemPerf = false;
 
-	private IPubSubClient mqttClient = null;
+	private MqttClientConnector mqttClient = null;
 	private IPubSubClient cloudClient = null;
 	private IPersistenceClient persistenceClient = null;
 	private CoapServerGateway coapServer = null;
@@ -191,7 +202,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		}
 
 		if (this.enableMqttClient) {
-			// TODO: implement this in Lab Module 7
+			this.mqttClient = new MqttClientConnector();
 		}
 
 		if (this.enableCoapServer) {
@@ -222,6 +233,29 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 						ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE);
 			}
 		}
+		if (this.mqttClient != null) {
+			if (this.mqttClient.connectClient()) {
+				_Logger.info("Successfully connected MQTT client to broker.");
+	
+	
+				int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
+						ConfigConst.DEFAULT_QOS);
+	
+	
+				// IMPORTANT NOTE: The 'subscribeToTopic()' method calls shown
+				// below will be moved to MqttClientConnector.connectComplete()
+				// in Lab Module 10. For now, they can remain here.
+				for (ResourceNameEnum topic : topics) {
+					boolean toret = this.mqttClient.subscribeToTopic(topic, qos);
+					if (!toret) {
+						_Logger.warning("Failed to subscribe to topic: " + topic);
+					}
+				}
+
+			} else {
+				throw new RuntimeException("Failed to connect MQTT client to broker.");
+			}
+		}
 	}
 
 	public void stopManager() {
@@ -231,6 +265,24 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		}
 		if (this.persistenceClient != null) {
 			this.persistenceClient.disconnectClient();
+		}
+		if (this.mqttClient != null) {
+			// NOTE: The unsubscribeFromTopic() method calls below should match with
+			// the subscribeToTopic() method calls from startManager(). Also, the
+			// unsubscribe logic below can be moved to MqttClientConnector's
+			// disconnectClient() call PRIOR to actually disconnecting from
+			// the MQTT broker.
+			for (ResourceNameEnum topic : topics) {
+				boolean toret = this.mqttClient.unsubscribeFromTopic(topic);
+				if (!toret) {
+					_Logger.warning("Failed to unsubscribe from topic: " + topic);
+				}
+			}
+			if (this.mqttClient.disconnectClient()) {
+				_Logger.info("Successfully disconnected MQTT client from broker.");
+			} else {
+				throw new RuntimeException("Failed to disconnect MQTT client from broker.");
+			}
 		}
 	}
 
