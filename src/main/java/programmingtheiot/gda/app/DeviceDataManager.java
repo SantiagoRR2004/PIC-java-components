@@ -206,7 +206,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		}
 
 		if (this.enableCoapServer) {
-			// TODO: implement this in Lab Module 8
+			this.coapServer = new CoapServerGateway(this);
+			_Logger.info("CoAP server enabled");
 		}
 
 		if (this.enableCloudClient) {
@@ -256,6 +257,13 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				throw new RuntimeException("Failed to connect MQTT client to broker.");
 			}
 		}
+		if (this.coapServer != null && this.enableCoapServer) {
+			if (this.coapServer.startServer()) {
+				_Logger.info("Successfully started CoAP server.");
+			} else {
+				throw new RuntimeException("Failed to start CoAP server.");
+			}
+		}
 	}
 
 	public void stopManager() {
@@ -282,6 +290,13 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.info("Successfully disconnected MQTT client from broker.");
 			} else {
 				throw new RuntimeException("Failed to disconnect MQTT client from broker.");
+			}
+		}
+		if (this.coapServer != null && this.enableCoapServer) {
+			if (this.coapServer.stopServer()) {
+				_Logger.info("Successfully stopped CoAP server.");
+			} else {
+				throw new RuntimeException("Failed to stop CoAP server.");
 			}
 		}
 	}
