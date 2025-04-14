@@ -47,9 +47,9 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private static final Logger _Logger = Logger.getLogger(DeviceDataManager.class.getName());
 
 	private static final List<ResourceNameEnum> topics = Arrays.asList(
-    ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE,
-    ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE,
-    ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE,
+			ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE,
+			ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE,
+			ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE,
     ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE
 	);
 
@@ -68,6 +68,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private IPersistenceClient persistenceClient = null;
 	private CoapServerGateway coapServer = null;
 	private SystemPerformanceManager sysPerfMgr = null;
+	private IActuatorDataListener actuatorDataListener = null;
 
 	// constructors
 
@@ -188,6 +189,13 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	}
 
 	public void setActuatorDataListener(String name, IActuatorDataListener listener) {
+		if (listener != null) {
+			// for now, just ignore 'name' - if you need more than one listener,
+			// you can use 'name' to create a map of listener instances
+			this.actuatorDataListener = listener;
+		} else {
+			_Logger.warning("ActuatorDataListener is null.");
+		}
 	}
 
 	private void initManager() {
@@ -237,11 +245,11 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (this.mqttClient != null) {
 			if (this.mqttClient.connectClient()) {
 				_Logger.info("Successfully connected MQTT client to broker.");
-	
+
 	
 				int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
 						ConfigConst.DEFAULT_QOS);
-	
+
 	
 				// IMPORTANT NOTE: The 'subscribeToTopic()' method calls shown
 				// below will be moved to MqttClientConnector.connectComplete()
@@ -318,7 +326,15 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	}
 
 	private void handleIncomingDataAnalysis(ResourceNameEnum resourceName, ActuatorData message) {
-		_Logger.info("handleIncomingDataAnalysis has been initiated..");
+		_Logger.info("Analyzing incoming actuator data: " + message.getName());
+
+		if (message.isResponseFlagEnabled()) {
+			// TODO: implement this
+		} else {
+			if (this.actuatorDataListener != null) {
+				this.actuatorDataListener.onActuatorDataUpdate(message);
+			}
+		}
 	}
 
 	private boolean handleUpstreamTransmission(ResourceNameEnum resourceName, String jsonData, int qos) {
