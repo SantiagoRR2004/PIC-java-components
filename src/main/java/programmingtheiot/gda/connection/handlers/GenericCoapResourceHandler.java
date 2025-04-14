@@ -26,7 +26,8 @@ import programmingtheiot.common.ResourceNameEnum;
 public class GenericCoapResourceHandler extends CoapResource {
 	// static
 
-	private static final Logger _Logger = Logger.getLogger(GenericCoapResourceHandler.class.getName());
+	protected static final Logger _Logger = Logger.getLogger(GenericCoapResourceHandler.class.getName());
+	private IDataMessageListener dataMsgListener = null;
 
 	// params
 
@@ -50,25 +51,11 @@ public class GenericCoapResourceHandler extends CoapResource {
 		super(resourceName);
 	}
 
-	// public methods
-
-	@Override
-	public void handleDELETE(CoapExchange context) {
-	}
-
-	@Override
-	public void handleGET(CoapExchange context) {
-	}
-
-	@Override
-	public void handlePOST(CoapExchange context) {
-	}
-
-	@Override
-	public void handlePUT(CoapExchange context) {
-	}
-
-	public void setDataMessageListener(IDataMessageListener listener) {
+	public void setDataMessageListener(IDataMessageListener listener)
+	{
+		if (listener != null) {
+			this.dataMsgListener = listener;
+		}
 	}
 
 }
