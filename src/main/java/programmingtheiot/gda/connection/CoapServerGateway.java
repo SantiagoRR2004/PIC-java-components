@@ -124,6 +124,8 @@ public class CoapServerGateway {
 	}
 
 	private void initServer(ResourceNameEnum... resources) {
+		this.coapServer = new CoapServer();
+
 		if (resources != null && resources.length > 0)
 		{
 			for (ResourceNameEnum resource : resources)
