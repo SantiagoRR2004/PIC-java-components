@@ -22,10 +22,9 @@ import programmingtheiot.gda.app.DeviceDataManager;
 
 /**
  * This test case class contains very basic integration tests for
- * DeviceDataManager. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * DeviceDataManager. It should not be considered complete, but serve as a
+ * starting point for the student implementing additional functionality within
+ * their Programming the IoT environment.
  *
  */
 public class DeviceDataManagerNoCommsTest {

@@ -54,8 +54,8 @@ public abstract class BaseSystemUtilTask {
 	}
 
 	/**
-	 * Template method definition. Sub-class will implement this to retrieve
-	 * the system utilization measure.
+	 * Template method definition. Sub-class will implement this to retrieve the
+	 * system utilization measure.
 	 * 
 	 * @return float
 	 */

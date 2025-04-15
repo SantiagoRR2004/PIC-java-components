@@ -25,13 +25,12 @@ import programmingtheiot.gda.connection.MqttClientConnector;
 
 /**
  * This test case class contains very basic integration tests for
- * MqttClientPerformanceTest. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * MqttClientPerformanceTest. It should not be considered complete, but serve as
+ * a starting point for the student implementing additional functionality within
+ * their Programming the IoT environment.
  * 
- * IMPORTANT NOTE: This test expects MqttClientConnector to be
- * configured using the synchronous MqttClient.
+ * IMPORTANT NOTE: This test expects MqttClientConnector to be configured using
+ * the synchronous MqttClient.
  *
  */
 public class MqttClientPerformanceTest {
@@ -138,8 +137,8 @@ public class MqttClientPerformanceTest {
 
 		String msg = String.format(
 				"\\n\\tTesting Publish: QoS = %s | msgs = %s | payload size = %s | start = %s | end = %s | elapsed = %s",
-				qos, maxTestRuns, payloadLen,
-				(float) startMillis / 1000, (float) endMillis / 1000, (float) elapsedMillis / 1000);
+				qos, maxTestRuns, payloadLen, (float) startMillis / 1000, (float) endMillis / 1000,
+				(float) elapsedMillis / 1000);
 
 		_Logger.info(msg);
 	}

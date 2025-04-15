@@ -130,8 +130,9 @@ public class Mqttv5ClientConnector implements IPubSubClient, MqttCallback {
 	 * Called by the constructor to set the MQTT client parameters to be used for
 	 * the connection.
 	 * 
-	 * @param configSectionName The name of the configuration section to use for
-	 *                          the MQTT client configuration parameters.
+	 * @param configSectionName
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initClientParameters(String configSectionName) {
 		// TODO: implement this
@@ -140,8 +141,9 @@ public class Mqttv5ClientConnector implements IPubSubClient, MqttCallback {
 	/**
 	 * Called by {@link #initClientParameters(String)} to load credentials.
 	 * 
-	 * @param configSectionName The name of the configuration section to use for
-	 *                          the MQTT client configuration parameters.
+	 * @param configSectionName
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initCredentialConnectionParameters(String configSectionName) {
 		// TODO: implement this
@@ -150,8 +152,9 @@ public class Mqttv5ClientConnector implements IPubSubClient, MqttCallback {
 	/**
 	 * Called by {@link #initClientParameters(String)} to enable encryption.
 	 * 
-	 * @param configSectionName The name of the configuration section to use for
-	 *                          the MQTT client configuration parameters.
+	 * @param configSectionName
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initSecureConnectionParameters(String configSectionName) {
 		// TODO: implement this

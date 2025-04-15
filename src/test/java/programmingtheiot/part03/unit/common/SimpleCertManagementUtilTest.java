@@ -23,10 +23,9 @@ import programmingtheiot.common.SimpleCertManagementUtil;
 
 /**
  * This test case class contains very basic unit tests for
- * SimpleCertManagementUtil. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * SimpleCertManagementUtil. It should not be considered complete, but serve as
+ * a starting point for the student implementing additional functionality within
+ * their Programming the IoT environment.
  *
  */
 public class SimpleCertManagementUtilTest {
@@ -35,9 +34,8 @@ public class SimpleCertManagementUtilTest {
 	private static final Logger _Logger = Logger.getLogger(SimpleCertManagementUtilTest.class.getName());
 
 	/**
-	 * NOTE: Copy a valid cert into the given file name, and uncomment
-	 * the @Test annotation before {@link #testImportOfCertFromValidFile}
-	 * to test.
+	 * NOTE: Copy a valid cert into the given file name, and uncomment the @Test
+	 * annotation before {@link #testImportOfCertFromValidFile} to test.
 	 */
 	public static final String DIR_PREFIX = "./src/test/java/programmingtheiot/part03/unit/common/";
 
@@ -73,13 +71,12 @@ public class SimpleCertManagementUtilTest {
 	// test methods
 
 	/**
-	 * Tests {@link SimpleCertManagementUtil} with a certificate file
-	 * containing one or more certificates.
+	 * Tests {@link SimpleCertManagementUtil} with a certificate file containing one
+	 * or more certificates.
 	 * <p>
-	 * NOTE: To use this test, uncomment @Test and replace
-	 * "path/to/validcertfile" with an actual, valid server certificate.
-	 * Certificates and sensitive information should NEVER be committed to
-	 * your source tree.
+	 * NOTE: To use this test, uncomment @Test and replace "path/to/validcertfile"
+	 * with an actual, valid server certificate. Certificates and sensitive
+	 * information should NEVER be committed to your source tree.
 	 * 
 	 */
 	// @Test
