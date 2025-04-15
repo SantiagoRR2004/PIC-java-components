@@ -16,8 +16,8 @@ import programmingtheiot.common.ConfigConst;
 
 /**
  * Convenience wrapper to store system state data, including location
- * information, action command, state data and a list of the following
- * data items:
+ * information, action command, state data and a list of the following data
+ * items:
  * <p>
  * SystemPerformanceData
  * <p>
@@ -78,8 +78,7 @@ public class SystemStateData extends BaseIotData implements Serializable {
 
 	/**
 	 * Returns a string representation of this instance. This will invoke the base
-	 * class
-	 * {@link #toString()} method, then append the output from this call.
+	 * class {@link #toString()} method, then append the output from this call.
 	 * 
 	 * @return String The string representing this instance, returned in CSV
 	 *         'key=value' format.

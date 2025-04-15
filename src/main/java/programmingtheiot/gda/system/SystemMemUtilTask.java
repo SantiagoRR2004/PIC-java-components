@@ -12,7 +12,6 @@ import static programmingtheiot.gda.system.BaseSystemUtilTask._Logger;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
-
 import java.util.logging.Logger;
 
 import programmingtheiot.common.ConfigConst;
