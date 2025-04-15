@@ -1,4 +1,4 @@
-name: Formatting Java Code with Eclipse JDT
+name: Formatting Java Code with Spotless
 
 on:
   push:
@@ -15,15 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Install Eclipse JDT Formatter
-      - name: Download Eclipse JDT Formatter
-        run: |
-          curl -Lo eclipse-formatter.jar https://repo1.maven.org/maven2/org/eclipse/jdt/org.eclipse.jdt.core/3.32.0/org.eclipse.jdt.core-3.32.0.jar
+      # Set up Java and Maven
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-      # Format Java files
-      - name: Format Java files
-        run: |
-          find . -name "*.java" -print0 | xargs -0 -n1 java -jar eclipse-formatter.jar -config eclipse-java-google-style.xml -replace
+      # Run Spotless to format code
+      - name: Run Spotless
+        run: mvn spotless:apply
 
       # Commit and push changes if any formatting was applied
       - name: Commit and push changes
@@ -32,7 +33,7 @@ jobs:
           git config --local user.name "GitHub Action"
           if ! git diff --quiet; then
             git add .
-            git commit -m "chore: Auto-format Java code with Google Java Format [GitHub Action]"
+            git commit -m "chore: Auto-format Java code with Spotless [GitHub Action]"
             git push
           else
             echo "No changes to push."
