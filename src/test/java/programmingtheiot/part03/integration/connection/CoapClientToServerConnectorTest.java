@@ -28,10 +28,9 @@ import programmingtheiot.gda.connection.*;
 
 /**
  * This test case class contains very basic integration tests for
- * CoapClientToServerConnector. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * CoapClientToServerConnector. It should not be considered complete, but serve
+ * as a starting point for the student implementing additional functionality
+ * within their Programming the IoT environment.
  *
  */
 public class CoapClientToServerConnectorTest {
@@ -98,14 +97,13 @@ public class CoapClientToServerConnectorTest {
 	}
 
 	@Test
-	public void testSystemPerformancePutMessage()
-	{
+	public void testSystemPerformancePutMessage() {
 		SystemPerformanceData spData = new SystemPerformanceData();
 
 		String jsonData = DataUtil.getInstance().systemPerformanceDataToJson(spData);
 
-		this.coapClient.sendPutRequest(
-			ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, null, USE_DEFAULT_RESOURCES, jsonData, DEFAULT_TIMEOUT);
+		this.coapClient.sendPutRequest(ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, null, USE_DEFAULT_RESOURCES,
+				jsonData, DEFAULT_TIMEOUT);
 	}
 
 }

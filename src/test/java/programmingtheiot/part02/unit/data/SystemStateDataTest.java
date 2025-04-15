@@ -23,11 +23,10 @@ import programmingtheiot.data.SystemPerformanceData;
 import programmingtheiot.data.SystemStateData;
 
 /**
- * This test case class contains very basic unit tests for
- * SystemStateData. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * This test case class contains very basic unit tests for SystemStateData. It
+ * should not be considered complete, but serve as a starting point for the
+ * student implementing additional functionality within their Programming the
+ * IoT environment.
  *
  */
 public class SystemStateDataTest {
@@ -58,10 +57,9 @@ public class SystemStateDataTest {
 
 	/**
 	 * NOTE: SystemStateData is not required for the exercises in Programming the
-	 * IoT.
-	 * The test cases below are disabled by default, but can easily be re-enabled by
-	 * uncommenting the @Test attribute if SystemStateData is optionally
-	 * implemented.
+	 * IoT. The test cases below are disabled by default, but can easily be
+	 * re-enabled by uncommenting the @Test attribute if SystemStateData is
+	 * optionally implemented.
 	 * 
 	 */
 

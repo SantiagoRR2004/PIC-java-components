@@ -8,11 +8,10 @@
 
 package programmingtheiot.gda.system;
 
-import oshi.SystemInfo;
-import oshi.hardware.NetworkIF;
-
 import java.util.logging.Logger;
 
+import oshi.SystemInfo;
+import oshi.hardware.NetworkIF;
 import programmingtheiot.common.ConfigConst;
 
 /**

@@ -36,7 +36,8 @@ public class GenericCoapResourceHandler extends CoapResource {
 	/**
 	 * Constructor.
 	 * 
-	 * @param resource Basically, the path (or topic)
+	 * @param resource
+	 *            Basically, the path (or topic)
 	 */
 	public GenericCoapResourceHandler(ResourceNameEnum resource) {
 		this(resource.getResourceName());
@@ -45,14 +46,14 @@ public class GenericCoapResourceHandler extends CoapResource {
 	/**
 	 * Constructor.
 	 * 
-	 * @param resourceName The name of the resource.
+	 * @param resourceName
+	 *            The name of the resource.
 	 */
 	public GenericCoapResourceHandler(String resourceName) {
 		super(resourceName);
 	}
 
-	public void setDataMessageListener(IDataMessageListener listener)
-	{
+	public void setDataMessageListener(IDataMessageListener listener) {
 		if (listener != null) {
 			this.dataMsgListener = listener;
 		}
