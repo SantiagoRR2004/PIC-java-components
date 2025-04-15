@@ -21,11 +21,10 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.data.BaseIotData;
 
 /**
- * This test case class contains very basic unit tests for
- * BaseIotData. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * This test case class contains very basic unit tests for BaseIotData. It
+ * should not be considered complete, but serve as a starting point for the
+ * student implementing additional functionality within their Programming the
+ * IoT environment.
  *
  */
 public class BaseIotDataTest {
@@ -45,8 +44,8 @@ public class BaseIotDataTest {
 
 	@Before
 	public void setUp() throws Exception {
-		String locID = ConfigUtil.getInstance().getProperty(
-				ConfigConst.GATEWAY_DEVICE, ConfigConst.DEVICE_LOCATION_ID_KEY, ConfigConst.NOT_SET);
+		String locID = ConfigUtil.getInstance().getProperty(ConfigConst.GATEWAY_DEVICE,
+				ConfigConst.DEVICE_LOCATION_ID_KEY, ConfigConst.NOT_SET);
 
 		this.locationID = locID;
 	}

@@ -21,10 +21,9 @@ import programmingtheiot.gda.app.GatewayDeviceApp;
 
 /**
  * This test case class contains very basic integration tests for
- * GatewayDeviceApp. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * GatewayDeviceApp. It should not be considered complete, but serve as a
+ * starting point for the student implementing additional functionality within
+ * their Programming the IoT environment.
  *
  */
 public class GatewayDeviceAppTest {
@@ -71,8 +70,7 @@ public class GatewayDeviceAppTest {
 
 	/**
 	 * Convenience test method for starting and stopping the GDA. This will invoke
-	 * both
-	 * {@link programmingtheiot.gda.app.GatewayDeviceApp#startApp()} and
+	 * both {@link programmingtheiot.gda.app.GatewayDeviceApp#startApp()} and
 	 * {@link programmingtheiot.gda.app.GatewayDeviceApp#stopApp(int)} in sequence.
 	 * <p>
 	 * Validation is via log output and the expectation that no exception will be
