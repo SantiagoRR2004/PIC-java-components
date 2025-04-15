@@ -19,5 +19,23 @@
         },
         "problemMatcher": []
       },
+      {
+        "label": "Install Californium",
+        "type": "shell",
+        "command": "./buildCalifornium.sh",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "silent",
+          "focus": false,
+          "panel": "new"
+        },
+        "runOptions": {
+          "runOn": "folderOpen" // Run this task when the folder is opened
+        },
+        "problemMatcher": []
+      },
     ]
   }
