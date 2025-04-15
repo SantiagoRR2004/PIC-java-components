@@ -21,9 +21,10 @@ import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 
 /**
- * This test case class contains very basic unit tests for SensorData. It should
- * not be considered complete, but serve as a starting point for the student
- * implementing additional functionality within their Programming the IoT
+ * This test case class contains very basic unit tests for
+ * SensorData. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
  * environment.
  *
  */

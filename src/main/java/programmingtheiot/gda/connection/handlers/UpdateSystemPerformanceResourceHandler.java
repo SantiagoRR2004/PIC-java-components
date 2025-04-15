@@ -31,8 +31,7 @@ public class UpdateSystemPerformanceResourceHandler extends GenericCoapResourceH
 	/**
 	 * Constructor.
 	 * 
-	 * @param resource
-	 *            Basically, the path (or topic)
+	 * @param resource Basically, the path (or topic)
 	 */
 	public UpdateSystemPerformanceResourceHandler(ResourceNameEnum resource) {
 		super(resource);
@@ -41,8 +40,7 @@ public class UpdateSystemPerformanceResourceHandler extends GenericCoapResourceH
 	/**
 	 * Constructor.
 	 * 
-	 * @param resourceName
-	 *            The name of the resource.
+	 * @param resourceName The name of the resource.
 	 */
 	public UpdateSystemPerformanceResourceHandler(String resourceName) {
 		super(resourceName);
@@ -72,24 +70,29 @@ public class UpdateSystemPerformanceResourceHandler extends GenericCoapResourceH
 			try {
 				String jsonData = new String(context.getRequestPayload());
 
-				SystemPerformanceData sysPerfData = DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
+				SystemPerformanceData sysPerfData =
+					DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
 
-				this.dataMsgListener.handleSystemPerformanceMessage(ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE,
-						sysPerfData);
+				this.dataMsgListener.handleSystemPerformanceMessage(
+					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
 
 				code = ResponseCode.CHANGED;
 			} catch (Exception e) {
-				_Logger.warning("Failed to handle PUT request. Message: " + e.getMessage());
+				_Logger.warning(
+					"Failed to handle PUT request. Message: " +
+						e.getMessage());
 
 				code = ResponseCode.BAD_REQUEST;
 			}
 		} else {
-			_Logger.info("No callback listener for request. Ignoring PUT.");
+			_Logger.info(
+				"No callback listener for request. Ignoring PUT.");
 
 			code = ResponseCode.CONTINUE;
 		}
 
-		String msg = "Update system perf data request handled: " + super.getName();
+		String msg =
+			"Update system perf data request handled: " + super.getName();
 
 		context.respond(code, msg);
 	}

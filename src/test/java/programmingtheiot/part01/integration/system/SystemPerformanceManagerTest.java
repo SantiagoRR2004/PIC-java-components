@@ -21,9 +21,10 @@ import programmingtheiot.gda.system.SystemPerformanceManager;
 
 /**
  * This test case class contains very basic integration tests for
- * SystemPerformanceManagerTest. It should not be considered complete, but serve
- * as a starting point for the student implementing additional functionality
- * within their Programming the IoT environment.
+ * SystemPerformanceManagerTest. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class SystemPerformanceManagerTest {

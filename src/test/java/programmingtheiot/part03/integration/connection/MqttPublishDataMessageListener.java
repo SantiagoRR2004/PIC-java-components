@@ -22,8 +22,8 @@ import programmingtheiot.gda.connection.IPubSubClient;
 import programmingtheiot.gda.connection.MqttClientConnector;
 
 /**
- * A simple default implementation of {@link IDataMessageListener} callback
- * methods that log messages.
+ * A simple default implementation of {@link IDataMessageListener}
+ * callback methods that log messages.
  * 
  */
 public class MqttPublishDataMessageListener implements IDataMessageListener {
@@ -45,11 +45,10 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Constructor.
 	 * 
-	 * @param pubResource
-	 *            The ResourceNameEnum instance to use as the topic.
-	 * @param pubOnMsg
-	 *            If true, the callbacks implemented in this class will attempt to
-	 *            publish the incoming data message to pubResource.
+	 * @param pubResource The ResourceNameEnum instance to use as the topic.
+	 * @param pubOnMsg    If true, the callbacks implemented in this class will
+	 *                    attempt
+	 *                    to publish the incoming data message to pubResource.
 	 */
 	public MqttPublishDataMessageListener(ResourceNameEnum pubResource, boolean pubOnMsg) {
 		super();
@@ -65,15 +64,13 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Processes and logs an actuator response message.
 	 * 
-	 * @param resourceName
-	 *            Ignored in this method implementation.
-	 * @param data
-	 *            The data container to convert to JSON and publish.
+	 * @param resourceName Ignored in this method implementation.
+	 * @param data         The data container to convert to JSON and publish.
 	 * @return boolean Will always return true.
 	 */
 	@Override
 	public boolean handleActuatorCommandResponse(ResourceNameEnum resourceName, ActuatorData data) {
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[]{resourceName.getResourceName(), data});
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
 
 		return true;
 	}
@@ -81,15 +78,13 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Processes and publishes an actuator command message.
 	 * 
-	 * @param resourceName
-	 *            Ignored in this method implementation.
-	 * @param data
-	 *            The data container to convert to JSON and publish.
+	 * @param resourceName Ignored in this method implementation.
+	 * @param data         The data container to convert to JSON and publish.
 	 * @return boolean Will always return true.
 	 */
 	@Override
 	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data) {
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[]{resourceName.getResourceName(), data});
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
 
 		if (this.pubOnMsg) {
 			String msg = DataUtil.getInstance().actuatorDataToJson(data);
@@ -103,15 +98,13 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Processes and publishes a String-based message.
 	 * 
-	 * @param resourceName
-	 *            Ignored in this method implementation.
-	 * @param data
-	 *            The data container to convert to JSON and publish.
+	 * @param resourceName Ignored in this method implementation.
+	 * @param data         The data container to convert to JSON and publish.
 	 * @return boolean Will always return true.
 	 */
 	@Override
 	public boolean handleIncomingMessage(ResourceNameEnum resourceName, String msg) {
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[]{resourceName.getResourceName(), msg});
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), msg });
 
 		if (this.pubOnMsg) {
 			this.mqttClient.publishMessage(this.pubResource, msg, DEFAULT_QOS);
@@ -123,15 +116,13 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Processes and publishes a sensor data message.
 	 * 
-	 * @param resourceName
-	 *            Ignored in this method implementation.
-	 * @param data
-	 *            The data container to convert to JSON and publish.
+	 * @param resourceName Ignored in this method implementation.
+	 * @param data         The data container to convert to JSON and publish.
 	 * @return boolean Will always return true.
 	 */
 	@Override
 	public boolean handleSensorMessage(ResourceNameEnum resourceName, SensorData data) {
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[]{resourceName.getResourceName(), data});
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
 
 		if (this.pubOnMsg) {
 			String msg = DataUtil.getInstance().sensorDataToJson(data);
@@ -145,15 +136,13 @@ public class MqttPublishDataMessageListener implements IDataMessageListener {
 	/**
 	 * Processes and publishes a system performance message.
 	 * 
-	 * @param resourceName
-	 *            Ignored in this method implementation.
-	 * @param data
-	 *            The data container to convert to JSON and publish.
+	 * @param resourceName Ignored in this method implementation.
+	 * @param data         The data container to convert to JSON and publish.
 	 * @return boolean Will always return true.
 	 */
 	@Override
 	public boolean handleSystemPerformanceMessage(ResourceNameEnum resourceName, SystemPerformanceData data) {
-		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[]{resourceName.getResourceName(), data});
+		_Logger.log(Level.INFO, "Topic: {0}, Message: {1}", new Object[] { resourceName.getResourceName(), data });
 
 		if (this.pubOnMsg) {
 			String msg = DataUtil.getInstance().systemPerformanceDataToJson(data);
