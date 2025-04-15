@@ -25,9 +25,10 @@ import programmingtheiot.gda.connection.MqttClientConnector;
 
 /**
  * This test case class contains very basic integration tests for
- * DeviceDataManager. It should not be considered complete, but serve as a
- * starting point for the student implementing additional functionality within
- * their Programming the IoT environment.
+ * DeviceDataManager. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class DeviceDataManagerWithCommsTest {
@@ -101,7 +102,8 @@ public class DeviceDataManagerWithCommsTest {
 
 	/*
 	 * NOTE: The following methods can be removed, or you may choose to implement
-	 * them within your own DeviceDataManager test class.
+	 * them
+	 * within your own DeviceDataManager test class.
 	 */
 
 	/**

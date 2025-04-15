@@ -26,9 +26,10 @@ import programmingtheiot.gda.connection.*;
 
 /**
  * This test case class contains very basic integration tests for
- * MqttClientControlPacketTest. It should not be considered complete, but serve
- * as a starting point for the student implementing additional functionality
- * within their Programming the IoT environment.
+ * MqttClientControlPacketTest. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class MqttClientControlPacketTest {
@@ -47,7 +48,7 @@ public class MqttClientControlPacketTest {
 	public void setUp() throws Exception {
 		this.mqttClient = new MqttClientConnector();
 		this.delay = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.KEEP_ALIVE_KEY,
-				ConfigConst.DEFAULT_KEEP_ALIVE);
+			ConfigConst.DEFAULT_KEEP_ALIVE);
 	}
 
 	@After
@@ -91,7 +92,7 @@ public class MqttClientControlPacketTest {
 	@Test
 	public void testPubSub() {
 		// IMPORTANT: be sure to use QoS 1 and 2 to see ALL control packets
-		int[] qosLevels = {0, 1, 2};
+		int[] qosLevels = { 0, 1, 2 };
 
 		assertTrue(this.mqttClient.connectClient());
 
@@ -103,9 +104,8 @@ public class MqttClientControlPacketTest {
 			} catch (Exception e) {
 				// ignore
 			}
-			assertTrue(this.mqttClient.publishMessage(ResourceNameEnum.CDA_MGMT_STATUS_MSG_RESOURCE,
-					"Test message: QoS " + qos, qos));
-
+			assertTrue(this.mqttClient.publishMessage(ResourceNameEnum.CDA_MGMT_STATUS_MSG_RESOURCE,  "Test message: QoS " + qos, qos));
+	
 			assertTrue(this.mqttClient.unsubscribeFromTopic(ResourceNameEnum.CDA_MGMT_STATUS_MSG_RESOURCE));
 		}
 

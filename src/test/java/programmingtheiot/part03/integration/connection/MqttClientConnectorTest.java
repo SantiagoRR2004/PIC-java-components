@@ -25,12 +25,13 @@ import programmingtheiot.gda.connection.*;
 
 /**
  * This test case class contains very basic integration tests for
- * MqttClientConnector. It should not be considered complete, but serve as a
- * starting point for the student implementing additional functionality within
- * their Programming the IoT environment.
+ * MqttClientConnector. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  * 
- * IMPORTANT NOTE: This test expects MqttClientConnector to be configured using
- * the synchronous MqttClient.
+ * IMPORTANT NOTE: This test expects MqttClientConnector to be
+ * configured using the synchronous MqttClient.
  * 
  */
 public class MqttClientConnectorTest {
