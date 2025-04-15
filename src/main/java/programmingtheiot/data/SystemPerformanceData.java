@@ -82,8 +82,7 @@ public class SystemPerformanceData extends BaseIotData implements Serializable {
 
 	/**
 	 * Returns a string representation of this instance. This will invoke the base
-	 * class
-	 * {@link #toString()} method, then append the output from this call.
+	 * class {@link #toString()} method, then append the output from this call.
 	 * 
 	 * @return String The string representing this instance, returned in CSV
 	 *         'key=value' format.

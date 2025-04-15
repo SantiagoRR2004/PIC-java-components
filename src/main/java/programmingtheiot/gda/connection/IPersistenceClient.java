@@ -35,12 +35,15 @@ public interface IPersistenceClient {
 
 	/**
 	 * Attempts to retrieve the named data instance from the persistence server.
-	 * Will return null if there's no data matching the given type with the
-	 * given parameters.
+	 * Will return null if there's no data matching the given type with the given
+	 * parameters.
 	 * 
-	 * @param topic     The target topic name.
-	 * @param startDate The start date (null if narrowing is not needed).
-	 * @param endDate   The end date (null if narrowing is not needed).
+	 * @param topic
+	 *            The target topic name.
+	 * @param startDate
+	 *            The start date (null if narrowing is not needed).
+	 * @param endDate
+	 *            The end date (null if narrowing is not needed).
 	 * @return ActuatorData[] The data instance(s) associated with the lookup
 	 *         parameters.
 	 */
@@ -48,12 +51,15 @@ public interface IPersistenceClient {
 
 	/**
 	 * Attempts to retrieve the named data instance from the persistence server.
-	 * Will return null if there's no data matching the given type with the
-	 * given parameters.
+	 * Will return null if there's no data matching the given type with the given
+	 * parameters.
 	 * 
-	 * @param topic     The target topic name.
-	 * @param startDate The start date (null if narrowing is not needed).
-	 * @param endDate   The end date (null if narrowing is not needed).
+	 * @param topic
+	 *            The target topic name.
+	 * @param startDate
+	 *            The start date (null if narrowing is not needed).
+	 * @param endDate
+	 *            The end date (null if narrowing is not needed).
 	 * @return SensorData[] The data instance(s) associated with the lookup
 	 *         parameters.
 	 */
@@ -64,21 +70,26 @@ public interface IPersistenceClient {
 	 * {@link programmingtheiot.gda.connection.labbenchstudios.data.IPersistenceListener}
 	 * for all {@link #storeData()} calls for the named data type.
 	 * 
-	 * @param cType    The data type to use for storage notifications.
-	 * @param listener The listener to notify when data is added.
-	 * @param topics   The topic name(s) (comma-delimited) to use for notification
-	 *                 purposes.
-	 *                 if null, all store requests for any topic will be used to
-	 *                 notify the listener.
+	 * @param cType
+	 *            The data type to use for storage notifications.
+	 * @param listener
+	 *            The listener to notify when data is added.
+	 * @param topics
+	 *            The topic name(s) (comma-delimited) to use for notification
+	 *            purposes. if null, all store requests for any topic will be used
+	 *            to notify the listener.
 	 */
 	public void registerDataStorageListener(Class cType, IPersistenceListener listener, String... topics);
 
 	/**
 	 * Attempts to write the source data instance to the persistence server.
 	 * 
-	 * @param topic The target topic name.
-	 * @param qos   The intended target QoS.
-	 * @param data  The comma-delimited source data instance(s) to store.
+	 * @param topic
+	 *            The target topic name.
+	 * @param qos
+	 *            The intended target QoS.
+	 * @param data
+	 *            The comma-delimited source data instance(s) to store.
 	 * @return boolean True on success; false otherwise.
 	 */
 	public boolean storeData(String topic, int qos, ActuatorData... data);
@@ -86,9 +97,12 @@ public interface IPersistenceClient {
 	/**
 	 * Attempts to write the source data instance to the persistence server.
 	 * 
-	 * @param topic The target topic name.
-	 * @param qos   The intended target QoS.
-	 * @param data  The comma-delimited source data instance(s) to store.
+	 * @param topic
+	 *            The target topic name.
+	 * @param qos
+	 *            The intended target QoS.
+	 * @param data
+	 *            The comma-delimited source data instance(s) to store.
 	 * @return boolean True on success; false otherwise.
 	 */
 	public boolean storeData(String topic, int qos, SensorData... data);
@@ -96,9 +110,12 @@ public interface IPersistenceClient {
 	/**
 	 * Attempts to write the source data instance to the persistence server.
 	 * 
-	 * @param topic The target topic name.
-	 * @param qos   The intended target QoS.
-	 * @param data  The comma-delimited source data instance(s) to store.
+	 * @param topic
+	 *            The target topic name.
+	 * @param qos
+	 *            The intended target QoS.
+	 * @param data
+	 *            The comma-delimited source data instance(s) to store.
 	 * @return boolean True on success; false otherwise.
 	 */
 	public boolean storeData(String topic, int qos, SystemPerformanceData... data);

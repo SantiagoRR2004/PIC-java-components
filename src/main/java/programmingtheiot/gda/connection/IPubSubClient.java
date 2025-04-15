@@ -26,48 +26,50 @@ public interface IPubSubClient {
 
 	/**
 	 * Disconnects from the pub/sub broker / server if the client is already
-	 * connected.
-	 * If not, this call is ignored, but will return a False.
+	 * connected. If not, this call is ignored, but will return a False.
 	 * 
 	 * @return bool True on success, False otherwise.
 	 */
 	public boolean disconnectClient();
 
 	/**
-	 * Attempts to publish a message to the given topic with the given qos
-	 * to the pub/sub broker / server. If not already connected, the sub-class
-	 * implementation should either throw an exception, or handle the exception
-	 * and log a message, and return False.
+	 * Attempts to publish a message to the given topic with the given qos to the
+	 * pub/sub broker / server. If not already connected, the sub-class
+	 * implementation should either throw an exception, or handle the exception and
+	 * log a message, and return False.
 	 * 
-	 * @param topicEnum The topic Enum containing the topic value to publish the
-	 *                  message to.
-	 * @param msg       The message to publish. This is expected to be well-formed
-	 *                  JSON.
-	 * @param qos       The QoS level. This is expected to be 0 - 2.
+	 * @param topicEnum
+	 *            The topic Enum containing the topic value to publish the message
+	 *            to.
+	 * @param msg
+	 *            The message to publish. This is expected to be well-formed JSON.
+	 * @param qos
+	 *            The QoS level. This is expected to be 0 - 2.
 	 * @return bool True on success, False otherwise.
 	 */
 	public boolean publishMessage(ResourceNameEnum topicName, String msg, int qos);
 
 	/**
-	 * Attempts to subscribe to a topic with the given qos hosted by the
-	 * pub/sub broker / server. If not already connected, the sub-class
-	 * implementation should either throw an exception, or handle the exception
-	 * and log a message, and return False.
+	 * Attempts to subscribe to a topic with the given qos hosted by the pub/sub
+	 * broker / server. If not already connected, the sub-class implementation
+	 * should either throw an exception, or handle the exception and log a message,
+	 * and return False.
 	 * 
-	 * @param topicEnum The topic Enum containing the topic value to subscribe to.
-	 * @param qos       The QoS level. This is expected to be 0 - 2.
+	 * @param topicEnum
+	 *            The topic Enum containing the topic value to subscribe to.
+	 * @param qos
+	 *            The QoS level. This is expected to be 0 - 2.
 	 * @return bool True on success, False otherwise.
 	 */
 	public boolean subscribeToTopic(ResourceNameEnum topicName, int qos);
 
 	/**
 	 * Attempts to unsubscribe from a topic hosted by the pub/sub broker / server.
-	 * If not already connected, the sub-class implementation should either
-	 * throw an exception, or handle the exception and log a message, and return
-	 * False.
+	 * If not already connected, the sub-class implementation should either throw an
+	 * exception, or handle the exception and log a message, and return False.
 	 * 
-	 * @param topicEnum The topic Enum containing the topic value to unsubscribe
-	 *                  from.
+	 * @param topicEnum
+	 *            The topic Enum containing the topic value to unsubscribe from.
 	 * @return bool True on success, False otherwise.
 	 */
 	public boolean unsubscribeFromTopic(ResourceNameEnum topicName);
@@ -75,9 +77,9 @@ public interface IPubSubClient {
 	/**
 	 * Sets the data message listener reference, assuming listener is non-null.
 	 * 
-	 * @param listener The data message listener instance to use for passing
-	 *                 relevant
-	 *                 messages, such as those received from a subscription event.
+	 * @param listener
+	 *            The data message listener instance to use for passing relevant
+	 *            messages, such as those received from a subscription event.
 	 * @return bool True on success (if listener is non-null will always be the
 	 *         case), False otherwise.
 	 */
@@ -86,8 +88,9 @@ public interface IPubSubClient {
 	/**
 	 * Sets the connection listener reference, assuming listener is non-null.
 	 * 
-	 * @param listener The connection listener instance to use for passing relevant
-	 *                 connect / disconnect events.
+	 * @param listener
+	 *            The connection listener instance to use for passing relevant
+	 *            connect / disconnect events.
 	 * @return bool True on success (if listener is non-null will always be the
 	 *         case), False otherwise.
 	 */

@@ -2,6 +2,7 @@ package programmingtheiot.part02.integration.connection;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import org.junit.After;
@@ -10,21 +11,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Date;
-
-import programmingtheiot.gda.connection.RedisPersistenceAdapter;
-
+import programmingtheiot.common.ConfigConst;
 import programmingtheiot.data.ActuatorData;
 import programmingtheiot.data.SensorData;
-
-import programmingtheiot.common.ConfigConst;
+import programmingtheiot.gda.connection.RedisPersistenceAdapter;
 
 /**
  * This test case class contains very basic integration tests for
- * RedisPersistenceAdapter. It should not be considered complete,
- * but serve as a starting point for the student implementing
- * additional functionality within their Programming the IoT
- * environment.
+ * RedisPersistenceAdapter. It should not be considered complete, but serve as a
+ * starting point for the student implementing additional functionality within
+ * their Programming the IoT environment.
  *
  */
 public class RedisClientAdapterTest {
@@ -121,7 +117,7 @@ public class RedisClientAdapterTest {
 	public void testStoreDataStringIntActuatorDataArray() {
 		_Logger.info("Checking RedisPersistenceAdapter is able to store actuator data...");
 		this.rpa.connectClient(); // connect first
-		assertTrue(this.rpa.storeData("test", 1, new ActuatorData[] { new ActuatorData() }));
+		assertTrue(this.rpa.storeData("test", 1, new ActuatorData[]{new ActuatorData()}));
 		// We also check that the default was stored
 		ActuatorData[] data = this.rpa.getActuatorData("test", new Date(0), new Date());
 		assertEquals(ConfigConst.DEFAULT_VAL, data[0].getValue(), 0.0001);
@@ -135,7 +131,7 @@ public class RedisClientAdapterTest {
 	public void testStoreDataStringIntSensorDataArray() {
 		_Logger.info("Checking RedisPersistenceAdapter is able to store sensor data...");
 		this.rpa.connectClient(); // connect first
-		assertTrue(this.rpa.storeData("test", 1, new SensorData[] { new SensorData() }));
+		assertTrue(this.rpa.storeData("test", 1, new SensorData[]{new SensorData()}));
 		// We also check that the default was stored
 		SensorData[] data = this.rpa.getSensorData("test", new Date(0), new Date());
 		assertEquals(ConfigConst.DEFAULT_VAL, data[0].getValue(), 0.0001);
@@ -149,7 +145,7 @@ public class RedisClientAdapterTest {
 	public void testStoreDataStringIntSystemPerformanceDataArray() {
 		_Logger.info("Checking RedisPersistenceAdapter is able to store system performance data...");
 		this.rpa.connectClient(); // connect first
-		assertTrue(this.rpa.storeData("test", 1, new SensorData[] { new SensorData() }));
+		assertTrue(this.rpa.storeData("test", 1, new SensorData[]{new SensorData()}));
 		// We also check that the default was stored
 		SensorData[] data = this.rpa.getSensorData("test", new Date(0), new Date());
 		assertEquals(ConfigConst.DEFAULT_VAL, data[0].getValue(), 0.0001);
