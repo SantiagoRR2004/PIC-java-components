@@ -21,8 +21,8 @@ import org.apache.commons.configuration2.*;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 /**
- * A simple utility wrapper around the Apache Commons
- * configuration infrastructure.
+ * A simple utility wrapper around the Apache Commons configuration
+ * infrastructure.
  * 
  */
 public class ConfigUtil {
@@ -75,13 +75,14 @@ public class ConfigUtil {
 	// public methods
 
 	/**
-	 * Creates the cloud service configuration section name from
-	 * the given parameters.
+	 * Creates the cloud service configuration section name from the given
+	 * parameters.
 	 * 
-	 * The result will be 'Cloud.GatewayService.{name}',
-	 * or simply 'Cloud.GatewayService' is cloudSvcName is invalid.
+	 * The result will be 'Cloud.GatewayService.{name}', or simply
+	 * 'Cloud.GatewayService' is cloudSvcName is invalid.
 	 * 
-	 * @param cloudSvcName The name to append to the section name.
+	 * @param cloudSvcName
+	 *            The name to append to the section name.
 	 * @return String the cloud service configuration section name.
 	 */
 	public String getCloudSectionName(String cloudSvcName) {
@@ -95,11 +96,13 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section  The section from which to retrieve 'propName'. If it
-	 *                 doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
-	 * @return String The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @return String The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
 	public synchronized String getProperty(String section, String propName) {
@@ -111,12 +114,15 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section    The section from which to retrieve 'propName'. If it
-	 *                   doesn't exist, it will be created.
-	 * @param propName   The name of the property to retrieve.
-	 * @param defaultVal The default value if the property doesn't exist.
-	 * @return String The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @param defaultVal
+	 *            The default value if the property doesn't exist.
+	 * @return String The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
 	public synchronized String getProperty(String section, String propName, String defaultVal) {
@@ -128,12 +134,13 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section  The section from which to retrieve the value for 'propName'.
-	 *                 If it
-	 *                 doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
-	 * @return boolean The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve the value for 'propName'. If it
+	 *            doesn't exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @return boolean The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a
 	 *            boolean.
 	 */
@@ -146,11 +153,13 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section  The section from which to retrieve 'propName'. If it
-	 *                 doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
-	 * @return int The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @return int The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a int.
 	 */
 	public synchronized int getInteger(String section, String propName) {
@@ -162,12 +171,15 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section    The section from which to retrieve 'propName'. If it
-	 *                   doesn't exist, it will be created.
-	 * @param propName   The name of the property to retrieve.
-	 * @param defaultVal The default value if the property doesn't exist.
-	 * @return int The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @param defaultVal
+	 *            The default value if the property doesn't exist.
+	 * @return int The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a int.
 	 */
 	public synchronized int getInteger(String section, String propName, int defaultVal) {
@@ -179,11 +191,13 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section  The section from which to retrieve 'propName'. If it
-	 *                 doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
-	 * @return float The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @return float The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a float.
 	 */
 	public synchronized float getFloat(String section, String propName) {
@@ -195,12 +209,15 @@ public class ConfigUtil {
 	/**
 	 * Returns the requested property from the given section.
 	 * 
-	 * @param section    The section from which to retrieve 'propName'. If it
-	 *                   doesn't exist, it will be created.
-	 * @param propName   The name of the property to retrieve.
-	 * @param defaultVal The default value if the property doesn't exist.
-	 * @return float The value for 'propName'. If no mapping exists,
-	 *         a {@link ConversionException will be thrown}.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
+	 * @param defaultVal
+	 *            The default value if the property doesn't exist.
+	 * @return float The value for 'propName'. If no mapping exists, a
+	 *         {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a float.
 	 */
 	public synchronized float getFloat(String section, String propName, float defaultVal) {
@@ -212,9 +229,11 @@ public class ConfigUtil {
 	/**
 	 * Returns true if the requested property exists in the given section.
 	 * 
-	 * @param section  The section from which to retrieve 'propName'. If it
-	 *                 doesn't exist, it will be created.
-	 * @param propName The name of the property to retrieve.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created.
+	 * @param propName
+	 *            The name of the property to retrieve.
 	 * @return boolean True if the property exists; false otherwise.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
@@ -225,16 +244,17 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * Returns true if the requested section exists and / or contains
-	 * any properties within the loaded configuration.
+	 * Returns true if the requested section exists and / or contains any properties
+	 * within the loaded configuration.
 	 * <p>
-	 * NOTE: The underlying configuration handler will create 'section' if
-	 * it doesn't already exist; hence, it can make for large configurations
-	 * if this method is called with a different non-existent section name
-	 * often, even if they remain empty (which is the default case).
+	 * NOTE: The underlying configuration handler will create 'section' if it
+	 * doesn't already exist; hence, it can make for large configurations if this
+	 * method is called with a different non-existent section name often, even if
+	 * they remain empty (which is the default case).
 	 * 
-	 * @param section The section from which to retrieve 'propName'. If it
-	 *                doesn't exist, it will be created as an empty section.
+	 * @param section
+	 *            The section from which to retrieve 'propName'. If it doesn't
+	 *            exist, it will be created as an empty section.
 	 * @return boolean True on success; false otherwise.
 	 * @Exception ConversionException Thrown if 'section' does not map to a String.
 	 */
@@ -246,32 +266,31 @@ public class ConfigUtil {
 
 	/**
 	 * Returns the flag indicating if either of the most recently called
-	 * {@link #loadConfig()} or {@link #loadConfig(String)} methods was
-	 * successful or failed.
+	 * {@link #loadConfig()} or {@link #loadConfig(String)} methods was successful
+	 * or failed.
 	 * 
-	 * @return true True if the most recent load invocation was successful;
-	 *         false otherwise.
+	 * @return true True if the most recent load invocation was successful; false
+	 *         otherwise.
 	 */
 	public boolean isConfigDataLoaded() {
 		return isLoaded;
 	}
 
 	/**
-	 * Attempts to load a separate configuration 'credential' file comprised
-	 * of simple key = value pairs. The assumption with this call is that
-	 * the credential file key is the same across all sections, so the
-	 * only parameter requires is the section.
+	 * Attempts to load a separate configuration 'credential' file comprised of
+	 * simple key = value pairs. The assumption with this call is that the
+	 * credential file key is the same across all sections, so the only parameter
+	 * requires is the section.
 	 * 
-	 * If the credential file key has an entry (e.g. the file where the
-	 * credentials are stored in key = value form), the file will be
-	 * loaded if possible, and a Properties object will be returned
-	 * to the caller. No internal caching of the data is made, except
-	 * within the returned Properties object.
+	 * If the credential file key has an entry (e.g. the file where the credentials
+	 * are stored in key = value form), the file will be loaded if possible, and a
+	 * Properties object will be returned to the caller. No internal caching of the
+	 * data is made, except within the returned Properties object.
 	 * 
 	 * NOTE: Be aware that the Properties reference will contain the key / value
 	 * pair data referenced by the file name referenced by the configuration
-	 * property key named {@see ConfigConst.CRED_FILE_KEY}. It's usually not
-	 * a good idea to cache sensitive information (keys, credentials, etc.)
+	 * property key named {@see ConfigConst.CRED_FILE_KEY}. It's usually not a good
+	 * idea to cache sensitive information (keys, credentials, etc.)
 	 * 
 	 * @param section
 	 * @return Properties The map of properties, or null if non-existent.
@@ -316,8 +335,8 @@ public class ConfigUtil {
 
 	/**
 	 * Initializes the backing properties store - this will either create a new
-	 * instance (if the current ref is null) or clear the contents from the
-	 * existing instance.
+	 * instance (if the current ref is null) or clear the contents from the existing
+	 * instance.
 	 * 
 	 */
 	private void initBackingProperties() {
@@ -325,8 +344,8 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * Attempts to load the configuration file set by the constructor
-	 * (likely set a lookup to the system properties).
+	 * Attempts to load the configuration file set by the constructor (likely set a
+	 * lookup to the system properties).
 	 * 
 	 * @return boolean True on success; false otherwise.
 	 */
@@ -335,11 +354,12 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * Attempts to load the given configuration file. If the load
-	 * fails, the default configuration file as specified
-	 * by {@link ConfigConst#DEFAULT_CONFIG_FILE_NAME} will be used.
+	 * Attempts to load the given configuration file. If the load fails, the default
+	 * configuration file as specified by
+	 * {@link ConfigConst#DEFAULT_CONFIG_FILE_NAME} will be used.
 	 * 
-	 * @param configFileName The configuration file name.
+	 * @param configFileName
+	 *            The configuration file name.
 	 * @return boolean True on success; false otherwise.
 	 */
 	private synchronized boolean loadConfig(String configFileName) {
@@ -348,8 +368,7 @@ public class ConfigUtil {
 		// ensure config file exists
 
 		if (!cfgFile.exists()) {
-			_Logger.log(
-					Level.WARNING,
+			_Logger.log(Level.WARNING,
 					"System properties config file '" + cfgFile.getAbsolutePath() + "' doesn't exist. Using default.",
 					new Exception());
 
@@ -368,38 +387,28 @@ public class ConfigUtil {
 				// sectionProperties.load();
 				isLoaded = true;
 			} catch (ConfigurationException e) {
-				_Logger.log(
-						Level.SEVERE,
-						"Failed to parse existing config file: {0}. Config not set.",
+				_Logger.log(Level.SEVERE, "Failed to parse existing config file: {0}. Config not set.",
 						cfgFile.getAbsolutePath());
 
 				_Logger.log(Level.SEVERE, "Configuration exception thrown loading config file.", e);
 			} catch (FileNotFoundException e) {
-				_Logger.log(
-						Level.SEVERE,
-						"Failed to load config file: {0} doesn't exist. Config not set.",
+				_Logger.log(Level.SEVERE, "Failed to load config file: {0} doesn't exist. Config not set.",
 						cfgFile.getAbsolutePath());
 
 				_Logger.log(Level.SEVERE, "File exception thrown loading config file.", e);
 			} catch (IOException e) {
-				_Logger.log(
-						Level.SEVERE,
-						"Failed to read config file: {0}. Config not set.",
+				_Logger.log(Level.SEVERE, "Failed to read config file: {0}. Config not set.",
 						cfgFile.getAbsolutePath());
 
 				_Logger.log(Level.SEVERE, "IO exception thrown loading config file.", e);
 			}
 		} else {
-			_Logger.log(
-					Level.WARNING,
-					"Default config file {0} doesn't exist. Config not set.",
+			_Logger.log(Level.WARNING, "Default config file {0} doesn't exist. Config not set.",
 					cfgFile.getAbsolutePath());
 		}
 
 		if (!isLoaded) {
-			_Logger.log(
-					Level.WARNING,
-					"System properties config file {0} doesn't exist. Using default.",
+			_Logger.log(Level.WARNING, "System properties config file {0} doesn't exist. Using default.",
 					cfgFile.getAbsolutePath());
 		}
 

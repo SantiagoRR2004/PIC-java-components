@@ -16,9 +16,9 @@ import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigUtil;
 
 /**
- * Base class for common properties and helper methods for all
- * anticipated parameters and actions shared amongst actuator
- * and sensor data structures within the context of this project.
+ * Base class for common properties and helper methods for all anticipated
+ * parameters and actions shared amongst actuator and sensor data structures
+ * within the context of this project.
  *
  */
 public abstract class BaseIotData implements Serializable {
@@ -57,8 +57,8 @@ public abstract class BaseIotData implements Serializable {
 	protected BaseIotData() {
 		super();
 
-		String locID = ConfigUtil.getInstance().getProperty(
-				ConfigConst.GATEWAY_DEVICE, ConfigConst.DEVICE_LOCATION_ID_KEY);
+		String locID = ConfigUtil.getInstance().getProperty(ConfigConst.GATEWAY_DEVICE,
+				ConfigConst.DEVICE_LOCATION_ID_KEY);
 
 		this.setLocationID(locID);
 
@@ -127,8 +127,7 @@ public abstract class BaseIotData implements Serializable {
 
 	/**
 	 * Returns the timestamp as a formatted String, based on the millis since the
-	 * Epoch,
-	 * which is set via the {@see #updateTimeStamp()} method.
+	 * Epoch, which is set via the {@see #updateTimeStamp()} method.
 	 * <p>
 	 * The timestamp is represented as a String in ISO 8601 format, as follows:
 	 * <p>
@@ -150,9 +149,9 @@ public abstract class BaseIotData implements Serializable {
 	}
 
 	/**
-	 * Returns the type ID, which can be used as a convenient way to switch
-	 * through different IoT data types when processing sub-class instances
-	 * of this base class.
+	 * Returns the type ID, which can be used as a convenient way to switch through
+	 * different IoT data types when processing sub-class instances of this base
+	 * class.
 	 * 
 	 * @return int
 	 */
@@ -173,7 +172,8 @@ public abstract class BaseIotData implements Serializable {
 	 * Sets the elevation float value. No validation is performed - can be any float
 	 * value permitted by the JVM.
 	 * 
-	 * @param val The elevation float value to set.
+	 * @param val
+	 *            The elevation float value to set.
 	 */
 	public void setElevation(float val) {
 		this.elevation = val;
@@ -183,7 +183,8 @@ public abstract class BaseIotData implements Serializable {
 	 * Sets the latitude float value. No validation is performed - can be any float
 	 * value permitted by the JVM.
 	 * 
-	 * @param val The latitude float value to set.
+	 * @param val
+	 *            The latitude float value to set.
 	 */
 	public void setLatitude(float val) {
 		this.latitude = val;
@@ -193,7 +194,8 @@ public abstract class BaseIotData implements Serializable {
 	 * Sets the longitude float value. No validation is performed - can be any float
 	 * value permitted by the JVM.
 	 * 
-	 * @param val The longitude float value to set.
+	 * @param val
+	 *            The longitude float value to set.
 	 */
 	public void setLongitude(float val) {
 		this.longitude = val;
@@ -201,13 +203,13 @@ public abstract class BaseIotData implements Serializable {
 
 	/**
 	 * Sets the location ID as a string. This can be used as a user-friendly label
-	 * to
-	 * identify a location or specialized name inferring a location.
+	 * to identify a location or specialized name inferring a location.
 	 * <p>
 	 * Validation rules will check if the ID is non-null and non-empty (post-trim).
 	 * If the validation fails, nothing is done.
 	 * 
-	 * @param id The string-based ID to set.
+	 * @param id
+	 *            The string-based ID to set.
 	 */
 	public void setLocationID(String id) {
 		if (id != null && id.trim().length() > 0) {
@@ -220,10 +222,10 @@ public abstract class BaseIotData implements Serializable {
 	 * identify the IoT data name or device name. It's usually used as the former.
 	 * <p>
 	 * Validation rules will check if the name is non-null and non-empty
-	 * (post-trim).
-	 * If the validation fails, nothing is done.
+	 * (post-trim). If the validation fails, nothing is done.
 	 * 
-	 * @param name The string-based name to set.
+	 * @param name
+	 *            The string-based name to set.
 	 */
 	public void setName(String name) {
 		if (name != null && name.trim().length() > 0) {
@@ -239,17 +241,19 @@ public abstract class BaseIotData implements Serializable {
 	 * will expect a < 0 value to infer an error. This can be changed easily enough
 	 * by changing the logic in {@see #hasError()}.
 	 * 
-	 * @param code The status code int value to set.
+	 * @param code
+	 *            The status code int value to set.
 	 */
 	public void setStatusCode(int code) {
 		this.statusCode = code;
 	}
 
 	/**
-	 * Sets the type ID int value. No validation is performed - can be any int
-	 * value permitted by the JVM.
+	 * Sets the type ID int value. No validation is performed - can be any int value
+	 * permitted by the JVM.
 	 * 
-	 * @param id The type ID int value to set.
+	 * @param id
+	 *            The type ID int value to set.
 	 */
 	public void setTypeID(int id) {
 		this.typeID = id;
@@ -279,23 +283,21 @@ public abstract class BaseIotData implements Serializable {
 
 	/**
 	 * This is used to apply the properties of the 'data' parameter to the internal
-	 * structure.
-	 * Only basic validation is performed - that is, if the 'data' parameter is
-	 * null, nothing
-	 * is done. Otherwise, all properties - except the timestamp - will be copied
-	 * over 'as-is'
-	 * to the internal class-scoped variables using their respective setter methods.
+	 * structure. Only basic validation is performed - that is, if the 'data'
+	 * parameter is null, nothing is done. Otherwise, all properties - except the
+	 * timestamp - will be copied over 'as-is' to the internal class-scoped
+	 * variables using their respective setter methods.
 	 * <p>
 	 * Timestamp is generated via a call to {@see #updateTimeStamp()}.
 	 * <p>
 	 * This will also trigger a call to the template method
-	 * {@see #handleUpdateData(BaseIotData)},
-	 * which is implemented by each sub-class to perform the same work - but
-	 * specific to each
-	 * sub-classes internal class-scoped variables.
+	 * {@see #handleUpdateData(BaseIotData)}, which is implemented by each sub-class
+	 * to perform the same work - but specific to each sub-classes internal
+	 * class-scoped variables.
 	 * 
-	 * @param data The BaseIotData instance to copy into the internal class-scoped
-	 *             variables.
+	 * @param data
+	 *            The BaseIotData instance to copy into the internal class-scoped
+	 *            variables.
 	 */
 	public void updateData(BaseIotData data) {
 		if (data != null) {
@@ -318,17 +320,17 @@ public abstract class BaseIotData implements Serializable {
 	/**
 	 * Template method to handle data update for the sub-class.
 	 * 
-	 * @param BaseIotData While the parameter must implement this method,
-	 *                    the sub-class is expected to cast the base class to its
-	 *                    given type.
+	 * @param BaseIotData
+	 *            While the parameter must implement this method, the sub-class is
+	 *            expected to cast the base class to its given type.
 	 */
 	protected abstract void handleUpdateData(BaseIotData data);
 
 	/**
 	 * Stores the latest timestamp in milliseconds (since the Epoch) within
 	 * {@see #timeStampMillis}, then sets the internal time stamp string
-	 * {@see #timeStamp} to represent a new Date based on {@see #timeStampMillis}
-	 * in ISO 8601 format using {@see DateTimeFormatter.ISO_INSTANT}, as follows:
+	 * {@see #timeStamp} to represent a new Date based on {@see #timeStampMillis} in
+	 * ISO 8601 format using {@see DateTimeFormatter.ISO_INSTANT}, as follows:
 	 * <p>
 	 * e.g. 2020-12-27T10:13:30Z
 	 * 
