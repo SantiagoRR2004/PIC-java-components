@@ -11,15 +11,15 @@ package programmingtheiot.common;
 import programmingtheiot.data.ActuatorData;
 
 /**
- * A simple callback interface for handling data messages from a connection.
+ * A simple callback interface for handling data messages
+ * from a connection.
  *
  */
 public interface IActuatorDataListener {
 	/**
 	 * Callback signature for data message passing using the given parameters.
 	 * 
-	 * @param data
-	 *            The ActuatorData data to process.
+	 * @param data The ActuatorData data to process.
 	 * @return True on success; false otherwise.
 	 */
 	public boolean onActuatorDataUpdate(ActuatorData data);

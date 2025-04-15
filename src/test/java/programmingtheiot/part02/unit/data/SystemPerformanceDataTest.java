@@ -21,9 +21,10 @@ import programmingtheiot.data.SystemPerformanceData;
 
 /**
  * This test case class contains very basic unit tests for
- * SystemPerformanceData. It should not be considered complete, but serve as a
- * starting point for the student implementing additional functionality within
- * their Programming the IoT environment.
+ * SystemPerformanceData. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class SystemPerformanceDataTest {

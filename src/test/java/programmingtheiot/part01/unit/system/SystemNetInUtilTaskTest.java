@@ -22,9 +22,10 @@ import programmingtheiot.gda.system.SystemNetInUtilTask;
 
 /**
  * This test case class contains very basic unit tests for
- * SystemNetInUtilTaskTest. It should not be considered complete, but serve as a
- * starting point for the student implementing additional functionality within
- * their Programming the IoT environment.
+ * SystemNetInUtilTaskTest. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class SystemNetInUtilTaskTest {

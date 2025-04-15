@@ -21,58 +21,63 @@ import programmingtheiot.data.DataUtil;
  *
  */
 public class GetActuatorCommandResourceHandler extends GenericCoapResourceHandler implements IActuatorDataListener {
-	// static
+		// static
+	
+	
+		// params
+	
+		private ActuatorData actuatorData = null;
+	
+		// constructors
+	
+		public GetActuatorCommandResourceHandler(String resourceName)
+		{
+			super(resourceName);
 
-	// params
-
-	private ActuatorData actuatorData = null;
-
-	// constructors
-
-	public GetActuatorCommandResourceHandler(String resourceName) {
-		super(resourceName);
-
-		// set the resource to be observable
-		super.setObservable(true);
-	}
-
-	public boolean onActuatorDataUpdate(ActuatorData data) {
-		if (data != null && this.actuatorData != null) {
-			this.actuatorData.updateData(data);
-
-			// notify all connected clients
-			super.changed();
-
-			_Logger.fine("Actuator data updated for URI: " + super.getURI() + ": Data value = "
-					+ this.actuatorData.getValue());
-
-			return true;
+			// set the resource to be observable
+			super.setObservable(true);
 		}
 
-		return false;
-	}
+		public boolean onActuatorDataUpdate(ActuatorData data)
+		{
+			if (data != null && this.actuatorData != null) {
+				this.actuatorData.updateData(data);
 
-	@Override
-	public void handleGET(CoapExchange context) {
+				// notify all connected clients
+				super.changed();
 
-		// validate 'context'
-		if (context == null) {
-			_Logger.warning("CoapExchange context is null. Cannot process request.");
-			return;
+				_Logger.fine("Actuator data updated for URI: " + super.getURI() + ": Data value = " + this.actuatorData.getValue());
+
+				return true;
+			}
+
+			return false;
 		}
 
-		_Logger.info(
-				"GET request received for resource: " + super.getURI() + " with query: " + context.getRequestText());
+	
+		@Override
+		public void handleGET(CoapExchange context)
+		{
 
-		// accept the request
-		context.accept();
+			    // validate 'context'
+				    if (context == null) {
+						_Logger.warning("CoapExchange context is null. Cannot process request.");
+						return;
+					}
 
-		// Convert the locally stored ActuatorData to JSON using DataUtil
-		String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
+				_Logger.info("GET request received for resource: " + super.getURI() +
+					" with query: " + context.getRequestText());
+	
+				// accept the request
+				context.accept();
 
-		// send an appropriate response
-		context.respond(ResponseCode.CONTENT, jsonData, MediaTypeRegistry.APPLICATION_JSON);
+				// Convert the locally stored ActuatorData to JSON using DataUtil
+				String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
 
-	}
+				// send an appropriate response
+				context.respond(ResponseCode.CONTENT, jsonData, MediaTypeRegistry.APPLICATION_JSON);
+
+		}
 
 }
+	

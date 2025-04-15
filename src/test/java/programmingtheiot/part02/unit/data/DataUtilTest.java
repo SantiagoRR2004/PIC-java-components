@@ -17,9 +17,10 @@ import org.junit.Test;
 import programmingtheiot.data.*;
 
 /**
- * This test case class contains very basic unit tests for DataUtil. It should
- * not be considered complete, but serve as a starting point for the student
- * implementing additional functionality within their Programming the IoT
+ * This test case class contains very basic unit tests for
+ * DataUtil. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
  * environment.
  *
  */
@@ -112,8 +113,9 @@ public class DataUtilTest {
 
 	/**
 	 * NOTE: SystemStateData is not required for the exercises in Programming the
-	 * IoT. The test case below is disabled by default, but can easily be re-enabled
-	 * by uncommenting the @Test attribute if SystemStateData is optionally
+	 * IoT.
+	 * The test case below is disabled by default, but can easily be re-enabled by
+	 * uncommenting the @Test attribute if SystemStateData is optionally
 	 * implemented.
 	 * 
 	 */

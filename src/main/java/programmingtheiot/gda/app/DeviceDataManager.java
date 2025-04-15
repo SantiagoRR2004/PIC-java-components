@@ -19,11 +19,13 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IActuatorDataListener;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
+
 import programmingtheiot.data.ActuatorData;
 import programmingtheiot.data.DataUtil;
 import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 import programmingtheiot.data.SystemStateData;
+
 import programmingtheiot.gda.connection.CloudClientConnector;
 import programmingtheiot.gda.connection.CoapServerGateway;
 import programmingtheiot.gda.connection.IPersistenceClient;
@@ -44,9 +46,13 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	private static final Logger _Logger = Logger.getLogger(DeviceDataManager.class.getName());
 
-	private static final List<ResourceNameEnum> topics = Arrays.asList(ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE,
-			ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE, ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE,
-			ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE);
+	private static final List<ResourceNameEnum> topics = Arrays.asList(
+			ResourceNameEnum.GDA_MGMT_STATUS_MSG_RESOURCE,
+			ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE,
+			ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE,
+    ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE
+	);
+
 
 	// private var's
 
@@ -71,14 +77,17 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 
-		this.enableMqttClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
+		this.enableMqttClient = configUtil.getBoolean(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
 
-		this.enableCoapServer = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_COAP_SERVER_KEY);
+		this.enableCoapServer = configUtil.getBoolean(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_COAP_SERVER_KEY);
 
-		this.enableCloudClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_CLOUD_CLIENT_KEY);
+		this.enableCloudClient = configUtil.getBoolean(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_CLOUD_CLIENT_KEY);
 
-		this.enablePersistenceClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE,
-				ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
+		this.enablePersistenceClient = configUtil.getBoolean(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
 
 		this.enablePersistenceClient = configUtil.getBoolean(ConfigConst.GATEWAY_DEVICE,
 				ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
@@ -88,8 +97,12 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		initConnections();
 	}
 
-	public DeviceDataManager(boolean enableMqttClient, boolean enableCoapClient, boolean enableCloudClient,
-			boolean enableSmtpClient, boolean enablePersistenceClient) {
+	public DeviceDataManager(
+			boolean enableMqttClient,
+			boolean enableCoapClient,
+			boolean enableCloudClient,
+			boolean enableSmtpClient,
+			boolean enablePersistenceClient) {
 		super();
 
 		initConnections();
@@ -233,9 +246,11 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			if (this.mqttClient.connectClient()) {
 				_Logger.info("Successfully connected MQTT client to broker.");
 
-				int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
-						ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
+	
+				int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
+						ConfigConst.DEFAULT_QOS);
 
+	
 				// IMPORTANT NOTE: The 'subscribeToTopic()' method calls shown
 				// below will be moved to MqttClientConnector.connectComplete()
 				// in Lab Module 10. For now, they can remain here.
@@ -298,8 +313,9 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	/**
 	 * Initializes the enabled connections. This will NOT start them, but only
-	 * create the instances that will be used in the {@link #startManager() and
-	 * #stopManager()) methods.
+	 * create the
+	 * instances that will be used in the {@link #startManager() and #stopManager())
+	 * methods.
 	 * 
 	 */
 	private void initConnections() {

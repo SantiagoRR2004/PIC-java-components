@@ -12,14 +12,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
 import programmingtheiot.data.SystemPerformanceData;
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Shell representation of class for student implementation.
@@ -51,8 +52,8 @@ public class SystemPerformanceManager {
 	 * 
 	 */
 	public SystemPerformanceManager() {
-		this.pollRate = ConfigUtil.getInstance().getInteger(ConfigConst.GATEWAY_DEVICE, ConfigConst.POLL_CYCLES_KEY,
-				ConfigConst.DEFAULT_POLL_CYCLES);
+		this.pollRate = ConfigUtil.getInstance().getInteger(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.POLL_CYCLES_KEY, ConfigConst.DEFAULT_POLL_CYCLES);
 
 		if (this.pollRate <= 0) {
 			this.pollRate = ConfigConst.DEFAULT_POLL_CYCLES;
@@ -69,8 +70,8 @@ public class SystemPerformanceManager {
 			this.handleTelemetry();
 		};
 
-		this.locationID = ConfigUtil.getInstance().getProperty(ConfigConst.GATEWAY_DEVICE, ConfigConst.LOCATION_ID_PROP,
-				ConfigConst.NOT_SET);
+		this.locationID = ConfigUtil.getInstance().getProperty(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.LOCATION_ID_PROP, ConfigConst.NOT_SET);
 	}
 
 	// public methods
@@ -83,8 +84,10 @@ public class SystemPerformanceManager {
 		float netOutUtil = this.sysNetOutUtilTask.getTelemetryValue();
 
 		// NOTE: you may need to change the logging level to 'info' to see the message
-		_Logger.info("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil
-				+ ", Bytes received: " + netInUtil + ", Bytes sent: " + netOutUtil);
+		_Logger.info(
+				"CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil + ", Disk utilization: " + diskUtil +
+						", Bytes received: " + netInUtil +
+						", Bytes sent: " + netOutUtil);
 
 		SystemPerformanceData spd = new SystemPerformanceData();
 		spd.setLocationID(this.locationID);
@@ -95,7 +98,8 @@ public class SystemPerformanceManager {
 		spd.setNetOutUtilization(netOutUtil);
 
 		if (this.dataMsgListener != null) {
-			this.dataMsgListener.handleSystemPerformanceMessage(ResourceNameEnum.GDA_SYSTEM_PERF_MSG_RESOURCE, spd);
+			this.dataMsgListener.handleSystemPerformanceMessage(
+					ResourceNameEnum.GDA_SYSTEM_PERF_MSG_RESOURCE, spd);
 		}
 	}
 

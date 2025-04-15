@@ -27,8 +27,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 /**
- * A simple utility class that permits the loading, and in-memory storage, of a
- * given certificate that adheres to X.509 format.
+ * A simple utility class that permits the loading, and in-memory
+ * storage, of a given certificate that adheres to X.509 format.
  * 
  */
 public class SimpleCertManagementUtil {
@@ -66,23 +66,24 @@ public class SimpleCertManagementUtil {
 	// public methods
 
 	/**
-	 * Attempts to load the certificate contained in 'fileName' using the Java
-	 * {@link KeyStore} and {@link TrustManagerFactory} functionality.
+	 * Attempts to load the certificate contained in 'fileName'
+	 * using the Java {@link KeyStore} and {@link TrustManagerFactory}
+	 * functionality.
 	 * <p>
-	 * This will invoke the {@link #loadCertificate(String, String, String} method
-	 * using the default certificate type of {@link #DEFAULT_CERTIFICATE_TYPE} and
-	 * default socket type of {@link #DEFAULT_SECURE_SOCKET_TYPE}.
+	 * This will invoke the {@link #loadCertificate(String, String, String}
+	 * method using the default certificate type of
+	 * {@link #DEFAULT_CERTIFICATE_TYPE}
+	 * and default socket type of {@link #DEFAULT_SECURE_SOCKET_TYPE}.
 	 * <p>
-	 * On success, the certificate will be loaded by the system, stored under a
-	 * unique ID, and mapped to an {@link SSLSocketFactory}, which is returned to
-	 * the caller.
+	 * On success, the certificate will be loaded by the system, stored
+	 * under a unique ID, and mapped to an {@link SSLSocketFactory}, which
+	 * is returned to the caller.
 	 * <p>
 	 * On failure, an exception will be logged, and null will be returned.
 	 * 
-	 * @param fileName
-	 *            The certificate file name to load.
-	 * @return SSLSocketFactory The socket factory initialized with the loaded
-	 *         certificate.
+	 * @param fileName The certificate file name to load.
+	 * @return SSLSocketFactory The socket factory initialized with
+	 *         the loaded certificate.
 	 */
 	public SSLSocketFactory loadCertificate(String fileName) {
 		return loadCertificate(fileName, DEFAULT_CERTIFICATE_TYPE, DEFAULT_SECURE_SOCKET_TYPE);
@@ -91,29 +92,32 @@ public class SimpleCertManagementUtil {
 	// private methods
 
 	/**
-	 * Attempts to load the certificate contained in 'fileName' using the Java
-	 * {@link KeyStore} and {@link TrustManagerFactory} functionality.
+	 * Attempts to load the certificate contained in 'fileName'
+	 * using the Java {@link KeyStore} and {@link TrustManagerFactory}
+	 * functionality.
 	 * <p>
-	 * On success, the certificate will be loaded by the system, stored under a
-	 * unique ID, and mapped to an {@link SSLSocketFactory}, which is returned to
-	 * the caller.
+	 * On success, the certificate will be loaded by the system, stored
+	 * under a unique ID, and mapped to an {@link SSLSocketFactory}, which
+	 * is returned to the caller.
 	 * <p>
 	 * On failure, an exception will be logged, and null will be returned.
 	 * 
-	 * @param serverCrtFileName
-	 *            The CA / server certificate file name to load.
-	 * @param certType
-	 *            The certificate type to load (e.g. "X.509"). If null or otherwise
-	 *            invalid (e.g. empty), will use the default
-	 *            {@link #DEFAULT_CERTIFICATE_TYPE}.
-	 * @param socksType
-	 *            The socket type to initialize (e.g. "SSL"). If null or otherwise
-	 *            invalid (e.g. empty), will use the default
-	 *            {@link #DEFAULT_SECURE_SOCKET_TYPE}.
-	 * @return SSLSocketFactory The socket factory initialized with the loaded
-	 *         certificate.
+	 * @param serverCrtFileName The CA / server certificate file name to load.
+	 * @param certType          The certificate type to load (e.g. "X.509"). If
+	 *                          null or otherwise invalid (e.g. empty), will use the
+	 *                          default
+	 *                          {@link #DEFAULT_CERTIFICATE_TYPE}.
+	 * @param socksType         The socket type to initialize (e.g. "SSL"). If
+	 *                          null or otherwise invalid (e.g. empty), will use the
+	 *                          default
+	 *                          {@link #DEFAULT_SECURE_SOCKET_TYPE}.
+	 * @return SSLSocketFactory The socket factory initialized with
+	 *         the loaded certificate.
 	 */
-	private SSLSocketFactory loadCertificate(String serverCrtFileName, String certType, String socksType) {
+	private SSLSocketFactory loadCertificate(
+			String serverCrtFileName,
+			String certType,
+			String socksType) {
 		boolean hasServerCert = isValid(serverCrtFileName);
 
 		if (!hasServerCert) {
@@ -125,13 +129,15 @@ public class SimpleCertManagementUtil {
 		if (certType == null || certType.trim().length() == 0) {
 			certType = DEFAULT_CERTIFICATE_TYPE;
 
-			_Logger.warning("Certificate type is null or empty. Using default: " + certType);
+			_Logger.warning(
+					"Certificate type is null or empty. Using default: " + certType);
 		}
 
 		if (socksType == null || socksType.trim().length() == 0) {
 			socksType = DEFAULT_SECURE_SOCKET_TYPE;
 
-			_Logger.warning("Socket type is null or empty. Using default: " + socksType);
+			_Logger.warning(
+					"Socket type is null or empty. Using default: " + socksType);
 		}
 
 		// load server cert first
@@ -146,44 +152,47 @@ public class SimpleCertManagementUtil {
 		}
 
 		try {
-			_Logger.info("Configuring " + socksType + " using " + certType);
+			_Logger.info(
+					"Configuring " + socksType + " using " + certType);
 
 			KeyStore keyStore = importCertificate(serverCrtFileName, certType);
 
-			TrustManagerFactory trustManagerFactory = TrustManagerFactory
-					.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
+					TrustManagerFactory.getDefaultAlgorithm());
 
 			trustManagerFactory.init(keyStore);
-			sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
+			sslContext.init(
+					null, trustManagerFactory.getTrustManagers(), new SecureRandom());
 
-			_Logger.info(certType + " certificate load and " + socksType + " socket init successful from file: "
-					+ serverCrtFileName);
+			_Logger.info(
+					certType + " certificate load and " + socksType +
+							" socket init successful from file: " + serverCrtFileName);
 
 			return sslContext.getSocketFactory();
 		} catch (Exception e) {
-			_Logger.log(Level.SEVERE,
-					"Failed to initialize and load " + certType + " certificate(s) from file: " + serverCrtFileName, e);
+			_Logger.log(
+					Level.SEVERE,
+					"Failed to initialize and load " + certType +
+							" certificate(s) from file: " + serverCrtFileName,
+					e);
 		}
 
 		return null;
 	}
 
 	/**
-	 * Attempts to import the given certificate file and store as a uniquely named
-	 * keystore reference (based on the filename and available bytes.
+	 * Attempts to import the given certificate file and store as a uniquely
+	 * named keystore reference (based on the filename and available bytes.
 	 * 
-	 * @param fileName
-	 *            The file name of the certificate to process.
-	 * @param certType
-	 *            The certificate type to load (e.g. X.509).
-	 * @return KeyStore A reference to the {@link KeyStore} containing the
-	 *         certificate.
+	 * @param fileName The file name of the certificate to process.
+	 * @param certType The certificate type to load (e.g. X.509).
+	 * @return KeyStore A reference to the {@link KeyStore} containing
+	 *         the certificate.
 	 * @throws KeyStoreException
 	 * @throws NoSuchAlgorithmException
 	 * @throws CertificateException
-	 * @throws IOException
-	 *             If an IO exception occurs, or if the file is available, but has 0
-	 *             bytes to read.
+	 * @throws IOException              If an IO exception occurs, or if the file is
+	 *                                  available, but has 0 bytes to read.
 	 */
 	private KeyStore importCertificate(String fileName, String certType)
 			throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
@@ -201,9 +210,12 @@ public class SimpleCertManagementUtil {
 			ks.load(null);
 
 			if (bis.available() == 0) {
-				_Logger.warning("No bytes available. Failed to import " + certType + " from file: " + fileName);
+				_Logger.warning(
+						"No bytes available. Failed to import " + certType +
+								" from file: " + fileName);
 
-				throw new IOException("File exists, but is empty. Can't import " + certType + " certificate.");
+				throw new IOException(
+						"File exists, but is empty. Can't import " + certType + " certificate.");
 			} else {
 				int certCount = 0;
 				File file = new File(fileName);
@@ -216,8 +228,10 @@ public class SimpleCertManagementUtil {
 
 					ks.setCertificateEntry(entryName, cert);
 
-					_Logger.info("Successfully imported " + certType + " certificate using entry name " + entryName
-							+ " from file: " + fileName);
+					_Logger.info(
+							"Successfully imported " + certType +
+									" certificate using entry name " + entryName +
+									" from file: " + fileName);
 				}
 			}
 		} finally {
@@ -226,7 +240,10 @@ public class SimpleCertManagementUtil {
 				try {
 					fis.close();
 				} catch (Exception e) {
-					_Logger.log(Level.WARNING, "Failed to close FileInputStream: " + fileName, e);
+					_Logger.log(
+							Level.WARNING,
+							"Failed to close FileInputStream: " + fileName,
+							e);
 				} finally {
 					fis = null;
 				}
@@ -237,8 +254,8 @@ public class SimpleCertManagementUtil {
 	}
 
 	/**
-	 * Checks is the given file name is valid and available on the local file
-	 * system.
+	 * Checks is the given file name is valid and available
+	 * on the local file system.
 	 * 
 	 * @param fileName
 	 * @return True on success; false otherwise.
@@ -246,12 +263,14 @@ public class SimpleCertManagementUtil {
 	private boolean isValid(String fileName) {
 		if (fileName != null) {
 			if (new File(fileName).exists()) {
-				_Logger.info("Certificate / key file exists: " + fileName);
+				_Logger.info(
+						"Certificate / key file exists: " + fileName);
 
 				return true;
 			}
 		} else {
-			_Logger.info("Certificate / key file name not loadable: " + fileName);
+			_Logger.info(
+					"Certificate / key file name not loadable: " + fileName);
 		}
 
 		return false;
