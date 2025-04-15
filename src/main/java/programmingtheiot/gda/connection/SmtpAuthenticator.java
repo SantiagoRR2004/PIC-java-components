@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
+
 import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigUtil;
 
@@ -36,15 +37,16 @@ public class SmtpAuthenticator extends Authenticator {
 	// protected methods
 
 	/**
-	 * Returns a new instance of {@link PasswordAuthentication}, created from
-	 * reading the config data managed by {@link ConfigUtil}.
+	 * Returns a new instance of {@link PasswordAuthentication},
+	 * created from reading the config data managed by {@link ConfigUtil}.
 	 * 
 	 * @return PasswordAuthentication
 	 */
 	protected PasswordAuthentication getPasswordAuthentication() {
 		Properties credProps = ConfigUtil.getInstance().getCredentials(ConfigConst.SMTP_GATEWAY_SERVICE);
 
-		return new PasswordAuthentication(credProps.getProperty(ConfigConst.USER_NAME_TOKEN_KEY),
+		return new PasswordAuthentication(
+				credProps.getProperty(ConfigConst.USER_NAME_TOKEN_KEY),
 				credProps.getProperty(ConfigConst.USER_AUTH_TOKEN_KEY));
 	}
 

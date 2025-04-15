@@ -10,8 +10,9 @@ package programmingtheiot.gda.system;
 
 import static programmingtheiot.gda.system.BaseSystemUtilTask._Logger;
 
-import java.io.IOException;
 import java.nio.file.*;
+import java.io.IOException;
+
 import java.util.logging.Logger;
 
 import programmingtheiot.common.ConfigConst;

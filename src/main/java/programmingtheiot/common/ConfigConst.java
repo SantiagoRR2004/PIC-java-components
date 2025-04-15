@@ -9,9 +9,9 @@
 package programmingtheiot.common;
 
 /**
- * This class contains various constants and default values that represent
- * config file sections, keys, and other properties that are useful for
- * consistent system operation.
+ * This class contains various constants and default values
+ * that represent config file sections, keys, and other
+ * properties that are useful for consistent system operation.
  * 
  */
 public class ConfigConst {

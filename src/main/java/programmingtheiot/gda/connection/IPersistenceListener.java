@@ -13,8 +13,8 @@ import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 
 /**
- * Interface describing the callbacks to be implemented by the persistence
- * listener implementation.
+ * Interface describing the callbacks to be implemented by
+ * the persistence listener implementation.
  * 
  */
 public interface IPersistenceListener {
@@ -22,72 +22,54 @@ public interface IPersistenceListener {
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataPersisted(String topic, int qos, ActuatorData... data);
 
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataPersisted(String topic, int qos, SensorData... data);
 
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataPersisted(String topic, int qos, SystemPerformanceData... data);
 
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataReadyToPublish(String topic, int qos, ActuatorData... data);
 
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataReadyToPublish(String topic, int qos, SensorData... data);
 
 	/**
 	 * Callback for handling notifications from the persistence manager.
 	 * 
-	 * @param topic
-	 *            The target topic name.
-	 * @param qos
-	 *            The intended target QoS.
-	 * @param data
-	 *            The source data instance(s).
+	 * @param topic The target topic name.
+	 * @param qos   The intended target QoS.
+	 * @param data  The source data instance(s).
 	 */
 	public void onDataReadyToPublish(String topic, int qos, SystemPerformanceData... data);
 

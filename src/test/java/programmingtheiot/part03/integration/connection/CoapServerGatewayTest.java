@@ -26,9 +26,10 @@ import programmingtheiot.gda.connection.*;
 
 /**
  * This test case class contains very basic integration tests for
- * CoapServerGateway. It should not be considered complete, but serve as a
- * starting point for the student implementing additional functionality within
- * their Programming the IoT environment.
+ * CoapServerGateway. It should not be considered complete,
+ * but serve as a starting point for the student implementing
+ * additional functionality within their Programming the IoT
+ * environment.
  *
  */
 public class CoapServerGatewayTest {
@@ -92,13 +93,16 @@ public class CoapServerGatewayTest {
 			 * NOTE: Change these to suit your own environment.
 			 */
 
-			clientConn.setURI(url + "/" + ConfigConst.PRODUCT_NAME);
+			clientConn.setURI(
+					url + "/" + ConfigConst.PRODUCT_NAME);
 			clientConn.get();
 
-			clientConn.setURI(url + "/" + ConfigConst.PRODUCT_NAME + "/" + ConfigConst.CONSTRAINED_DEVICE);
+			clientConn.setURI(
+					url + "/" + ConfigConst.PRODUCT_NAME + "/" + ConfigConst.CONSTRAINED_DEVICE);
 			clientConn.get();
 
-			clientConn.setURI(url + "/" + ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE.getResourceName());
+			clientConn.setURI(
+					url + "/" + ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE.getResourceName());
 			clientConn.get();
 
 			// wait for 2 min's (so other app tests can run)

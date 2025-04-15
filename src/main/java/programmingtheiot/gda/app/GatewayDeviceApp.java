@@ -112,8 +112,7 @@ public class GatewayDeviceApp {
 	/**
 	 * Stops the application.
 	 * 
-	 * @param code
-	 *            The exit code to pass to {@link System.exit()}
+	 * @param code The exit code to pass to {@link System.exit()}
 	 */
 	public void stopApp(int code) {
 		_Logger.info("Stopping GDA...");
@@ -139,8 +138,7 @@ public class GatewayDeviceApp {
 	 * 
 	 * NOTE: This will be added later.
 	 * 
-	 * @param configFile
-	 *            The name of the config file to load.
+	 * @param configFile The name of the config file to load.
 	 */
 	private void initConfig(String configFile) {
 		_Logger.log(Level.INFO, "Attempting to load configuration: {0}",
@@ -153,15 +151,15 @@ public class GatewayDeviceApp {
 	 * Parse any arguments passed in on app startup.
 	 * <p>
 	 * This method should be written to check if any valid command line args are
-	 * provided, including the name of the config file. Once parsed, call
-	 * {@link #initConfig(String)} with the name of the config file, or null if the
-	 * default should be used.
+	 * provided,
+	 * including the name of the config file. Once parsed, call
+	 * {@link #initConfig(String)}
+	 * with the name of the config file, or null if the default should be used.
 	 * <p>
 	 * If any command line args conflict with the config file, the config file
 	 * in-memory content should be overridden with the command line argument(s).
 	 * 
-	 * @param args
-	 *            The non-null and non-empty args array.
+	 * @param args The non-null and non-empty args array.
 	 */
 	private void parseArgs(String[] args) {
 		String configFile = null;
