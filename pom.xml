@@ -161,6 +161,29 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version> <!-- Use the latest version -->
+                <configuration>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+
+						<eclipse>
+						</eclipse> <!-- This uses Eclipse's default settings (Doesn't delete unused imports) -->
+
+                        <importOrder>  <!-- Custom ordering -->
+                            <order>java,javax,org,com,com.diffplug,</order>  <!-- or use <file>${basedir}/eclipse.importorder</file> -->
+                            <!-- You probably want an empty string at the end - all of the
+                                 imports you didn't specify explicitly will go there. -->
+                        </importOrder>
+
+                    </java>
+                </configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
