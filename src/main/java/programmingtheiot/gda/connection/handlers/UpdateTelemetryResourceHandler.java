@@ -106,31 +106,31 @@ public class UpdateTelemetryResourceHandler extends GenericCoapResourceHandler {
 		ResponseCode code = ResponseCode.NOT_ACCEPTABLE;
 
 		context.accept();
-	
+
 		if (this.dataMsgListener != null) {
 			try {
 				String jsonData = new String(context.getRequestPayload());
-	
+
 				SystemPerformanceData sysPerfData = DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
-	
+
 				this.dataMsgListener.handleSystemPerformanceMessage(ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE,
 						sysPerfData);
-	
+
 				code = ResponseCode.CREATED;
 			} catch (Exception e) {
 				_Logger.warning("Failed to handle POST request. Message: " + e.getMessage());
-	
+
 				code = ResponseCode.BAD_REQUEST;
 			}
 		} else {
 			_Logger.info("No callback listener for request. Ignoring POST.");
-	
+
 			code = ResponseCode.CONTINUE;
 		}
-	
+
 		String msg = "Create system perf data request handled: " + super.getName();
-	
-		context.respond(code, msg);	
+
+		context.respond(code, msg);
 	}
 
 	@Override
