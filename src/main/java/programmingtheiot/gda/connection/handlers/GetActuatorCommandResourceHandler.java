@@ -72,7 +72,80 @@ public class GetActuatorCommandResourceHandler extends GenericCoapResourceHandle
 
 		// send an appropriate response
 		context.respond(ResponseCode.CONTENT, jsonData, MediaTypeRegistry.APPLICATION_JSON);
+	}
 
+	@Override
+	public void handlePUT(CoapExchange context) {
+
+		// validate 'context'
+		if (context == null) {
+			_Logger.warning("CoapExchange context is null. Cannot process PUT request.");
+			return;
+		}
+
+		_Logger.info(
+				"PUT request received for resource: " + super.getURI() + " with payload: " + context.getRequestText());
+
+		// accept the request
+		context.accept();
+
+		// parse the payload to update actuatorData
+		try {
+			ActuatorData updatedData = DataUtil.getInstance().jsonToActuatorData(context.getRequestText());
+			this.actuatorData = updatedData;
+
+			context.respond(ResponseCode.CHANGED, "ActuatorData successfully modified.");
+		} catch (Exception e) {
+			_Logger.severe("Failed to process PUT payload: " + e.getMessage());
+			context.respond(ResponseCode.BAD_REQUEST, "Invalid JSON format.");
+		}
+	}
+
+	@Override
+	public void handlePOST(CoapExchange context) {
+
+		// validate 'context'
+		if (context == null) {
+			_Logger.warning("CoapExchange context is null. Cannot process POST request.");
+			return;
+		}
+
+		_Logger.info(
+				"POST request received for resource: " + super.getURI() + " with payload: " + context.getRequestText());
+
+		// accept the request
+		context.accept();
+
+		// parse the payload to update actuatorData
+		try {
+			ActuatorData newData = DataUtil.getInstance().jsonToActuatorData(context.getRequestText());
+			this.actuatorData = newData;
+
+			context.respond(ResponseCode.CHANGED, "ActuatorData updated successfully.");
+		} catch (Exception e) {
+			_Logger.severe("Failed to parse POST payload: " + e.getMessage());
+			context.respond(ResponseCode.BAD_REQUEST, "Invalid JSON format.");
+		}
+	}
+
+	@Override
+	public void handleDELETE(CoapExchange context) {
+
+		// validate 'context'
+		if (context == null) {
+			_Logger.warning("CoapExchange context is null. Cannot process DELETE request.");
+			return;
+		}
+
+		_Logger.info("DELETE request received for resource: " + super.getURI());
+
+		// accept the request
+		context.accept();
+
+		// clear the data
+		this.actuatorData = new ActuatorData();
+
+		context.respond(ResponseCode.DELETED, "ActuatorData has been cleared.");
 	}
 
 }
