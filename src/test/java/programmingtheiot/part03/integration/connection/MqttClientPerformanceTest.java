@@ -141,6 +141,8 @@ public class MqttClientPerformanceTest {
 				(float) elapsedMillis / 1000);
 
 		_Logger.info(msg);
+
+		_Logger.info("Publish message - QoS " + qos + " [" + maxTestRuns + "]: " + elapsedMillis + " ms");
 	}
 
 }
