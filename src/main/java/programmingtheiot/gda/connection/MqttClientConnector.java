@@ -8,15 +8,15 @@
 
 package programmingtheiot.gda.connection;
 
+import java.io.File;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.io.File;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -31,7 +31,6 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
 import programmingtheiot.common.SimpleCertManagementUtil;
-
 
 /**
  * Shell representation of class for student implementation.
@@ -253,22 +252,13 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 	private void initClientParameters(String configSectionName) {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 
-		this.host =
-			configUtil.getProperty(
-				configSectionName, ConfigConst.HOST_KEY, ConfigConst.DEFAULT_HOST);
-		this.port =
-			configUtil.getInteger(
-				configSectionName, ConfigConst.PORT_KEY, ConfigConst.DEFAULT_MQTT_PORT);
-		this.brokerKeepAlive =
-			configUtil.getInteger(
-				configSectionName, ConfigConst.KEEP_ALIVE_KEY, ConfigConst.DEFAULT_KEEP_ALIVE);
-		this.enableEncryption =
-			configUtil.getBoolean(
-				configSectionName, ConfigConst.ENABLE_CRYPT_KEY);
-		this.pemFileName =
-			configUtil.getProperty(
-				configSectionName, ConfigConst.CERT_FILE_KEY);
-	
+		this.host = configUtil.getProperty(configSectionName, ConfigConst.HOST_KEY, ConfigConst.DEFAULT_HOST);
+		this.port = configUtil.getInteger(configSectionName, ConfigConst.PORT_KEY, ConfigConst.DEFAULT_MQTT_PORT);
+		this.brokerKeepAlive = configUtil.getInteger(configSectionName, ConfigConst.KEEP_ALIVE_KEY,
+				ConfigConst.DEFAULT_KEEP_ALIVE);
+		this.enableEncryption = configUtil.getBoolean(configSectionName, ConfigConst.ENABLE_CRYPT_KEY);
+		this.pemFileName = configUtil.getProperty(configSectionName, ConfigConst.CERT_FILE_KEY);
+
 		// This next config file boolean property is optional; it can be
 		// set within the [Mqtt.GatewayService] and [Cloud.GatewayService]
 		// sections of PiotConfig.props. You can use it to create a logical
@@ -284,39 +274,37 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 		// IMPORTANT: If you're using an older version of ConfigConst.java,
 		// you'll need to add the following line of code to ConfigConst.java:
 		// public static final String USE_ASYNC_CLIENT_KEY = "useAsyncClient";
-		this.useAsyncClient =
-			configUtil.getBoolean(
-				ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.USE_ASYNC_CLIENT_KEY);
-	
-		// NOTE: updated from Lab Module 07 - attempt to load clientID from configuration file
-		this.clientID =
-			configUtil.getProperty(
-				ConfigConst.GATEWAY_DEVICE, ConfigConst.DEVICE_LOCATION_ID_KEY, MqttClient.generateClientId());
-	
+		this.useAsyncClient = configUtil.getBoolean(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.USE_ASYNC_CLIENT_KEY);
+
+		// NOTE: updated from Lab Module 07 - attempt to load clientID from
+		// configuration file
+		this.clientID = configUtil.getProperty(ConfigConst.GATEWAY_DEVICE, ConfigConst.DEVICE_LOCATION_ID_KEY,
+				MqttClient.generateClientId());
+
 		// these are specific to the MQTT connection which will be used during connect
 		this.persistence = new MemoryPersistence();
-		this.connOpts    = new MqttConnectOptions();
-	
+		this.connOpts = new MqttConnectOptions();
+
 		this.connOpts.setKeepAliveInterval(this.brokerKeepAlive);
 		this.connOpts.setCleanSession(this.useCleanSession);
 		this.connOpts.setAutomaticReconnect(this.enableAutoReconnect);
-	
+
 		// if encryption is enabled, try to load and apply the cert(s)
 		if (this.enableEncryption) {
 			initSecureConnectionParameters(configSectionName);
 		}
-	
+
 		// if there's a credential file, try to load and apply them
 		if (configUtil.hasProperty(configSectionName, ConfigConst.CRED_FILE_KEY)) {
 			initCredentialConnectionParameters(configSectionName);
 		}
-	
+
 		// NOTE: URL does not have a protocol handler for "tcp" or "ssl",
 		// so construct the URL manually
-		this.brokerAddr  = this.protocol + "://" + this.host + ":" + this.port;
-	
+		this.brokerAddr = this.protocol + "://" + this.host + ":" + this.port;
+
 		_Logger.info("Using URL for broker conn: " + this.brokerAddr);
-		}
+	}
 
 	/**
 	 * Called by {@link #initClientParameters(String)} to load credentials.
@@ -330,13 +318,13 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 
 		try {
 			_Logger.info("Checking if credentials file exists and is loadable...");
-	
+
 			Properties props = configUtil.getCredentials(configSectionName);
-	
+
 			if (props != null) {
 				this.connOpts.setUserName(props.getProperty(ConfigConst.USER_NAME_TOKEN_KEY, ""));
 				this.connOpts.setPassword(props.getProperty(ConfigConst.USER_AUTH_TOKEN_KEY, "").toCharArray());
-	
+
 				_Logger.info("Credentials now set.");
 			} else {
 				_Logger.warning("No credentials are set.");
@@ -344,7 +332,7 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 		} catch (Exception e) {
 			_Logger.log(Level.WARNING, "Credential file non-existent. Disabling auth requirement.");
 		}
-		}
+	}
 
 	/**
 	 * Called by {@link #initClientParameters(String)} to enable encryption.
@@ -358,38 +346,37 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 
 		try {
 			_Logger.info("Configuring TLS...");
-	
+
 			if (this.pemFileName != null) {
 				File file = new File(this.pemFileName);
-	
+
 				if (file.exists()) {
 					_Logger.info("PEM file valid. Using secure connection: " + this.pemFileName);
 				} else {
 					this.enableEncryption = false;
-	
-					_Logger.log(Level.WARNING, "PEM file invalid. Using insecure connection: " + this.pemFileName, new Exception());
-	
+
+					_Logger.log(Level.WARNING, "PEM file invalid. Using insecure connection: " + this.pemFileName,
+							new Exception());
+
 					return;
 				}
 			}
-	
-			SSLSocketFactory sslFactory =
-				SimpleCertManagementUtil.getInstance().loadCertificate(this.pemFileName);
-	
+
+			SSLSocketFactory sslFactory = SimpleCertManagementUtil.getInstance().loadCertificate(this.pemFileName);
+
 			this.connOpts.setSocketFactory(sslFactory);
-	
+
 			// override current config parameters
-			this.port =
-				configUtil.getInteger(
-					configSectionName, ConfigConst.SECURE_PORT_KEY, ConfigConst.DEFAULT_MQTT_SECURE_PORT);
-	
+			this.port = configUtil.getInteger(configSectionName, ConfigConst.SECURE_PORT_KEY,
+					ConfigConst.DEFAULT_MQTT_SECURE_PORT);
+
 			this.protocol = ConfigConst.DEFAULT_MQTT_SECURE_PROTOCOL;
-	
+
 			_Logger.info("TLS enabled.");
 		} catch (Exception e) {
 			_Logger.log(Level.SEVERE, "Failed to initialize secure MQTT connection. Using insecure connection.", e);
-	
+
 			this.enableEncryption = false;
 		}
-		}
+	}
 }
