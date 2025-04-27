@@ -233,19 +233,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			if (this.mqttClient.connectClient()) {
 				_Logger.info("Successfully connected MQTT client to broker.");
 
-				int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
-						ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
-
-				// IMPORTANT NOTE: The 'subscribeToTopic()' method calls shown
-				// below will be moved to MqttClientConnector.connectComplete()
-				// in Lab Module 10. For now, they can remain here.
-				for (ResourceNameEnum topic : topics) {
-					boolean toret = this.mqttClient.subscribeToTopic(topic, qos);
-					if (!toret) {
-						_Logger.warning("Failed to subscribe to topic: " + topic);
-					}
-				}
-
 			} else {
 				throw new RuntimeException("Failed to connect MQTT client to broker.");
 			}
