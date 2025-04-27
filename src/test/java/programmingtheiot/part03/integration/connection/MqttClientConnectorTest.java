@@ -242,41 +242,39 @@ public class MqttClientConnectorTest {
 		assertTrue(this.mqttClient.disconnectClient());
 	}
 
-@Test
-public void testActuatorCommandResponseSubscription()
-{
-	int qos = 0;
+	@Test
+	public void testActuatorCommandResponseSubscription() {
+		int qos = 0;
 
-	assertTrue(this.mqttClient.connectClient());
+		assertTrue(this.mqttClient.connectClient());
 
-	try {
-		Thread.sleep(2000);
-	} catch (Exception e) {
-		// ignore
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// ignore
+		}
+
+		ActuatorData ad = new ActuatorData();
+		ad.setValue((float) 12.3);
+		ad.setAsResponse();
+
+		String adJson = DataUtil.getInstance().actuatorDataToJson(ad);
+
+		assertTrue(this.mqttClient.publishMessage(ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE, adJson, qos));
+
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// ignore
+		}
+
+		assertTrue(this.mqttClient.disconnectClient());
+
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// ignore
+		}
 	}
-
-	ActuatorData ad = new ActuatorData();
-	ad.setValue((float) 12.3);
-	ad.setAsResponse();
-
-	String adJson = DataUtil.getInstance().actuatorDataToJson(ad);
-
-	assertTrue(this.mqttClient.publishMessage(ResourceNameEnum.CDA_ACTUATOR_RESPONSE_RESOURCE, adJson, qos));
-
-	try {
-		Thread.sleep(2000);
-	} catch (Exception e) {
-		// ignore
-	}
-
-	assertTrue(this.mqttClient.disconnectClient());
-
-	try {
-		Thread.sleep(2000);
-	} catch (Exception e) {
-		// ignore
-	}
-}
-
 
 }
