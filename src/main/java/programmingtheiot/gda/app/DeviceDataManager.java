@@ -178,13 +178,14 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.warning("Error flag set for SensorData instance.");
 			}
 
-			if (this.enablePersistenceClient) {
+			if (this.enablePersistenceClient && this.persistenceClient != null) {
 				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
 			}
 
 			String jsonData = DataUtil.getInstance().sensorDataToJson(data);
 
-			_Logger.fine("JSON [SensorData] -> " + jsonData);
+
+			_Logger.info("JSON [SensorData] -> " + jsonData);
 
 			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
 					ConfigConst.DEFAULT_QOS);
@@ -211,20 +212,20 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	}
 
 	private void handleHumiditySensorAnalysis(ResourceNameEnum resource, SensorData data) {
-		_Logger.fine("Analyzing humidity data from CDA: " + data.getLocationID() + ". Value: " + data.getValue());
+		_Logger.info("Analyzing humidity data from CDA: " + data.getLocationID() + ". Value: " + data.getValue());
 
 		boolean isLow = data.getValue() < this.triggerHumidifierFloor;
 		boolean isHigh = data.getValue() > this.triggerHumidifierCeiling;
 
 		if (isLow || isHigh) {
-			_Logger.fine("Humidity data from CDA exceeds nominal range.");
+			_Logger.info("Humidity data from CDA exceeds nominal range.");
 
 			if (this.latestHumiditySensorData == null) {
 				// set properties then exit - nothing more to do until the next sample
 				this.latestHumiditySensorData = data;
 				this.latestHumiditySensorTimeStamp = getDateTimeFromData(data);
 
-				_Logger.fine("Starting humidity nominal exception timer. Waiting for seconds: "
+				_Logger.info("Starting humidity nominal exception timer. Waiting for seconds: "
 						+ this.humidityMaxTimePastThreshold);
 
 				return;
@@ -234,7 +235,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				long diffSeconds = ChronoUnit.SECONDS.between(this.latestHumiditySensorTimeStamp,
 						curHumiditySensorTimeStamp);
 
-				_Logger.fine("Checking Humidity value exception time delta: " + diffSeconds);
+				_Logger.info("Checking Humidity value exception time delta: " + diffSeconds);
 
 				if (diffSeconds >= this.humidityMaxTimePastThreshold) {
 					ActuatorData ad = new ActuatorData();
@@ -279,7 +280,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 					this.latestHumiditySensorData = null;
 					this.latestHumiditySensorTimeStamp = null;
 				} else {
-					_Logger.fine("Humidifier is still on. Not yet at nominal levels (OK).");
+					_Logger.info("Humidifier is still on. Not yet at nominal levels (OK).");
 				}
 			} else {
 				// shouldn't happen, unless some other logic
@@ -370,6 +371,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 		if (this.enableMqttClient) {
 			this.mqttClient = new MqttClientConnector();
+			this.mqttClient.setDataMessageListener(this);
 		}
 
 		if (this.enableCoapServer) {
