@@ -184,7 +184,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 			String jsonData = DataUtil.getInstance().sensorDataToJson(data);
 
-
 			_Logger.info("JSON [SensorData] -> " + jsonData);
 
 			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
