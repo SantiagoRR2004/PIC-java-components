@@ -292,6 +292,12 @@ public class ConfigConst {
 	public static final String ENV_DATA_BUCKET_KEY = "envDataBucket";
 	public static final String SYS_DATA_BUCKET_KEY = "sysDataBucket";
 
+	public static final String IDEAL_HUMIDITY_KEY = "nominalHumiditySetting";
+	public static final String HUMIDIFIER_FLOOR_KEY = "triggerHumidifierFloor";
+	public static final String HUMIDIFIER_CEILING_KEY = "triggerHumidifierCeiling";
+	public static final String HUMIDIFIER_MAX_TIME_KEY = "humidityMaxTimePastThreshold";
+	public static final String HANDLE_HUMIDITY = "handleHumidityChangeOnDevice";
+
 	// constructors
 
 	/**
