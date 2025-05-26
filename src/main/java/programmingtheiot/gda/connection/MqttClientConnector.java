@@ -455,9 +455,8 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 	 * the connection.
 	 * 
 	 * @param configSectionName
-	 *                          The name of the configuration section to use for the
-	 *                          MQTT client
-	 *                          configuration parameters.
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initClientParameters(String configSectionName) {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
@@ -520,9 +519,8 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 	 * Called by {@link #initClientParameters(String)} to load credentials.
 	 * 
 	 * @param configSectionName
-	 *                          The name of the configuration section to use for the
-	 *                          MQTT client
-	 *                          configuration parameters.
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initCredentialConnectionParameters(String configSectionName) {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
@@ -549,9 +547,8 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended 
 	 * Called by {@link #initClientParameters(String)} to enable encryption.
 	 * 
 	 * @param configSectionName
-	 *                          The name of the configuration section to use for the
-	 *                          MQTT client
-	 *                          configuration parameters.
+	 *            The name of the configuration section to use for the MQTT client
+	 *            configuration parameters.
 	 */
 	private void initSecureConnectionParameters(String configSectionName) {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
