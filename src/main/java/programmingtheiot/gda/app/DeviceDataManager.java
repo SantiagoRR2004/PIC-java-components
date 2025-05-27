@@ -180,15 +180,39 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	@Override
 	public boolean handleIncomingMessage(ResourceNameEnum resourceName, String msg) {
-		{
-			if (msg != null) {
-				_Logger.info("Handling incoming generic message: " + msg);
+		if (resourceName != null && msg != null) {
+			try {
+				if (resourceName == ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE) {
+					_Logger.info("Handling incoming ActuatorData message: " + msg);
 
-				return true;
-			} else {
-				return false;
+					// NOTE: it may seem wasteful to convert to ActuatorData and back while
+					// the JSON data is already available; however, this provides a validation
+					// scheme to ensure the data is actually an 'ActuatorData' instance
+					// prior to sending off to the CDA
+					ActuatorData ad = DataUtil.getInstance().jsonToActuatorData(msg);
+					String jsonData = DataUtil.getInstance().actuatorDataToJson(ad);
+
+					if (this.mqttClient != null) {
+						int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
+								ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
+						_Logger.fine("Publishing data to MQTT broker: " + jsonData);
+						return this.mqttClient.publishMessage(resourceName, jsonData, qos);
+					}
+
+
+				} else {
+					_Logger.warning("Failed to parse incoming message. Unknown type: " + msg);
+
+					return false;
+				}
+			} catch (Exception e) {
+				_Logger.log(Level.WARNING, "Failed to process incoming message for resource: " + resourceName, e);
 			}
+		} else {
+			_Logger.warning("Incoming message has no data. Ignoring for resource: " + resourceName);
 		}
+
+		return false;
 	}
 
 	@Override
