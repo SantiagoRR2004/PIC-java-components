@@ -199,7 +199,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 						return this.mqttClient.publishMessage(resourceName, jsonData, qos);
 					}
 
-
 				} else {
 					_Logger.warning("Failed to parse incoming message. Unknown type: " + msg);
 

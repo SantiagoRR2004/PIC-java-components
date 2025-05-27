@@ -8,12 +8,12 @@
 
 package programmingtheiot.gda.connection;
 
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigUtil;
@@ -39,17 +39,14 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener {
 	private MqttClientConnector mqttClient = null;
 	private IDataMessageListener dataMsgListener = null;
 	private int qosLevel = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
-			ConfigConst.DEFAULT_QOS_KEY,
-			ConfigConst.DEFAULT_QOS);
+			ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
 
 	// constructors
 
 	public CloudClientConnector() {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 
-		this.topicPrefix = configUtil.getProperty(
-				ConfigConst.CLOUD_GATEWAY_SERVICE,
-				ConfigConst.BASE_TOPIC_KEY);
+		this.topicPrefix = configUtil.getProperty(ConfigConst.CLOUD_GATEWAY_SERVICE, ConfigConst.BASE_TOPIC_KEY);
 
 		// Depending on the cloud service, the topic names may or may not begin with a
 		// "/",
@@ -317,17 +314,17 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener {
 				int val = (int) actuatorData.getValue();
 
 				switch (val) {
-					case ConfigConst.ON_COMMAND:
+					case ConfigConst.ON_COMMAND :
 						_Logger.info("Received LED enablement message [ON].");
 						actuatorData.setStateData("LED switching ON");
 						break;
 
-					case ConfigConst.OFF_COMMAND:
+					case ConfigConst.OFF_COMMAND :
 						_Logger.info("Received LED enablement message [OFF].");
 						actuatorData.setStateData("LED switching OFF");
 						break;
 
-					default:
+					default :
 						return;
 				}
 
@@ -367,8 +364,7 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener {
 					// and then back again to JSON, only to be converted once again
 					// to an ActuatorData instance. The purpose of this was originally
 					// to support multiple payload types.
-					this.dataMsgListener.handleIncomingMessage(
-							ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, jsonData);
+					this.dataMsgListener.handleIncomingMessage(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, jsonData);
 				}
 
 				//
