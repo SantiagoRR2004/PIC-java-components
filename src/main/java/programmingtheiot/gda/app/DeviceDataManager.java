@@ -29,6 +29,7 @@ import programmingtheiot.data.SystemPerformanceData;
 import programmingtheiot.data.SystemStateData;
 import programmingtheiot.gda.connection.CloudClientConnector;
 import programmingtheiot.gda.connection.CoapServerGateway;
+import programmingtheiot.gda.connection.ICloudClient;
 import programmingtheiot.gda.connection.IPersistenceClient;
 import programmingtheiot.gda.connection.IPubSubClient;
 import programmingtheiot.gda.connection.IRequestResponseClient;
@@ -61,7 +62,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private boolean enableSystemPerf = false;
 
 	private MqttClientConnector mqttClient = null;
-	private IPubSubClient cloudClient = null;
+	private ICloudClient cloudClient = null;
 	private IPersistenceClient persistenceClient = null;
 	private CoapServerGateway coapServer = null;
 	private SystemPerformanceManager sysPerfMgr = null;
@@ -153,7 +154,30 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	@Override
 	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data) {
-		return false;
+		if (data != null) {
+			// NOTE: Feel free to update this log message for debugging and monitoring
+			_Logger.log(
+					Level.FINE,
+					"Actuator request received: {0}. Message: {1}",
+					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
+
+			if (data.hasError()) {
+				_Logger.warning("Error flag set for ActuatorData instance.");
+			}
+
+			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
+					ConfigConst.DEFAULT_QOS);
+
+			_Logger.info("Processing custom actuator command: " + data.getCommand());
+
+			// Recall that this private method was implement in Lab Module 10
+			// See PIOT-GDA-10-003 for details
+			this.sendActuatorCommandtoCda(resourceName, data);
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -178,10 +202,6 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.warning("Error flag set for SensorData instance.");
 			}
 
-			if (this.enablePersistenceClient && this.persistenceClient != null) {
-				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
-			}
-
 			String jsonData = DataUtil.getInstance().sensorDataToJson(data);
 
 			_Logger.info("JSON [SensorData] -> " + jsonData);
@@ -195,7 +215,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 			this.handleIncomingDataAnalysis(resourceName, data);
 
-			this.handleUpstreamTransmission(resourceName, jsonData, qos);
+			this.handleUpstreamTransmission(resourceName, data, qos);
 
 			return true;
 		} else {
@@ -337,9 +357,14 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.warning("Error flag set for SystemPerformanceData instance.");
 			}
 
+			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
+					ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
+
 			if (this.enablePersistenceClient) {
-				this.persistenceClient.storeData(resourceName.getResourceName(), 0, data);
+				this.persistenceClient.storeData(resourceName.getResourceName(), qos, data);
 			}
+
+			this.handleUpstreamTransmission(resourceName, data, qos);
 
 			return true;
 		} else {
@@ -379,7 +404,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		}
 
 		if (this.enableCloudClient) {
-			// TODO: implement this in Lab Module 10
+			this.cloudClient = new CloudClientConnector();
+			_Logger.info("Cloud client enabled");
 		}
 
 		if (this.enablePersistenceClient) {
@@ -417,6 +443,13 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				throw new RuntimeException("Failed to start CoAP server.");
 			}
 		}
+		if (this.cloudClient != null && this.enableCloudClient) {
+			if (this.cloudClient.connectClient()) {
+				_Logger.info("Successfully connected cloud client.");
+			} else {
+				throw new RuntimeException("Failed to connect cloud client.");
+			}
+		}
 	}
 
 	public void stopManager() {
@@ -452,6 +485,10 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				throw new RuntimeException("Failed to stop CoAP server.");
 			}
 		}
+		if (this.cloudClient != null && this.enableCloudClient) {
+			this.cloudClient.disconnectClient();
+			_Logger.info("Cloud client disconnected.");
+		}
 	}
 
 	// private methods
@@ -481,11 +518,34 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		}
 	}
 
-	private boolean handleUpstreamTransmission(ResourceNameEnum resourceName, String jsonData, int qos) {
-		// NOTE: This will be implemented in Part 04
-		_Logger.info("TODO: Send JSON data to cloud service: " + resourceName);
-		_Logger.info("Persistence Client is active");
-		return true;
+	private boolean handleUpstreamTransmission(ResourceNameEnum resourceName, BaseIotData data, int qos) {
+		_Logger.fine("Sending JSON data to cloud service: " + resourceName);
+
+		if (this.cloudClient != null) {
+
+			try {
+
+				if (data instanceof SensorData) {
+					this.cloudClient.sendEdgeDataToCloud(resourceName, (SensorData) data);
+				} else if (data instanceof SystemPerformanceData) {
+					this.cloudClient.sendEdgeDataToCloud(resourceName, (SystemPerformanceData) data);
+				} else {
+					_Logger.warning("Unsupported data type for cloud transmission: " + data.getClass().getName());
+					return false;
+				}
+
+			} catch (Exception e) {
+				_Logger.log(Level.WARNING, "Failed to send data to cloud service: " + resourceName, e);
+				return false;
+			}
+
+			_Logger.info("Sent JSON data upstream to CSP: " + resourceName);
+			return true;
+
+		} else {
+			_Logger.warning("Cloud client is not enabled or initialized.");
+			return false;
+		}
 	}
 
 }
