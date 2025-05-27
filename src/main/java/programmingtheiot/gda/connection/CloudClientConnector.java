@@ -35,17 +35,14 @@ public class CloudClientConnector implements ICloudClient {
 	private MqttClientConnector mqttClient = null;
 	private IDataMessageListener dataMsgListener = null;
 	private int qosLevel = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
-			ConfigConst.DEFAULT_QOS_KEY,
-			ConfigConst.DEFAULT_QOS);
+			ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
 
 	// constructors
 
 	public CloudClientConnector() {
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 
-		this.topicPrefix = configUtil.getProperty(
-				ConfigConst.CLOUD_GATEWAY_SERVICE,
-				ConfigConst.BASE_TOPIC_KEY);
+		this.topicPrefix = configUtil.getProperty(ConfigConst.CLOUD_GATEWAY_SERVICE, ConfigConst.BASE_TOPIC_KEY);
 
 		// Depending on the cloud service, the topic names may or may not begin with a
 		// "/",

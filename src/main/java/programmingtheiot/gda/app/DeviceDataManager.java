@@ -156,10 +156,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data) {
 		if (data != null) {
 			// NOTE: Feel free to update this log message for debugging and monitoring
-			_Logger.log(
-					Level.FINE,
-					"Actuator request received: {0}. Message: {1}",
-					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
+			_Logger.log(Level.FINE, "Actuator request received: {0}. Message: {1}",
+					new Object[]{resourceName.getResourceName(), Integer.valueOf((data.getCommand()))});
 
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
@@ -357,8 +355,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.warning("Error flag set for SystemPerformanceData instance.");
 			}
 
-			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE,
-					ConfigConst.DEFAULT_QOS_KEY, ConfigConst.DEFAULT_QOS);
+			int qos = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.DEFAULT_QOS_KEY,
+					ConfigConst.DEFAULT_QOS);
 
 			if (this.enablePersistenceClient) {
 				this.persistenceClient.storeData(resourceName.getResourceName(), qos, data);
