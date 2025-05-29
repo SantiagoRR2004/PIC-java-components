@@ -58,7 +58,6 @@ public class GatewayDeviceApp {
 
 		gwApp.startApp();
 
-		// TODO: custom add to ConfigConst for convenience
 		boolean runForever = ConfigUtil.getInstance().getBoolean(ConfigConst.GATEWAY_DEVICE,
 				ConfigConst.ENABLE_RUN_FOREVER_KEY);
 
