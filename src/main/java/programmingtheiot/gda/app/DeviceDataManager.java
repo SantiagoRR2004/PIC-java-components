@@ -121,8 +121,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			this.humidityMaxTimePastThreshold = 300;
 		}
 
-		this.testMaxExamThreshold = configUtil.getInteger(ConfigConst.GATEWAY_DEVICE,
-				ConfigConst.TEST_MAX_EXAM_KEY);
+		this.testMaxExamThreshold = configUtil.getInteger(ConfigConst.GATEWAY_DEVICE, ConfigConst.TEST_MAX_EXAM_KEY);
 
 		if (this.testMaxExamThreshold < 1) {
 			this.testMaxExamThreshold = 1;
@@ -171,7 +170,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (data != null) {
 			// NOTE: Feel free to update this log message for debugging and monitoring
 			_Logger.log(Level.FINE, "Actuator request received: {0}. Message: {1}",
-					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
+					new Object[]{resourceName.getResourceName(), Integer.valueOf((data.getCommand()))});
 
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
@@ -355,7 +354,8 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 			_Logger.info("Incrementing failed test count: " + this.currentFailedTestCount);
 
 			if (this.currentFailedTestCount >= this.testMaxExamThreshold) {
-				_Logger.warning("Failed test count has reached the maximum threshold. Sending actuator command to CDA.");					
+				_Logger.warning(
+						"Failed test count has reached the maximum threshold. Sending actuator command to CDA.");
 				ActuatorData ad = new ActuatorData();
 				ad.setName(ConfigConst.TEST_ACTUATOR_NAME);
 				ad.setLocationID(data.getLocationID());

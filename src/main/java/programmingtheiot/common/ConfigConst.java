@@ -305,7 +305,6 @@ public class ConfigConst {
 	public static final String TEST_MAX_EXAM_KEY = "testMaxExamThreshold";
 	public static final String TEST_PASS_GRADE = "testPassGrade";
 
-
 	// constructors
 
 	/**
