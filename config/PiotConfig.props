@@ -47,7 +47,7 @@ defaultQoS     = 0
 keepAlive      = 60
 enableAuth     = False
 enableCrypt    = False
-useAsyncClient = False
+useAsyncClient = True
 
 #
 # CoAP client and server configuration information
@@ -76,6 +76,7 @@ enableCloudClient       = True
 enableSmtpClient        = False
 enablePersistenceClient = False
 enableSystemPerformance = False
+enableRunForever        = True
 testGdaDataPath         = /tmp/gda-data
 testCdaDataPath         = /tmp/cda-data
 testEmptyApp            = False
@@ -93,6 +94,13 @@ triggerHumidifierFloor       = 30.0
 
 # max value before turning off humidifier (% relative)
 triggerHumidifierCeiling     = 50.0
+
+# max number of grades that can fail before actuator
+testMaxExamThreshold = 5
+
+# grade needed to pass
+testPassGrade = 5.0
+
 #
 # Persistence client configuration information
 #
