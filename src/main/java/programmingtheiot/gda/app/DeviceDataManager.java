@@ -157,7 +157,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (data != null) {
 			// NOTE: Feel free to update this log message for debugging and monitoring
 			_Logger.log(Level.FINE, "Actuator request received: {0}. Message: {1}",
-					new Object[]{resourceName.getResourceName(), Integer.valueOf((data.getCommand()))});
+					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
 
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
@@ -248,6 +248,9 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		// check either resource or SensorData for type
 		if (data.getTypeID() == ConfigConst.HUMIDITY_SENSOR_TYPE) {
 			handleHumiditySensorAnalysis(resource, data);
+			
+		} else if (data.getTypeID() == 1014) {
+			handleGradeSensorAnalysis(resource, data);
 		}
 	}
 
@@ -328,6 +331,16 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 				_Logger.warning("ERROR: ActuatorData for humidifier is null (shouldn't be). Can't send command.");
 			}
 		}
+	}
+
+	private void handleGradeSensorAnalysis(ResourceNameEnum resource, SensorData data) {
+		ActuatorData ad = new ActuatorData();
+		ad.setName("TestActuator");
+		ad.setLocationID(data.getLocationID());
+		ad.setTypeID(1003);
+		ad.setValue(0);
+		ad.setCommand(ConfigConst.ON_COMMAND);
+		sendActuatorCommandtoCda(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, ad);
 	}
 
 	private void sendActuatorCommandtoCda(ResourceNameEnum resource, ActuatorData data) {
