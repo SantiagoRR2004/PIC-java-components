@@ -249,7 +249,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (data.getTypeID() == ConfigConst.HUMIDITY_SENSOR_TYPE) {
 			handleHumiditySensorAnalysis(resource, data);
 
-		} else if (data.getTypeID() == 1014) {
+		} else if (data.getTypeID() == ConfigConst.GRADE_SENSOR_TYPE) {
 			handleGradeSensorAnalysis(resource, data);
 		}
 	}
@@ -335,10 +335,10 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 	private void handleGradeSensorAnalysis(ResourceNameEnum resource, SensorData data) {
 		ActuatorData ad = new ActuatorData();
-		ad.setName("TestActuator");
+		ad.setName(ConfigConst.TEST_ACTUATOR_NAME);
 		ad.setLocationID(data.getLocationID());
-		ad.setTypeID(1003);
-		ad.setValue(0);
+		ad.setTypeID(ConfigConst.TEST_ACTUATOR_TYPE);
+		ad.setValue(1);
 		ad.setCommand(ConfigConst.ON_COMMAND);
 		sendActuatorCommandtoCda(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, ad);
 	}

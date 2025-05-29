@@ -124,10 +124,12 @@ public class ConfigConst {
 	public static final int ENV_DEVICE_TYPE = 1000;
 	public static final int HVAC_ACTUATOR_TYPE = 1001;
 	public static final int HUMIDIFIER_ACTUATOR_TYPE = 1002;
+	public static final int TEST_ACTUATOR_TYPE = 1003;
 
 	public static final int HUMIDITY_SENSOR_TYPE = 1010;
 	public static final int PRESSURE_SENSOR_TYPE = 1012;
 	public static final int TEMP_SENSOR_TYPE = 1013;
+	public static final int GRADE_SENSOR_TYPE = 1014;
 
 	public static final int DISPLAY_DEVICE_TYPE = 2000;
 	public static final int LED_ACTUATOR_TYPE = 2001;
@@ -151,9 +153,11 @@ public class ConfigConst {
 	public static final String LED_ACTUATOR_NAME = "LedActuator";
 	public static final String HUMIDIFIER_ACTUATOR_NAME = "HumidifierActuator";
 	public static final String HVAC_ACTUATOR_NAME = "HvacActuator";
+	public static final String TEST_ACTUATOR_NAME = "TestActuator";
 
 	// this is included here for testing purposes only
 	public static final String TEMP_SENSOR_NAME = "TempSensor";
+	public static final String GRADE_SENSOR_NAME = "GradeSensor";
 
 	public static final String CPU_UTIL_NAME = "CpuUtil";
 	public static final String DISK_UTIL_NAME = "DiskUtil";
