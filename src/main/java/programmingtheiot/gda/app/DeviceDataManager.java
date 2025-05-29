@@ -157,7 +157,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (data != null) {
 			// NOTE: Feel free to update this log message for debugging and monitoring
 			_Logger.log(Level.FINE, "Actuator request received: {0}. Message: {1}",
-					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
+					new Object[]{resourceName.getResourceName(), Integer.valueOf((data.getCommand()))});
 
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
@@ -248,7 +248,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		// check either resource or SensorData for type
 		if (data.getTypeID() == ConfigConst.HUMIDITY_SENSOR_TYPE) {
 			handleHumiditySensorAnalysis(resource, data);
-			
+
 		} else if (data.getTypeID() == 1014) {
 			handleGradeSensorAnalysis(resource, data);
 		}
