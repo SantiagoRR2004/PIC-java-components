@@ -93,6 +93,13 @@ triggerHumidifierFloor       = 30.0
 
 # max value before turning off humidifier (% relative)
 triggerHumidifierCeiling     = 50.0
+
+# max number of grades that can fail before actuator
+testMaxExamThreshold = 5
+
+# grade needed to pass
+testPassGrade = 5.0
+
 #
 # Persistence client configuration information
 #

@@ -81,6 +81,10 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	private float triggerHumidifierFloor = 30.0f;
 	private float triggerHumidifierCeiling = 50.0f;
 
+	private int testMaxExamThreshold = 10;
+	private int currentFailedTestCount = 0;
+	private float testPassGrade = 5.0f;
+
 	// constructors
 
 	public DeviceDataManager() {
@@ -116,6 +120,16 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (this.humidityMaxTimePastThreshold < 10 || this.humidityMaxTimePastThreshold > 7200) {
 			this.humidityMaxTimePastThreshold = 300;
 		}
+
+		this.testMaxExamThreshold = configUtil.getInteger(ConfigConst.GATEWAY_DEVICE,
+				ConfigConst.TEST_MAX_EXAM_KEY);
+
+		if (this.testMaxExamThreshold < 1) {
+			this.testMaxExamThreshold = 1;
+		}
+
+		this.testPassGrade = configUtil.getFloat(ConfigConst.GATEWAY_DEVICE, ConfigConst.TEST_PASS_GRADE);
+
 		initManager();
 
 		initConnections();
@@ -157,7 +171,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 		if (data != null) {
 			// NOTE: Feel free to update this log message for debugging and monitoring
 			_Logger.log(Level.FINE, "Actuator request received: {0}. Message: {1}",
-					new Object[]{resourceName.getResourceName(), Integer.valueOf((data.getCommand()))});
+					new Object[] { resourceName.getResourceName(), Integer.valueOf((data.getCommand())) });
 
 			if (data.hasError()) {
 				_Logger.warning("Error flag set for ActuatorData instance.");
@@ -334,13 +348,31 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 	}
 
 	private void handleGradeSensorAnalysis(ResourceNameEnum resource, SensorData data) {
-		ActuatorData ad = new ActuatorData();
-		ad.setName(ConfigConst.TEST_ACTUATOR_NAME);
-		ad.setLocationID(data.getLocationID());
-		ad.setTypeID(ConfigConst.TEST_ACTUATOR_TYPE);
-		ad.setValue(1);
-		ad.setCommand(ConfigConst.ON_COMMAND);
-		sendActuatorCommandtoCda(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, ad);
+
+		if (data.getValue() < this.testPassGrade) {
+			_Logger.info("Grade sensor data indicates a failing grade: " + data.getValue());
+			this.currentFailedTestCount++;
+			_Logger.info("Incrementing failed test count: " + this.currentFailedTestCount);
+
+			if (this.currentFailedTestCount >= this.testMaxExamThreshold) {
+				_Logger.warning("Failed test count has reached the maximum threshold. Sending actuator command to CDA.");					
+				ActuatorData ad = new ActuatorData();
+				ad.setName(ConfigConst.TEST_ACTUATOR_NAME);
+				ad.setLocationID(data.getLocationID());
+				ad.setTypeID(ConfigConst.TEST_ACTUATOR_TYPE);
+				ad.setValue(1);
+				ad.setCommand(ConfigConst.ON_COMMAND);
+				sendActuatorCommandtoCda(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, ad);
+
+				// reset so we can actuate the next time
+				ad.setValue(0);
+				ad.setCommand(ConfigConst.OFF_COMMAND);
+				sendActuatorCommandtoCda(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, ad);
+			}
+		} else {
+			_Logger.info("Grade sensor data indicates a passing grade: " + data.getValue());
+			this.currentFailedTestCount = 0;
+		}
 	}
 
 	private void sendActuatorCommandtoCda(ResourceNameEnum resource, ActuatorData data) {

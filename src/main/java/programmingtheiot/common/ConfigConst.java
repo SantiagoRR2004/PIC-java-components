@@ -302,6 +302,10 @@ public class ConfigConst {
 	public static final String HUMIDIFIER_MAX_TIME_KEY = "humidityMaxTimePastThreshold";
 	public static final String HANDLE_HUMIDITY = "handleHumidityChangeOnDevice";
 
+	public static final String TEST_MAX_EXAM_KEY = "testMaxExamThreshold";
+	public static final String TEST_PASS_GRADE = "testPassGrade";
+
+
 	// constructors
 
 	/**
