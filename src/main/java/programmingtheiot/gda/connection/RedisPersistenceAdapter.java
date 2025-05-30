@@ -10,7 +10,6 @@ package programmingtheiot.gda.connection;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -24,6 +23,7 @@ import programmingtheiot.data.DataUtil;
 import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
@@ -39,7 +39,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	// private var's
 
 	// Redis client instance
-	private Jedis client;
+	private JedisPool jedisPool;
 
 	// Configuration properties
 	private String host;
@@ -56,7 +56,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 		super();
 
 		initConfig();
-		this.client = null;
+		this.jedisPool = null;
 		_Logger.info("RedisPersistenceAdapter initialized with host: " + this.host + ", port: " + this.port);
 	}
 
@@ -66,103 +66,113 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public boolean connectClient() {
-		if (this.client != null && this.client.isConnected()) {
-			_Logger.warning("Redis client is already connected.");
+		if (this.jedisPool != null) {
+			_Logger.warning("JedisPool is already initialized.");
 			return true;
 		}
 		try {
-			this.client = new Jedis(this.host, this.port);
-			_Logger.info("Connected to Redis successfully.");
+			this.jedisPool = new JedisPool(this.host, this.port);
+			_Logger.info("Initialized JedisPool and connected to Redis.");
 			return true;
 		} catch (JedisConnectionException e) {
-			_Logger.log(Level.SEVERE, "Failed to connect to Redis.", e);
-			this.client = null;
+			_Logger.log(Level.SEVERE, "Failed to initialize JedisPool.", e);
+			this.jedisPool = null;
 			return false;
 		}
 	}
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public boolean disconnectClient() {
-		if (this.client == null || !this.client.isConnected()) {
-			_Logger.warning("Redis client is already disconnected.");
+		if (this.jedisPool == null) {
+			_Logger.warning("JedisPool is already null.");
 			return true;
 		}
 		try {
-			this.client.close();
-			this.client = null;
-			_Logger.info("Disconnected from Redis successfully.");
+			this.jedisPool.close();
+			this.jedisPool = null;
+			_Logger.info("Closed JedisPool and disconnected from Redis.");
 			return true;
-		} catch (JedisConnectionException e) {
-			_Logger.log(Level.SEVERE, "Error disconnecting from Redis:", e);
+		} catch (Exception e) {
+			_Logger.log(Level.SEVERE, "Error closing JedisPool:", e);
 			return false;
 		}
 	}
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public ActuatorData[] getActuatorData(String topic, Date startDate, Date endDate) {
-		_Logger.log(Level.INFO, "Getting actuator data from Redis under topic: {0}", topic);
-		List<ActuatorData> actuatorDataList = new ArrayList<>();
-		Map<String, String> actuatorDataMap = this.client.hgetAll(topic);
+		try (Jedis jedis = jedisPool.getResource()) {
+			_Logger.log(Level.INFO, "Getting actuator data from Redis under topic: {0}", topic);
+			List<ActuatorData> actuatorDataList = new ArrayList<>();
+			Map<String, String> actuatorDataMap = jedis.hgetAll(topic);
 
-		for (Map.Entry<String, String> entry : actuatorDataMap.entrySet()) {
-			ActuatorData actuatorData = DataUtil.getInstance().jsonToActuatorData(entry.getValue());
-			if (actuatorData.getTimeStampMillis() >= startDate.getTime()
-					&& actuatorData.getTimeStampMillis() <= endDate.getTime())
-				actuatorDataList.add(actuatorData);
+			for (Map.Entry<String, String> entry : actuatorDataMap.entrySet()) {
+				ActuatorData actuatorData = DataUtil.getInstance().jsonToActuatorData(entry.getValue());
+				if (actuatorData.getTimeStampMillis() >= startDate.getTime()
+						&& actuatorData.getTimeStampMillis() <= endDate.getTime())
+					actuatorDataList.add(actuatorData);
+			}
+
+			return actuatorDataList.toArray(new ActuatorData[0]);
+		} catch (Exception e) {
+			_Logger.log(Level.SEVERE, "Error getting actuator data from Redis:", e);
+			return new ActuatorData[0];
 		}
-
-		return actuatorDataList.toArray(new ActuatorData[0]);
 	}
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public SensorData[] getSensorData(String topic, Date startDate, Date endDate) {
-		_Logger.log(Level.INFO, "Getting sensor data from Redis under topic: {0}", topic);
-		List<SensorData> sensorDataList = new ArrayList<>();
-		Map<String, String> sensorDataMap = this.client.hgetAll(topic);
+		try (Jedis jedis = jedisPool.getResource()) {
+			_Logger.log(Level.INFO, "Getting sensor data from Redis under topic: {0}", topic);
+			List<SensorData> sensorDataList = new ArrayList<>();
+			Map<String, String> sensorDataMap = jedis.hgetAll(topic);
 
-		for (Map.Entry<String, String> entry : sensorDataMap.entrySet()) {
-			SensorData sensorData = DataUtil.getInstance().jsonToSensorData(entry.getValue());
-			if (sensorData.getTimeStampMillis() >= startDate.getTime()
-					&& sensorData.getTimeStampMillis() <= endDate.getTime())
-				sensorDataList.add(sensorData);
+			for (Map.Entry<String, String> entry : sensorDataMap.entrySet()) {
+				SensorData sensorData = DataUtil.getInstance().jsonToSensorData(entry.getValue());
+				if (sensorData.getTimeStampMillis() >= startDate.getTime()
+						&& sensorData.getTimeStampMillis() <= endDate.getTime())
+					sensorDataList.add(sensorData);
+			}
+
+			return sensorDataList.toArray(new SensorData[0]);
+		} catch (Exception e) {
+			_Logger.log(Level.SEVERE, "Error getting sensor data from Redis:", e);
+			return new SensorData[0];
 		}
-
-		return sensorDataList.toArray(new SensorData[0]);
 	}
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public void registerDataStorageListener(Class cType, IPersistenceListener listener, String... topics) {
 	}
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public boolean storeData(String topic, int qos, ActuatorData... data) {
-		if (this.client == null || this.client.ping() == null) {
-			_Logger.warning("Failed to connect to Redis.");
+		if (this.jedisPool == null) {
+			_Logger.warning("JedisPool is not initialized.");
 			return false;
 		}
 
-		try {
+		try (Jedis jedis = jedisPool.getResource()) {
 			for (ActuatorData actuatorData : data) {
 				String actuatorDataJson = DataUtil.getInstance().actuatorDataToJson(actuatorData);
-				this.client.hset(topic, actuatorData.getTimeStamp(), actuatorDataJson);
+				jedis.hset(topic, actuatorData.getTimeStamp(), actuatorDataJson);
 			}
 			_Logger.log(Level.INFO, "Stored sensor data in Redis under topic: {0}", topic);
 			return true;
@@ -174,18 +184,18 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public boolean storeData(String topic, int qos, SensorData... data) {
-		if (this.client == null || this.client.ping() == null) {
-			_Logger.warning("Failed to connect to Redis.");
+		if (this.jedisPool == null) {
+			_Logger.warning("JedisPool is not initialized.");
 			return false;
 		}
 
-		try {
+		try (Jedis jedis = jedisPool.getResource()) {
 			for (SensorData sensorData : data) {
 				String sensorDataJson = DataUtil.getInstance().sensorDataToJson(sensorData);
-				this.client.hset(topic, sensorData.getTimeStamp(), sensorDataJson);
+				jedis.hset(topic, sensorData.getTimeStamp(), sensorDataJson);
 			}
 			_Logger.log(Level.INFO, "Stored sensor data in Redis under topic: {0}", topic);
 			return true;
@@ -197,19 +207,19 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 	/**
 	 *
-	 */
+	*/
 	@Override
 	public boolean storeData(String topic, int qos, SystemPerformanceData... data) {
-		if (this.client == null || this.client.ping() == null) {
-			_Logger.warning("Failed to connect to Redis.");
+		if (this.jedisPool == null) {
+			_Logger.warning("JedisPool is not initialized.");
 			return false;
 		}
 
-		try {
+		try (Jedis jedis = jedisPool.getResource()) {
 			for (SystemPerformanceData systemPerformanceData : data) {
 				String systemPerformanceDataJson = DataUtil.getInstance()
 						.systemPerformanceDataToJson(systemPerformanceData);
-				this.client.hset(topic, systemPerformanceData.getTimeStamp(), systemPerformanceDataJson);
+				jedis.hset(topic, systemPerformanceData.getTimeStamp(), systemPerformanceDataJson);
 			}
 			_Logger.log(Level.INFO, "Stored system performance data in Redis under topic: {0}", topic);
 			return true;
@@ -220,10 +230,11 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	}
 
 	public void subscribeToChannel(JedisPubSub subscriber, ResourceNameEnum resource) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				client.subscribe(subscriber, resource.getResourceName());
+		new Thread(() -> {
+			try (Jedis jedis = jedisPool.getResource()) {
+				jedis.subscribe(subscriber, resource.getResourceName());
+			} catch (Exception e) {
+				_Logger.log(Level.SEVERE, "Error in subscription thread", e);
 			}
 		}).start();
 	}
@@ -232,7 +243,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 	/**
 	 * 
-	 */
+	*/
 	private void initConfig() {
 		this.configUtil = ConfigUtil.getInstance();
 		this.host = this.configUtil.getProperty(ConfigConst.DATA_GATEWAY_SERVICE, ConfigConst.HOST_KEY);
