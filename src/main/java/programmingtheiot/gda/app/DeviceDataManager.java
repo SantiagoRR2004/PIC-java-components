@@ -471,6 +471,7 @@ public class DeviceDataManager extends JedisPubSub implements IDataMessageListen
 
 		if (this.enableCloudClient) {
 			this.cloudClient = new CloudClientConnector();
+			this.cloudClient.setDataMessageListener(this);
 			_Logger.info("Cloud client enabled");
 		}
 
