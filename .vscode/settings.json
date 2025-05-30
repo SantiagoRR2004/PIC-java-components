@@ -1,23 +1,23 @@
 {
     "java.debug.logLevel": "verbose",
     "workbench.colorCustomizations": {
-        "editor.background": "#000000",
-        "sideBar.background": "#000000",
-        "sideBarSectionHeader.background": "#000000",
-        "activityBar.background": "#000000",
-        "statusBar.background": "#000000",
-        "statusBar.debuggingBackground": "#000000",
-        "panel.background": "#000000",
-        "terminal.background": "#000000",
-        "editorGroupHeader.tabsBackground": "#000000",
-        "tab.activeBackground": "#000000",
-        "tab.inactiveBackground": "#000000",
-        "peekViewEditor.background": "#000000",
-        "peekViewResult.background": "#000000",
-        "peekViewTitle.background": "#000000",
-        "input.background": "#000000",
-        "list.inactiveSelectionBackground": "#000000",
-        "quickInput.background": "#000000",
-        "editorWidget.background": "#000000"
-      }    
+      "editor.background": "#000000",
+      "sideBar.background": "#000000",
+      "sideBarSectionHeader.background": "#000000",
+      "activityBar.background": "#000000",
+      "statusBar.background": "#000000",
+      "statusBar.debuggingBackground": "#000000",
+      "panel.background": "#000000",
+      "terminal.background": "#000000",
+      "editorGroupHeader.tabsBackground": "#000000",
+      "tab.activeBackground": "#000000",
+      "tab.inactiveBackground": "#000000",
+      "peekViewEditor.background": "#000000",
+      "peekViewResult.background": "#000000",
+      "peekViewTitle.background": "#000000",
+      "input.background": "#000000",
+      "list.inactiveSelectionBackground": "#000000",
+      "quickInput.background": "#000000",
+      "editorWidget.background": "#000000"
+    }    
 }

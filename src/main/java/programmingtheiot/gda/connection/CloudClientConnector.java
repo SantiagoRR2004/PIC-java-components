@@ -89,6 +89,10 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener {
 
 	@Override
 	public boolean setDataMessageListener(IDataMessageListener listener) {
+		if (listener != null) {
+			this.dataMsgListener = listener;
+			return true;
+		}
 		return false;
 	}
 
