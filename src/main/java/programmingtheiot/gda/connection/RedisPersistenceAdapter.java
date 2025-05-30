@@ -29,8 +29,8 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  * Shell representation of class for student implementation.
-* 
-*/
+ * 
+ */
 public class RedisPersistenceAdapter implements IPersistenceClient {
 	// static
 
@@ -41,7 +41,6 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	// Redis client instance
 	private JedisPool jedisPool;
 
-
 	// Configuration properties
 	private String host;
 	private int port;
@@ -51,8 +50,8 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 
 	/**
 	 * Default.
-	* 
-	*/
+	 * 
+	 */
 	public RedisPersistenceAdapter() {
 		super();
 
@@ -111,7 +110,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	@Override
 	public ActuatorData[] getActuatorData(String topic, Date startDate, Date endDate) {
 		try (Jedis jedis = jedisPool.getResource()) {
-				_Logger.log(Level.INFO, "Getting actuator data from Redis under topic: {0}", topic);
+			_Logger.log(Level.INFO, "Getting actuator data from Redis under topic: {0}", topic);
 			List<ActuatorData> actuatorDataList = new ArrayList<>();
 			Map<String, String> actuatorDataMap = jedis.hgetAll(topic);
 
@@ -134,7 +133,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 	*/
 	@Override
 	public SensorData[] getSensorData(String topic, Date startDate, Date endDate) {
-		try (Jedis jedis = jedisPool.getResource()) { 
+		try (Jedis jedis = jedisPool.getResource()) {
 			_Logger.log(Level.INFO, "Getting sensor data from Redis under topic: {0}", topic);
 			List<SensorData> sensorDataList = new ArrayList<>();
 			Map<String, String> sensorDataMap = jedis.hgetAll(topic);
@@ -193,7 +192,7 @@ public class RedisPersistenceAdapter implements IPersistenceClient {
 			return false;
 		}
 
-		try (Jedis jedis = jedisPool.getResource()){
+		try (Jedis jedis = jedisPool.getResource()) {
 			for (SensorData sensorData : data) {
 				String sensorDataJson = DataUtil.getInstance().sensorDataToJson(sensorData);
 				jedis.hset(topic, sensorData.getTimeStamp(), sensorDataJson);
